@@ -253,18 +253,18 @@ function getmp(canvas, evt) {
     };
   }
 
-addEventListener('mousemove', function(evt) {
+addEventListener('mousemove', function(evt) { //funcion para los eventos de mover ratón
     Dungeon.mpos = getmp(canvas, evt);
     
 }, false);
 
-addEventListener('click', function(evt) {
+addEventListener('click', function(evt) { //funcion para los eventos click del ratón
 		Machango.disparando=true;
 		//   mensaje="("+mx+","+my+")";
 	   
 	}, false);
 
-addEventListener("keydown", function (e) {
+addEventListener("keydown", function (e) { //funcion que mete en keysDown[] las teclas pulsadas en el frame
 	
 	keysDown[e.keyCode] = true;
 	}, false);
@@ -274,7 +274,7 @@ addEventListener("keyup", function (e) {
 	
 }, false);
 
-function colmuro(f,x0,y0,rx,ry) {
+function colmuro(f,x0,y0,rx,ry) { //colisiones de un cuadrado situado en x0,y0 de ancho f con un circulo rx,ry con radio Machango.sprite
 	   var circleDistanceX = Math.abs(x0 - rx - f);
 	   var circleDistanceY = Math.abs(y0 - ry - f);
 	 
@@ -289,7 +289,7 @@ function colmuro(f,x0,y0,rx,ry) {
 	   return (cornerDistance_sq <= (Math.pow(Machango.radio, 2)));
 	}
 
-function update (){
+function update (){ //actualiza las variables antes del render
 	var up,down,left,right;
 	if (40 in keysDown) { // Player holding down
 		if(Machango.casy > 0 && Machango.casy < Dungeon.ysize * ancho &&Dungeon.getCell(parseInt((Machango.casx)/ancho),parseInt((Machango.casy-10-pm-1)/ancho)+1)!=Dungeon.tileDirtWall){
@@ -507,7 +507,7 @@ Machango.update();
 
 }
 
-function hazcamino(x0, y0, x1, y1){
+function hazcamino(x0, y0, x1, y1){ //algoritmo que te crea una linea de puntos desde x0,y0 hasta x1,y1 y las guarda en camino
 	camino=[];
 	   var dx = Math.abs(x1-x0);
 	   var dy = Math.abs(y1-y0);
@@ -535,7 +535,7 @@ function hazcamino(x0, y0, x1, y1){
 	   }
 	}
 
-function dibujasuelo(){
+function dibujasuelo(){ //dibuja el suelo 
 	//ctx.translate(xmap,ymap);
 	//Dungeon.ver(hx,hy);
 	
@@ -707,7 +707,7 @@ function dibujasuelo(){
 	
 }
 
-function dibujaobjetos(){
+function dibujaobjetos(){ //dibuja objetos
 
 	Machango.render();
 			 /*
@@ -856,7 +856,7 @@ function dibujaobjetos(){
 	
 }
 
-var fps = {
+var fps = { //calcula los fps
 		startTime : 0,
 		frameNumber : 0,
 		getFPS : function(){
@@ -880,7 +880,7 @@ var fps = {
 
 
 //Draw everything
-function render() {
+function render() { //renderiza 
 	fps.frameNumber++;
 	var bandera=true;
 	
@@ -930,7 +930,7 @@ function boton(){
 
 
 
-var Machango = {
+var Machango = { //clase para el personaje
 	casx : 0,
 	casy : 0,
 	contador : 0,
@@ -948,7 +948,7 @@ var Machango = {
 	radio: 20,
 	cosa : 0,
 	
-	creamachango: function ( inx,  iny,  sprite, anchos) {
+	creamachango: function ( inx,  iny,  sprite, anchos) { //crea el soldado
 		
 		this.machangoimg = sprite;
 		this.casx = inx*ancho;
@@ -967,7 +967,7 @@ var Machango = {
 		this.cosa=0;
 	},
 
-	update: function (){
+	update: function (){ //actualiza el soldado
 		if(!this.mov){
 			this.contadorquieto++;
 			if(this.contadorquieto>100){
@@ -1007,7 +1007,7 @@ var Machango = {
 
 
 	
-	render: function(){
+	render: function(){ //renderiza el soldado
 		if(!this.mov){	
 			if(this.disparando){
 				
@@ -1080,7 +1080,7 @@ var Machango = {
 
 
 
-	var Dungeon = {
+	var Dungeon = { //clase para el mapa
 			xsize : 0,
 			ysize : 0,
 			hx : 0,
@@ -1334,19 +1334,19 @@ var Machango = {
 	
 	},
 	
-	 setcriatura: function ( x,  y,  celltype) {
+	 setcriatura: function ( x,  y,  celltype) { //pone una celda del tablero de un tipo
 		 Dungeon.critaturas[x + Dungeon.xsize * y] = celltype;
 	},
 
-	getcriatura: function ( x,  y) {
+	getcriatura: function ( x,  y) { //obtiene el valor de una celda del tablero
 	 return Dungeon.critaturas[x + Dungeon.xsize * y];
 	},
 	
-	 setCell: function ( x,  y,  celltype) {
+	 setCell: function ( x,  y,  celltype) {//pone una celda del tablero de un tipo (repe)
 		 Dungeon.dungeon_map[x + Dungeon.xsize * y] = celltype;
 	},
 
-	getCell: function ( x,  y) {
+	getCell: function ( x,  y) {//obtiene el valor de una celda del tablero
 	 return Dungeon.dungeon_map[x + Dungeon.xsize * y];
 	},
 	
@@ -1354,7 +1354,7 @@ var Machango = {
 	
 	//visibilidad
 	
-	ver: function (x,y) {
+	ver: function (x,y) { //hace visible una casilla y las adyacentes por flood (funcion recursiva, aveces peta por recursividad masiva)
 		if((x > 0 && x < Dungeon.xsize) && Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)]>=4 && Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)]<16 && !Dungeon.visible[(x) + Dungeon.xsize * (y)]){
 			Dungeon.setv(x,y);
 		}
@@ -1403,27 +1403,27 @@ var Machango = {
 		}
 	},
 	
-	 setv: function ( x,  y) {
+	 setv: function ( x,  y) { //hace una celda visible
 		 Dungeon.visible[x + Dungeon.xsize * y] = true;
 	},
 
-	unsetv: function ( x,  y) {
+	unsetv: function ( x,  y) { //oscurece una celda
 	 	 Dungeon.visible[x + Dungeon.xsize * y] = false;
 	},
 	
-	isv: function ( x,  y) {
+	isv: function ( x,  y) { //devuelve la visibilidad de una celda
 		 return Dungeon.visible[x + Dungeon.xsize * y];
 	},
 	
 	
 	
 	
-	getRand : function ( low,  high) {
+	getRand : function ( low,  high) { //obtiene un nº aleatorio de low a high
 		 
 		        return ~~(Math.random() * (high - low)) + low;
 		    },
 
-	 makeCorridor:function ( x,  y,  lenght,  direction) {
+	 makeCorridor:function ( x,  y,  lenght,  direction) { //crea un pasillo
 	/*******************************************************************************/
 	 //define the dimensions of the corridor (er.. only the width and height..)
 	  len = Dungeon.getRand(2, lenght);
@@ -1538,7 +1538,7 @@ var Machango = {
 
 
 
-	makeRoom:function( x,  y,  xlength,  ylength,  direction) {
+	makeRoom:function( x,  y,  xlength,  ylength,  direction) { //crea una habitacion
 	/*******************************************************************************/
 
 	 //define the dimensions of the room, it should be at least 4x4 tiles (2x2 for walking on, the rest is walls)
@@ -1670,7 +1670,7 @@ var Machango = {
 	 return true;
 	},
 
-	showDungeon:function () {
+	showDungeon:function () { //devuelve el dungeon en modo texto
 	/*******************************************************************************/
 	 //used to print the map on the screen
 	  dungeonMap = "";
@@ -1725,7 +1725,7 @@ ctx.fillStyle = "#222222";
 ctx.fillRect(1,1,canvas.width-1,canvas.height-1);
 
 //netinit();
-while(Dungeon.nh<level ){
+while(Dungeon.nh<level ){ //genera el dungeon hasta que las habitaciones sea mayor que level
 	
 	ctx.drawImage(cargando,32, 32);
 	
