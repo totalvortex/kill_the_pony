@@ -601,7 +601,7 @@ function render() {
   ctx.font = "26px Helvetica";
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
-  ctx.fillText("fps: (" + fps.getFPS() + ")",mapx+ 630,mapy+ 30);
+  //ctx.fillText("fps: (" + fps.getFPS() + ")",mapx+ 630,mapy+ 30);
 
 
 
