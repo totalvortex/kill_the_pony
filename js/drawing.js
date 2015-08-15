@@ -7,28 +7,28 @@ function getmp(canvas, evt) {
   };
 }
 
-addEventListener('mousemove', function(evt) {
-  Dungeon.mpos = getmp(canvas, evt);
+addEventListener('mousemove', function(evt) { //funcion para los eventos de mover ratón
+    Dungeon.mpos = getmp(canvas, evt);
 
 }, false);
 
-addEventListener('click', function(evt) {
-  Machango.disparando=true;
+addEventListener('click', function(evt) { //funcion para los eventos click del ratón
+    Machango.disparando=true;
     //   mensaje="("+mx+","+my+")";
 
   }, false);
 
-addEventListener("keydown", function (e) {
+addEventListener("keydown", function (e) { //funcion que mete en keysDown[] las teclas pulsadas en el frame
 
   keysDown[e.keyCode] = true;
-}, false);
+  }, false);
 
 addEventListener("keyup", function (e) {
   delete keysDown[e.keyCode];
 
 }, false);
 
-function colmuro(f,x0,y0,rx,ry) {
+function colmuro(f,x0,y0,rx,ry) { //colisiones de un cuadrado situado en x0,y0 de ancho f con un circulo rx,ry con radio Machango.sprite
   var circleDistanceX = Math.abs(x0 - rx - f);
   var circleDistanceY = Math.abs(y0 - ry - f);
 
@@ -43,7 +43,7 @@ function colmuro(f,x0,y0,rx,ry) {
   return (cornerDistance_sq <= (Math.pow(Machango.radio, 2)));
 }
 
-function update ()
+function update () //actualiza las variables antes del render
 {
   var up,down,left,right;
   if (40 in keysDown) { // Player holding down
@@ -199,7 +199,7 @@ function update ()
 
 }
 
-function hazcamino(x0, y0, x1, y1){
+function hazcamino(x0, y0, x1, y1){ //algoritmo que te crea una linea de puntos desde x0,y0 hasta x1,y1 y las guarda en camino
   camino=[];
   var dx = Math.abs(x1-x0);
   var dy = Math.abs(y1-y0);
@@ -227,7 +227,7 @@ function hazcamino(x0, y0, x1, y1){
    }
  }
 
-function dibujasuelo()
+function dibujasuelo() //dibuja el suelo
 {
   //ctx.translate(xmap,ymap);
   //Dungeon.ver(hx,hy);
@@ -549,7 +549,7 @@ function dibujaobjetos(){
 
       }
 
-      var fps = {
+var fps = { //calcula los fps
         startTime : 0,
         frameNumber : 0,
         getFPS : function(){

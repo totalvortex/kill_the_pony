@@ -194,27 +194,27 @@ var Dungeon = {
 
   },
 
-  setcriatura: function ( x,  y,  celltype) {
-    Dungeon.critaturas[x + Dungeon.xsize * y] = celltype;
+   setcriatura: function ( x,  y,  celltype) { //pone una celda del tablero de un tipo
+     Dungeon.critaturas[x + Dungeon.xsize * y] = celltype;
   },
 
-  getcriatura: function ( x,  y) {
-    return Dungeon.critaturas[x + Dungeon.xsize * y];
+  getcriatura: function ( x,  y) { //obtiene el valor de una celda del tablero
+   return Dungeon.critaturas[x + Dungeon.xsize * y];
   },
 
-  setCell: function ( x,  y,  celltype) {
-    Dungeon.dungeon_map[x + Dungeon.xsize * y] = celltype;
+   setCell: function ( x,  y,  celltype) {//pone una celda del tablero de un tipo (repe)
+     Dungeon.dungeon_map[x + Dungeon.xsize * y] = celltype;
   },
 
-  getCell: function ( x,  y) {
-    return Dungeon.dungeon_map[x + Dungeon.xsize * y];
+  getCell: function ( x,  y) {//obtiene el valor de una celda del tablero
+   return Dungeon.dungeon_map[x + Dungeon.xsize * y];
   },
 
 
 
   //visibilidad
 
-  ver: function (x,y) {
+  ver: function (x,y) { //hace visible una casilla y las adyacentes por flood (funcion recursiva, aveces peta por recursividad masiva)
     if((x > 0 && x < Dungeon.xsize) && Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)]>=4 && Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)]<16 && !Dungeon.visible[(x) + Dungeon.xsize * (y)]){
       Dungeon.setv(x,y);
     }
@@ -263,27 +263,27 @@ var Dungeon = {
     }
   },
 
-  setv: function ( x,  y) {
+  setv: function ( x,  y) { //hace una celda visible
     Dungeon.visible[x + Dungeon.xsize * y] = true;
   },
 
-  unsetv: function ( x,  y) {
+  unsetv: function ( x,  y) { //oscurece una celda
     Dungeon.visible[x + Dungeon.xsize * y] = false;
   },
 
-  isv: function ( x,  y) {
+  isv: function ( x,  y) { //devuelve la visibilidad de una celda
     return Dungeon.visible[x + Dungeon.xsize * y];
   },
 
 
 
 
-  getRand : function ( low,  high) {
+  getRand : function ( low,  high) { //obtiene un nº aleatorio de low a high
 
     return ~~(Math.random() * (high - low)) + low;
   },
 
-  makeCorridor:function ( x,  y,  lenght,  direction) {
+  makeCorridor:function ( x,  y,  lenght,  direction) { //crea un pasillo
     /*******************************************************************************/
    //define the dimensions of the corridor (er.. only the width and height..)
    len = Dungeon.getRand(2, lenght);
@@ -398,7 +398,7 @@ var Dungeon = {
 
 
 
-  makeRoom:function( x,  y,  xlength,  ylength,  direction) {
+  makeRoom:function( x,  y,  xlength,  ylength,  direction) { //crea una habitacion
     /*******************************************************************************/
 
    //define the dimensions of the room, it should be at least 4x4 tiles (2x2 for walking on, the rest is walls)

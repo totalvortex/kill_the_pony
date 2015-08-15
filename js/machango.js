@@ -1,5 +1,5 @@
 
-var Machango = {
+var Machango = { //clase para el personaje
   casx : 0,
   casy : 0,
   contador : 0,
