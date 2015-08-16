@@ -1,4 +1,4 @@
-
+var ancho=64;
 
 var mapx=0;
 var mapy=0;
@@ -21,8 +21,7 @@ var cy=0;
 var hx=0;
 var hy=0;
 
-<<<<<<< HEAD
-=======
+
 function getmp(canvas, evt) {
     
     return {
@@ -1474,7 +1473,7 @@ var Machango = { //clase para el personaje
 
 	}
 
->>>>>>> master
+
 
 	//The main game loop
 	var main = function () {
@@ -1504,13 +1503,10 @@ ctx.fillStyle = "#222222";
 ctx.fillRect(1,1,canvas.width-1,canvas.height-1);
 
 //netinit();
-<<<<<<< HEAD
-while(Dungeon.nh<level ){
 
-=======
 while(Dungeon.nh<level ){ //genera el dungeon hasta que las habitaciones sea mayor que level
 	
->>>>>>> master
+
 	ctx.drawImage(cargando,32, 32);
 
 	rooms=Dungeon.createDungeon(64,64,level);
