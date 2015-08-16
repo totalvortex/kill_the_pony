@@ -43,7 +43,7 @@ var Objeto = { //clase para los objetos del mapa
      }
      else corriendo=0;
 
-	mensaje="Giro:" +this.giro + " Alfa:" + this.alfa;
+	//mensaje="Giro:" +this.giro + " Alfa:" + this.alfa;
 	  this.contador++;
       if(this.contador>100){
         this.contador=0;
