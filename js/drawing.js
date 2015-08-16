@@ -48,7 +48,7 @@ function update () //actualiza las variables antes del render
   var up,down,left,right;
   if (40 in keysDown) { // Player holding down
     if(Machango.casy > 0 && Machango.casy < Dungeon.ysize * ancho &&Dungeon.getCell(parseInt((Machango.casx)/ancho),parseInt((Machango.casy-10-pm-1)/ancho)+1)!=Dungeon.tileDirtWall
-      && !Objeto.CCcol(Machango.casx,Machango.casy+pm,Machango.radio,Objeto.casx,Objeto.casy,Objeto.radio)){
+      && !Cujo.CCcol(Machango.casx,Machango.casy+pm,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
       mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
 
       Machango.casy=Machango.casy+pm;
@@ -67,7 +67,7 @@ function update () //actualiza las variables antes del render
     }
   if (38 in keysDown) { // Player holding up
     if(Machango.casy > 0 && Machango.casy < Dungeon.ysize * ancho && Dungeon.getCell(parseInt((Machango.casx)/ancho),parseInt((Machango.casy-(pm+1))/ancho))!=Dungeon.tileDirtWall
-            && !Objeto.CCcol(Machango.casx,Machango.casy-pm,Machango.radio,Objeto.casx,Objeto.casy,Objeto.radio)){
+            && !Cujo.CCcol(Machango.casx,Machango.casy-pm,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
 
       //  if(colmuro(parseInt((Machango.casx+25)/ancho),parseInt((Machango.casy+25)/ancho)-pm,parseInt((Machango.casx+25)/ancho),parseInt((Machango.casy+25)/ancho))+1){
 
@@ -92,7 +92,7 @@ function update () //actualiza las variables antes del render
   }
   if (37 in keysDown) { // Player holding left
     if(Machango.casx > 0 && Machango.casx < Dungeon.xsize * ancho && Dungeon.getCell(parseInt((Machango.casx-(pm+1))/ancho),parseInt((Machango.casy)/ancho))!=Dungeon.tileDirtWall
-            && !Objeto.CCcol(Machango.casx-pm,Machango.casy,Machango.radio,Objeto.casx,Objeto.casy,Objeto.radio)){
+            && !Cujo.CCcol(Machango.casx-pm,Machango.casy,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
 
     //  if(colmuro(parseInt((Machango.casx+25)/ancho)-pm,parseInt((Machango.casy+25)/ancho),parseInt((Machango.casx+25)/ancho)-1,parseInt((Machango.casy+25)/ancho))){
 
@@ -119,7 +119,7 @@ function update () //actualiza las variables antes del render
   }
   if (39 in keysDown) { // Player holding right
     if(Machango.casx > 0 && Machango.casx < Dungeon.xsize * ancho && Dungeon.getCell(parseInt((Machango.casx-16+(pm+1))/ancho)+1,parseInt((Machango.casy)/ancho))!=Dungeon.tileDirtWall
-       && !Objeto.CCcol(Machango.casx+pm,Machango.casy,Machango.radio,Objeto.casx,Objeto.casy,Objeto.radio)){
+       && !Cujo.CCcol(Machango.casx+pm,Machango.casy,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
       mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
 
 
@@ -202,8 +202,8 @@ function update () //actualiza las variables antes del render
 
 
   Machango.update();
-  Objeto.update(Machango.casx,Machango.casy,Machango.radio);
-
+  Cujo.update(Machango.casx,Machango.casy,Machango.radio);
+//Cujo2.update(Machango.casx,Machango.casy,Machango.radio);
 }
 /*
 function hazcamino(x0, y0, x1, y1){ //algoritmo que te crea una linea de puntos desde x0,y0 hasta x1,y1 y las guarda en camino
@@ -407,10 +407,11 @@ function dibujasuelo() //dibuja el suelo
 
 }
 
-function dibujaobjetos(){
+function dibujaCujos(){
 
   Machango.render();
-  Objeto.render();
+  Cujo.render();
+  // Cujo2.render();
        /*
         if(hx!=0 && hy!=0){
 
@@ -601,8 +602,8 @@ function render() {
   //dibuja el piso
   dibujasuelo();
 
-  //dibuja muros y objetos;
-  dibujaobjetos();
+  //dibuja muros y Cujos;
+  dibujaCujos();
 
   // Mensaje fps
   ctx.fillStyle = "rgb(250, 250, 250)";
