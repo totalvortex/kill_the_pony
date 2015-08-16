@@ -31,7 +31,7 @@ var Machango = { //clase para el personaje
     this.anchospr=anchos;
     this.pos= 0;
     this.giro=0;
-    this.radio=20;
+    this.radio=16;
     this.rafaga=23;
     this.cosa=0;
   },
@@ -84,7 +84,7 @@ render: function(){
         //if(this.contadorquieto+this.rafaga) this.disparando=false;
       }
       if(this.giro<0) this.giro=0;
-
+/*
       if(this.cosa<=14 && this.cosa>-1){
         //mensaje="sprite:"+this.cosa;
         if(this.cosa>=13) ctx.drawImage(marine,this.anchospr*12+1,1,this.anchospr-2,this.anchospr-2,this.casx,this.casy,this.anchospr,this.anchospr);
@@ -98,8 +98,8 @@ render: function(){
 
         ctx.restore();
         //mensaje="sprite:"+this.cosa;
-      }
-      /*
+      }*/
+      
       if(this.giro<16){
         ctx.drawImage(this.machangoimg,16+ancho*this.giro,16+ancho*(this.pos),this.anchospr-16,this.anchospr-16,this.casx,this.casy,this.anchospr,this.anchospr);
         //mensaje="("+parseInt(this.casx/ancho)+", "+parseInt(this.casy/ancho)+")";
@@ -119,7 +119,7 @@ render: function(){
         kk=33-this.giro;
         //mensaje="("+parseInt((this.casx+25)/ancho)+", "+parseInt((this.casy+25)/ancho)+")";
       }
-      */
+      
     }
     else{
       if(this.pos<0){
