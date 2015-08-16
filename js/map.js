@@ -19,12 +19,12 @@ cargando.onload = function () {
 
 cargando.src = "images/cargando.png";
 
-var marineReady = false;
-var marine = new Image();
-marine.onload = function () {
-  marineReady = true;
+var tanqReady = false;
+var tanq = new Image();
+tanq.onload = function () {
+  tanqReady = true;
 };
-marine.src = "images/marines.png";
+tanq.src = "images/tanque.png";
 
 var marinezReady = false;
 var marinez = new Image();
