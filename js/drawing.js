@@ -202,10 +202,10 @@ function update () //actualiza las variables antes del render
 
 
   Machango.update();
-  Objeto.update();
+  Objeto.update(Machango.casx,Machango.casy,Machango.radio);
 
 }
-
+/*
 function hazcamino(x0, y0, x1, y1){ //algoritmo que te crea una linea de puntos desde x0,y0 hasta x1,y1 y las guarda en camino
   camino=[];
   var dx = Math.abs(x1-x0);
@@ -233,7 +233,7 @@ function hazcamino(x0, y0, x1, y1){ //algoritmo que te crea una linea de puntos 
 
    }
  }
-
+*/
 function dibujasuelo() //dibuja el suelo
 {
   //ctx.translate(xmap,ymap);
