@@ -6,6 +6,8 @@ var escala=1.0;
 var pm=2; //pixels por movimiento
 var mensaje = " ";
 var fps = 0;
+var Cujo = null;
+var gente = [];
 
 var click=false;
 var keysDown = {};
@@ -68,7 +70,8 @@ while(Dungeon.nh<level ){ //genera el dungeon hasta que las habitaciones sea may
 mapx=parseInt((ancho*Dungeon.xsize)/2)-parseInt(canvas.width/2);
 mapy=parseInt((ancho*Dungeon.ysize)/2)-parseInt(canvas.height/2);
 Machango.creamachango(hx,hy,marinez,48);
-Objeto.creaobjeto(hx-1,hy,10, tanq,48);
+Cujo=new Alien(hx-1,hy,15, zerg,ancho);
+//Objeto2=new Objeto(hx,hy-1,15, zerg,ancho);
 ctx.translate(0,0);
 mapx=Machango.casx-parseInt(canvas.width/2);//mapy+2;
 mapy=Machango.casy-parseInt(canvas.height/2);//mapy+2;

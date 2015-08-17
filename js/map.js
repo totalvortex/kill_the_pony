@@ -19,6 +19,13 @@ cargando.onload = function () {
 
 cargando.src = "images/cargando.png";
 
+var zergReady = false;
+var zerg = new Image();
+zerg.onload = function () {
+  zergReady = true;
+};
+zerg.src = "images/zergling.png";
+
 var tanqReady = false;
 var tanq = new Image();
 tanq.onload = function () {

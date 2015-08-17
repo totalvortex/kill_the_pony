@@ -1,16 +1,4 @@
-var Objeto = { //clase para los objetos del mapa
-	casx : 0,
-	casy : 0,
-	radio : 0,
- 	 img : new Image(),
- 	 anchospr: 0,
- 	 contador : 0,
- 	 pos: 0,
- 	 giro: 0,
- 	 alfa: 0,
- 	 corriendo : 0,
- 	 camino : [],
-	creaobjeto(x,y,r,sp,anc){
+function Alien(x,y,r,sp,anc){
 		this.casx=x*ancho+ancho/8+3;
 		this.casy=y*ancho+ancho/8;
 		this.radio=r;
@@ -20,18 +8,18 @@ var Objeto = { //clase para los objetos del mapa
 		this.pos=0;
 		this.giro=0;
 		this.alfa=0;
-		this.corriendo++;
-		return this;
-	},
+		this.corriendo=0;
+		
+	
 
-	CCcol:function (x1, y1, w1, x2, y2, w2) { //colision del circulo x1,y1 con radio w1 con el x2,y2 con radio w2
+	this.CCcol=function(x1, y1, w1, x2, y2, w2) { //colision del circulo x1,y1 con radio w1 con el x2,y2 con radio w2
   	  var xd = x1 - x2;
   	  var yd = y1 - y2;
   	  var wt = w2 + w1;
   	  return (xd * xd + yd * yd <= wt * wt);
-	},
+	}
 
- update: function (x,y,radio){
+ this.update=function (x,y,radio){
  	//this.hazcamino(this.casx,this.casy,x,y);
 
 	  this.alfa=Math.atan2(x-this.casx,y-this.casy);
@@ -53,9 +41,9 @@ var Objeto = { //clase para los objetos del mapa
       }
     
 
- },
+ }
 
-render:function (){
+this.render=function(){
 
 	if(this.giro<0) this.giro=0;
 	if(this.corriendo==0){
