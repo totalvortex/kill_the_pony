@@ -49,8 +49,36 @@ this.colisonconmuro=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquier
   
 
 }
+this.colisonconmurox=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
+  alfa=alfa%Math.PI;
+  
+      if(Dungeon.getCell(parseInt((this.casx+16+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+16)/ancho))>1) {
+           return  false;
+         
+         }
+         else{
+          return true;
+         } 
+ 
 
+  
 
+}
+this.colisonconmuroy=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
+  alfa=alfa%Math.PI;
+  
+      if(Dungeon.getCell(parseInt((this.casx+16)/ancho),parseInt((this.casy+16+this.radio*Math.cos(this.alfa))/ancho))>1) {
+           return  false;
+         
+         }
+         else{
+          return true;
+         } 
+ 
+
+  
+
+}
 
 
 
@@ -67,9 +95,14 @@ this.colisonconmuro=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquier
 
          this.casx=this.casx+Math.sin(this.alfa)*this.pm;
     	   this.casy=this.casy+Math.cos(this.alfa)*this.pm;
-        }
+        
 
-    	this.corriendo++;
+    	   
+        }else{
+          if(!this.colisonconmurox(alfa)) this.casx=this.casx+Math.sin(this.alfa)*this.pm;
+          if(!this.colisonconmuroy(alfa))this.casy=this.casy+Math.cos(this.alfa)*this.pm;
+        }
+        this.corriendo++;
      }
      else corriendo=0;
   

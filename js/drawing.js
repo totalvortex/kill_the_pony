@@ -496,153 +496,11 @@ function dibujaCujos(){
     Dungeon.Aliens[a].render();
    }
 
-    Machango.render();
-  // Cujo2.render();
-       /*
-        if(hx!=0 && hy!=0){
-
-          if(Machango.caballeromov){
-
-
-            if(Machango.contador%28==0){
-             // alert(caballeropaso);
-            //  Dungeon.ver(camino[caballeropaso][0],camino[caballeropaso][1]);
-              Machango.contador=0;
-              Machango.caballeropaso++;
-              if(Machango.caballeropaso>=camino.length){
-                Machango.caballeropaso=0;
-                Machango.caballeromov=false;
-               // Dungeon.ver(camino[caballeropaso][0],camino[caballeropaso][1]);
-                hx=cx;
-                hy=cy;
-                camino=[];
-                return;
-              }
-
-
-              if(Machango.caballeropaso<camino.length){
-                ox=camino[Machango.caballeropaso][2];
-                oy=camino[Machango.caballeropaso][3];
-
-
-                }
-              switch(ox){
-                case 1:
-                {
-                   switch(oy){
-                    case 1:
-                    {
-                      Machango.caballeropos=3;
-                    break;
-                    }
-                    case 0:
-                    {
-                      Machango.caballeropos=2;
-                    break;
-                    }
-                    case -1:
-                    {
-                      Machango.caballeropos=1;
-                    break;
-                    }
-
-                  }
-
-                break;
-                }
-                case 0:
-                {
-                   switch(oy){
-                    case 1:
-                    {
-                      Machango.caballeropos=4;
-                    break;
-                    }
-
-                    case -1:
-                    {
-                      Machango.caballeropos=0;
-                    break;
-                    }
-
-                  }
-
-                break;
-                }
-                case -1:
-                {
-                   switch(oy){
-                    case 1:
-                    {
-                      Machango.caballeropos=5;
-                    break;
-                    }
-                    case 0:
-                    {
-                      Machango.caballeropos=6;
-                    break;
-                    }
-                    case -1:
-                    {
-                      Machango.caballeropos=7;
-                    break;
-                    }
-
-                  }
-
-                break;
-                }
-
-              }
-
-            //  ctx.save();
-            //   alfa=Machango.caballeropos*Math.PI/4;
-            //  ctx.translate(hero.x-10+22,hero.y-10+22);
-            //  ctx.rotate(alfa);
-            //  ctx.drawImage(torreta,-22, -22);
-            //  ctx.restore();
-
-
-               ctx.drawImage(Machango.machangoimg,(Machango.contador%27)*(ancho),
-                    0,
-                            ancho-2,ancho,
-                           ( camino[Machango.caballeropaso][0]-ox)*ancho+parseInt(Machango.contador*ox*2.3)+10,
-                           ( camino[Machango.caballeropaso][1]-oy)*ancho+parseInt(Machango.contador*oy*2.3)-5,
-                            ancho,ancho);
+   
 
 
 
-           }
-           else{
-
-             ctx.drawImage(Machango.machangoimg,(Machango.contador%27)*(ancho),
-                 0,
-                          ancho-2,ancho,
-                         ( camino[Machango.caballeropaso][0]-ox)*ancho+parseInt(Machango.contador*ox*2.3)+10,
-                         ( camino[Machango.caballeropaso][1]-oy)*ancho+parseInt(Machango.contador*oy*2.5)-5,
-                          ancho,ancho);
-
-           }
-            Machango.contador++;
-           // alert(caballero%64);
-
-          }else{
-          //  ctx.save();
-          //     alfa=1*Math.PI/54;
-          //    ctx.translate(1,1);
-          //    ctx.rotate(alfa);
-
-            ctx.drawImage(Machango.machangoimg,0,0,ancho-3,ancho,hx*ancho+10,hy*ancho-5,ancho,ancho);
-          // ctx.restore();
-
-          }
-
-        }
-        */
-
-
-
-      }
+}
 
 var fps = { //calcula los fps
         startTime : 0,
@@ -688,9 +546,18 @@ function render() {
   //dibuja el piso
   dibujasuelo();
 
-  //dibuja muros y Cujos;
-  dibujaCujos();
 
+  //dibuja Aliens;
+  dibujaCujos();
+//dibuja mapa
+  Dungeon.dibujamapa(10+Machango.casx-canvas.width/2,10+Machango.casy-canvas.height/2);
+
+ //dibuja al personaje
+  Machango.render();
+
+
+  
+  //Dungeon.dibujamapa(Machango.casx,Machango.casy);
   // Mensaje fps
   ctx.fillStyle = "rgb(250, 250, 250)";
   ctx.font = "26px Helvetica";
@@ -711,7 +578,5 @@ function render() {
 
 }
 
-function boton(){
-  ws.send("hola");
-}
+
 

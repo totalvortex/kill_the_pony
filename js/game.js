@@ -75,9 +75,9 @@ Machango.creamachango(hx,hy,marinez,48);
 
 //Dungeon.Aliens.push(new Alien(hx-3,hy,15, zerg,ancho));
 //Dungeon.Aliens.push(new Alien(hx-2,hy,15, zerg,ancho));
-Spawner = new Nido(hx-3,hy,zergb,60);
+Spawner = new Nido(hx-3,hy,zergb,256);
 
-
+Dungeon.iniciamapa(64,64);
 ctx.translate(0,0);
 mapx=Machango.casx-parseInt(canvas.width/2);//mapy+2;
 mapy=Machango.casy-parseInt(canvas.height/2);//mapy+2;

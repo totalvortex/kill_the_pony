@@ -24,6 +24,7 @@ var Dungeon = {
   tileExit : 100,
   xexit : 0,
   yexit : 0,
+  mapa : null,
       nh : 0,  //numero de habitaciones
       mpos : {"x":0, "y":0},
   //misc. messages to print
@@ -54,13 +55,14 @@ var Dungeon = {
   // System.out.println(msgMaxObjects + objects);
 
    //redefine the map var, so it's adjusted to our new map size
-   Dungeon.dungeon_map = [];
-   Dungeon.visible = [];
+   this.dungeon_map = [];
+   this.visible = [];
+   this.mapa=[];
   //for(x=0;x<Dungeon.xsize*Dungeon.ysize;x++){
   //   Dungeon.visible.push(true);
   // }
-
-
+   
+   
    //start with making the "standard stuff" on the map
    for ( y = 0; y < Dungeon.ysize; y++) {
     for ( x = 0; x < Dungeon.xsize; x++) {
@@ -269,6 +271,45 @@ var Dungeon = {
   setv: function ( x,  y) { //hace una celda visible
     if(Dungeon.dungeon_map[x + Dungeon.xsize * y]==Dungeon.tileAlien && !Dungeon.isv(x,y)) Dungeon.Aliens.push(new Alien(x,y,15, zerg,ancho));
     Dungeon.visible[x + Dungeon.xsize * y] = true;
+    o=(x + 64 * y);
+    i=o*4;
+    switch(Dungeon.dungeon_map[o]){
+      case Dungeon.tileUnused:
+        {
+
+          this.mapa.data[i+0]=16;
+          this.mapa.data[i+1]=16;
+          this.mapa.data[i+2]=16;
+          this.mapa.data[i+3]=250;
+          break; 
+        }
+        case Dungeon.tileDirtWall:
+        {
+         
+          this.mapa.data[i+0]=250;
+          this.mapa.data[i+1]=0;
+          this.mapa.data[i+2]=0;
+          this.mapa.data[i+3]=250;
+          break; 
+        }
+        case Dungeon.tiledooropen:
+        {
+         this.mapa.data[i+0]=190;
+         this.mapa.data[i+1]=130;
+         this.mapa.data[i+2]=0;
+         this.mapa.data[i+3]=250;
+          break; 
+        }
+        default:
+        {
+         this.mapa.data[i+0]=200;
+         this.mapa.data[i+1]=200;
+         this.mapa.data[i+2]=200;
+         this.mapa.data[i+3]=250;
+          break; 
+        }
+    }
+      
     
   },
 
@@ -280,7 +321,88 @@ var Dungeon = {
     return Dungeon.visible[x + Dungeon.xsize * y];
   },
 
+  iniciamapa : function (mx,my) {
+ this.mapa=ctx.createImageData(64,64);
+  for (var i=0;i<this.mapa.data.length;i+=4)
+   {
+    if((i)%(mx*4)==0 || (i)%(mx*4)==mx*4-4 || (i<my*4) || i>mx*my*4-mx*4){
+          this.mapa.data[i+0]=250;
+          this.mapa.data[i+1]=0;
+          this.mapa.data[i+2]=0;
+          this.mapa.data[i+3]=250;
+    }else{
+          this.mapa.data[i+0]=0;
+          this.mapa.data[i+1]=0;
+          this.mapa.data[i+2]=0;
+          this.mapa.data[i+3]=250;
+    }
+   }
+    //alert("inicia mapa"+this.mapa.data.length);
+  },
 
+
+scaleImageData:function (imageData, scale) {
+    var scaled = ctx.createImageData(imageData.width * scale, imageData.height * scale);
+    var subLine = ctx.createImageData(scale, 1).data
+    for (var row = 0; row < imageData.height; row++) {
+        for (var col = 0; col < imageData.width; col++) {
+            var sourcePixel = imageData.data.subarray(
+                (row * imageData.width + col) * 4,
+                (row * imageData.width + col) * 4 + 4
+            );
+            for (var x = 0; x < scale; x++) subLine.set(sourcePixel, x*4)
+            for (var y = 0; y < scale; y++) {
+                var destRow = row * scale + y;
+                var destCol = col * scale;
+                scaled.data.set(subLine, (destRow * scaled.width + destCol) * 4)
+            }
+        }
+    }
+
+    return scaled;
+},
+
+
+
+  dibujamapa: function (x,y) {
+//alert("inicia mapa"+this.mapa.data[0]);
+
+ctx.putImageData(this.scaleImageData(this.mapa,3.0),canvas.width-200,canvas.height-200);
+
+//ctx.fillStyle ="rgba(0, 0, 0,250)";
+//ctx.arc(canvas.width-138+parseInt(Machango.casx/ancho),canvas.height-138+parseInt(Machango.casy/ancho),3,2,Math.PI);
+
+
+ //   ctx.putImageData(this.mapa,x,y);
+ //   ctx.stroke()
+  /*
+    var a=4;
+    for(i=0;i<64;i++){
+       for(j=0;j<64;j++){
+          if(Dungeon.isv(i,j)){
+            if(Dungeon.getCell(i,j)==Dungeon.tileUnused){
+             ctx.fillStyle ="rgba(0, 0, 0,0.3)";
+             ctx.fillRect(x+i*a,y+j*a,a,a);
+            }
+          if(Dungeon.getCell(i,j)==Dungeon.tileDirtWall){
+             ctx.fillStyle ="rgba(250, 250, 0,0.3)";
+             ctx.fillRect(x+i*a,y+j*a,a,a);
+          }
+          if(Dungeon.getCell(i,j)==Dungeon.tiledooropen){
+             ctx.fillStyle ="rgba(190, 130, 0,0.3)";
+             ctx.fillRect(x+i*a,y+j*a,a,a);
+          }
+          if(Dungeon.getCell(i,j)>2){
+            ctx.fillStyle ="rgba(255, 255, 255,0.3)";
+            ctx.fillRect(x+i*a,y+j*a,a,a);
+         }
+       }else{
+          ctx.fillStyle ="rgba(0, 0, 0,0.3)";
+          ctx.fillRect(x+i*a,y+j*a,a,a);
+       }
+     } 
+    }*/
+  },
 
 
   getRand : function ( low,  high) { //obtiene un nº aleatorio de low a high
