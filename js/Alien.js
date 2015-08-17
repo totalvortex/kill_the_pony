@@ -9,8 +9,21 @@ function Alien(x,y,r,sp,anc){
 		this.giro=0;
 		this.alfa=0;
 		this.corriendo=0;
-		
-	
+		this.pm=1.5;
+	this.CRcol=function (cx,cy,cr,rx,ry,rw) {
+   var circleDistanceX = Math.abs(cx - rx - rw/2);
+   var circleDistanceY = Math.abs(cy - ry - rw/2);
+ 
+   if (circleDistanceX > (rw/2 + cr)) { return false; }
+   if (circleDistanceY > (rw/2 + cr)) { return false; }
+ 
+   if (circleDistanceX <= (rw/2)) { return true; }
+   if (circleDistanceY <= (rw/2)) { return true; }
+ 
+   var cornerDistance_sq = Math.pow(circleDistanceX - rw/2, 2) + Math.pow(circleDistanceY - rw/2, 2);
+ 
+   return (cornerDistance_sq <= (Math.pow(cr, 2)));
+}
 
 	this.CCcol=function(x1, y1, w1, x2, y2, w2) { //colision del circulo x1,y1 con radio w1 con el x2,y2 con radio w2
   	  var xd = x1 - x2;
@@ -19,14 +32,37 @@ function Alien(x,y,r,sp,anc){
   	  return (xd * xd + yd * yd <= wt * wt);
 	}
 
- this.update=function (x,y,radio){
+this.colisonconmuro=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
+  
+      if(Dungeon.getCell(parseInt((this.casx+16+Math.sin(this.alfa))/ancho),parseInt((this.casy+16+Math.cos(this.alfa))/ancho))>1) {
+           return  false;
+         
+         }
+         else{
+          return true;
+         } 
+
+}
+
+
+
+
+
+
+ this.update=function (x,y,radio,pm){
  	//this.hazcamino(this.casx,this.casy,x,y);
 
 	  this.alfa=Math.atan2(x-this.casx,y-this.casy);
       this.giro=16-parseInt((this.alfa*Math.PI*1.9));
       if(!this.CCcol(x,y,radio,this.casx,this.casy,this.radio)){
-      	this.casx=this.casx+Math.sin(this.alfa)*1.8;
-    	this.casy=this.casy+Math.cos(this.alfa)*1.8;
+
+
+        if(!this.colisonconmuro(alfa)){
+
+         this.casx=this.casx+Math.sin(this.alfa)*this.pm;
+    	   this.casy=this.casy+Math.cos(this.alfa)*this.pm;
+        }
+
     	this.corriendo++;
      }
      else corriendo=0;
