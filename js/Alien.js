@@ -9,7 +9,9 @@ function Alien(x,y,r,sp,anc){
 		this.giro=0;
 		this.alfa=0;
 		this.corriendo=0;
+    this.animm=0;
 		this.pm=1.5;
+    this.vida=1;
 	this.CRcol=function (cx,cy,cr,rx,ry,rw) {
    var circleDistanceX = Math.abs(cx - rx - rw/2);
    var circleDistanceY = Math.abs(cy - ry - rw/2);
@@ -25,11 +27,11 @@ function Alien(x,y,r,sp,anc){
    return (cornerDistance_sq <= (Math.pow(cr, 2)));
 }
 
-	this.CCcol=function(x1, y1, w1, x2, y2, w2) { //colision del circulo x1,y1 con radio w1 con el x2,y2 con radio w2
-  	  var xd = x1 - x2;
-  	  var yd = y1 - y2;
-  	  var wt = w2 + w1;
-  	  return (xd * xd + yd * yd <= wt * wt);
+	this.CCcol=function(x1, y1, w1) { //colision del circulo x1,y1 con radio w1 con el x2,y2 con radio w2
+  	  var xd = x1 - this.casx;
+  	  var yd = y1 - this.casy;
+  	  var wt = this.radio + w1;
+  	  if(this.vida>0) return (xd * xd + yd * yd <= wt * wt);
 	}
 
 this.colisonconmuro=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
@@ -55,10 +57,10 @@ this.colisonconmuro=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquier
 
  this.update=function (x,y,radio,pm){
  	//this.hazcamino(this.casx,this.casy,x,y);
-
+  if(this.vida>0){
 	  this.alfa=Math.atan2(x-this.casx,y-this.casy);
       this.giro=16-parseInt((this.alfa*Math.PI*1.9));
-      if(!this.CCcol(x,y,radio,this.casx,this.casy,this.radio)){
+      if(!this.CCcol(x,y,radio)){
 
 
         if(!this.colisonconmuro(alfa)){
@@ -70,6 +72,7 @@ this.colisonconmuro=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquier
     	this.corriendo++;
      }
      else corriendo=0;
+  
 
 	//mensaje="Giro:" +this.giro + " Alfa:" + this.alfa;
 	  this.contador++;
@@ -80,11 +83,14 @@ this.colisonconmuro=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquier
         if(this.pos>2) this.pos=1;
       }
     
-
+}
+else{
+if(this.animm<8)this.animm++;
  }
+}
 
 this.render=function(){
-
+if(this.vida>0){
 	if(this.giro<0) this.giro=0;
 	if(this.corriendo==0){
 		
@@ -133,5 +139,10 @@ this.render=function(){
         //ctx.drawImage(this.img,20,(this.pos*this.anchospr)+20,this.anchospr-20,this.anchospr-20,this.casx,this.casy,this.anchospr,this.anchospr);
 
 
-	}
+	
+}
+else{
+  ctx.drawImage(this.img,20+ancho*this.animm,20+ancho*(13),this.anchospr-20,this.anchospr-20,this.casx,this.casy,this.anchospr,this.anchospr);
+}
+}
 }

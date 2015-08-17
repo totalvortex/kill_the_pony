@@ -13,8 +13,18 @@ addEventListener('mousemove', function(evt) { //funcion para los eventos de move
 }, false);
 
 addEventListener('click', function(evt) { //funcion para los eventos click del ratón
-    Machango.disparando=true;
-    //   mensaje="("+mx+","+my+")";
+    Machango.disparando=!Machango.disparando;
+    var p=getmp(canvas,evt);
+    if(Dungeon.Aliens.length>0)
+    for(a=0;a<Dungeon.Aliens.length;a++){
+      if(Dungeon.Aliens[a].CCcol((p.x-24+Machango.casx-canvas.width/2),(p.y-24+Machango.casy-canvas.height/2),3)) {
+        Dungeon.Aliens[a].vida--;
+      //  mensaje="("+Dungeon.Aliens[a].casx+","+Dungeon.Aliens[a].casy+"), click en ("+(p.x-24+Machango.casx-canvas.width/2)+","+(p.y-24+Machango.casy-canvas.height/2)+")";
+        break;
+        }
+      //  mensaje = "";
+    }
+       
 
   }, false);
 
@@ -222,7 +232,7 @@ function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abaj
     switch(dir){
       case 0:
       {
-        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy-pm,Machango.radio,Dungeon.Aliens[a].casx,Dungeon.Aliens[a].casy,Dungeon.Aliens[a].radio)) {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy-pm,Machango.radio)) {
            col=true;
            break;
          }
@@ -230,7 +240,7 @@ function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abaj
       }
       case 1:
       {
-        if(Dungeon.Aliens[a].CCcol(Machango.casx+pm,Machango.casy,Machango.radio,Dungeon.Aliens[a].casx,Dungeon.Aliens[a].casy,Dungeon.Aliens[a].radio)) {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx+pm,Machango.casy,Machango.radio)) {
            col=true;
            break;
          }
@@ -238,7 +248,7 @@ function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abaj
       }
       case 2:
       {
-        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy+pm,Machango.radio,Dungeon.Aliens[a].casx,Dungeon.Aliens[a].casy,Dungeon.Aliens[a].radio)) {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy+pm,Machango.radio)) {
            col=true;
            break;
          }
@@ -246,7 +256,7 @@ function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abaj
       }
       case 3:
       {
-        if(Dungeon.Aliens[a].CCcol(Machango.casx-pm,Machango.casy,Machango.radio,Dungeon.Aliens[a].casx,Dungeon.Aliens[a].casy,Dungeon.Aliens[a].radio)) {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx-pm,Machango.casy,Machango.radio)) {
            col=true;
            break;
          }
@@ -254,7 +264,7 @@ function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abaj
       }
       default:
       {
-        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy,Machango.radio+pm,Dungeon.Aliens[a].casx,Dungeon.Aliens[a].casy,Dungeon.Aliens[a].radio)) {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy,Machango.radio+pm)) {
            col=true;
            break;
          }
@@ -480,11 +490,12 @@ function dibujasuelo() //dibuja el suelo
 
 function dibujaCujos(){
 
-  Machango.render();
+ 
   if(Dungeon.Aliens.length>0)
   for(a=0;a<Dungeon.Aliens.length;a++){
     Dungeon.Aliens[a].render();
    }
+    Machango.render();
   // Cujo2.render();
        /*
         if(hx!=0 && hy!=0){
