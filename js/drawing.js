@@ -212,7 +212,7 @@ function update () //actualiza las variables antes del render
     }
   }
 
-
+  Spawner.update();
   Machango.update();
    if(Dungeon.Aliens.length>0)
     for(a=0;a<Dungeon.Aliens.length;a++){
@@ -490,11 +490,12 @@ function dibujasuelo() //dibuja el suelo
 
 function dibujaCujos(){
 
- 
+ Spawner.render();
   if(Dungeon.Aliens.length>0)
   for(a=0;a<Dungeon.Aliens.length;a++){
     Dungeon.Aliens[a].render();
    }
+
     Machango.render();
   // Cujo2.render();
        /*

@@ -75,7 +75,7 @@ Machango.creamachango(hx,hy,marinez,48);
 
 //Dungeon.Aliens.push(new Alien(hx-3,hy,15, zerg,ancho));
 //Dungeon.Aliens.push(new Alien(hx-2,hy,15, zerg,ancho));
-
+Spawner = new Nido(hx-3,hy,zergb,60);
 
 
 ctx.translate(0,0);

@@ -26,6 +26,14 @@ zerg.onload = function () {
 };
 zerg.src = "images/zergling.png";
 
+var zergbReady = false;
+var zergb = new Image();
+zergb.onload = function () {
+  zergbReady = true;
+};
+zergb.src = "images/zergb.png";
+
+
 var tanqReady = false;
 var tanq = new Image();
 tanq.onload = function () {
