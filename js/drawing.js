@@ -48,7 +48,8 @@ function update () //actualiza las variables antes del render
   var up,down,left,right;
   if (40 in keysDown) { // Player holding down
     if(Machango.casy > 0 && Machango.casy < Dungeon.ysize * ancho &&Dungeon.getCell(parseInt((Machango.casx)/ancho),parseInt((Machango.casy-10-pm-1)/ancho)+1)!=Dungeon.tileDirtWall
-      && !Cujo.CCcol(Machango.casx,Machango.casy+pm,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+     // && !Cujo.CCcol(Machango.casx,Machango.casy+pm,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+      && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,2,pm)){
       mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
 
       Machango.casy=Machango.casy+pm;
@@ -67,8 +68,8 @@ function update () //actualiza las variables antes del render
     }
   if (38 in keysDown) { // Player holding up
     if(Machango.casy > 0 && Machango.casy < Dungeon.ysize * ancho && Dungeon.getCell(parseInt((Machango.casx)/ancho),parseInt((Machango.casy-(pm+1))/ancho))!=Dungeon.tileDirtWall
-            && !Cujo.CCcol(Machango.casx,Machango.casy-pm,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
-
+        //    && !Cujo.CCcol(Machango.casx,Machango.casy-pm,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+    && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,0,pm)){
       //  if(colmuro(parseInt((Machango.casx+25)/ancho),parseInt((Machango.casy+25)/ancho)-pm,parseInt((Machango.casx+25)/ancho),parseInt((Machango.casy+25)/ancho))+1){
 
         mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
@@ -92,8 +93,8 @@ function update () //actualiza las variables antes del render
   }
   if (37 in keysDown) { // Player holding left
     if(Machango.casx > 0 && Machango.casx < Dungeon.xsize * ancho && Dungeon.getCell(parseInt((Machango.casx-(pm+1))/ancho),parseInt((Machango.casy)/ancho))!=Dungeon.tileDirtWall
-            && !Cujo.CCcol(Machango.casx-pm,Machango.casy,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
-
+           // && !Cujo.CCcol(Machango.casx-pm,Machango.casy,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+    && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,1,pm)){
     //  if(colmuro(parseInt((Machango.casx+25)/ancho)-pm,parseInt((Machango.casy+25)/ancho),parseInt((Machango.casx+25)/ancho)-1,parseInt((Machango.casy+25)/ancho))){
 
       mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
@@ -119,7 +120,8 @@ function update () //actualiza las variables antes del render
   }
   if (39 in keysDown) { // Player holding right
     if(Machango.casx > 0 && Machango.casx < Dungeon.xsize * ancho && Dungeon.getCell(parseInt((Machango.casx-16+(pm+1))/ancho)+1,parseInt((Machango.casy)/ancho))!=Dungeon.tileDirtWall
-       && !Cujo.CCcol(Machango.casx+pm,Machango.casy,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+      // && !Cujo.CCcol(Machango.casx+pm,Machango.casy,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+      && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,3,pm)){
       mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
 
 
@@ -202,9 +204,76 @@ function update () //actualiza las variables antes del render
 
 
   Machango.update();
-  Cujo.update(Machango.casx,Machango.casy,Machango.radio);
+   if(Dungeon.Aliens.length>0)
+    for(a=0;a<Dungeon.Aliens.length;a++){
+    Dungeon.Aliens[a].update(Machango.casx,Machango.casy,Machango.radio);
+   }
+  //Cujo.update(Machango.casx,Machango.casy,Machango.radio);
 //Cujo2.update(Machango.casx,Machango.casy,Machango.radio);
 }
+
+
+
+function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
+  var col=false;
+  for(a=0;a<Dungeon.Aliens.length;a++){
+    switch(dir){
+      case 0:
+      {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy-pm,Machango.radio,Dungeon.Aliens[a].casx,Dungeon.Aliens[a].casy,Dungeon.Aliens[a].radio)) {
+           col=true;
+           break;
+         }
+
+      }
+      case 1:
+      {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx+pm,Machango.casy,Machango.radio,Dungeon.Aliens[a].casx,Dungeon.Aliens[a].casy,Dungeon.Aliens[a].radio)) {
+           col=true;
+           break;
+         }
+
+      }
+      case 2:
+      {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy+pm,Machango.radio,Dungeon.Aliens[a].casx,Dungeon.Aliens[a].casy,Dungeon.Aliens[a].radio)) {
+           col=true;
+           break;
+         }
+
+      }
+      case 3:
+      {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx-pm,Machango.casy,Machango.radio,Dungeon.Aliens[a].casx,Dungeon.Aliens[a].casy,Dungeon.Aliens[a].radio)) {
+           col=true;
+           break;
+         }
+
+      }
+      default:
+      {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy,Machango.radio+pm,Dungeon.Aliens[a].casx,Dungeon.Aliens[a].casy,Dungeon.Aliens[a].radio)) {
+           col=true;
+           break;
+         }
+
+      }
+    }
+    
+  }
+
+return col;
+
+}
+
+
+
+
+
+
+
+
+
 /*
 function hazcamino(x0, y0, x1, y1){ //algoritmo que te crea una linea de puntos desde x0,y0 hasta x1,y1 y las guarda en camino
   camino=[];
@@ -410,7 +479,10 @@ function dibujasuelo() //dibuja el suelo
 function dibujaCujos(){
 
   Machango.render();
-  Cujo.render();
+  if(Dungeon.Aliens.length>0)
+  for(a=0;a<Dungeon.Aliens.length;a++){
+    Dungeon.Aliens[a].render();
+   }
   // Cujo2.render();
        /*
         if(hx!=0 && hy!=0){

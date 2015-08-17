@@ -9,6 +9,7 @@ var Dungeon = {
   chanceCorridor : 85,
   dungeon_map : [],
   visible : [],
+  Aliens : [],
   long_oldseed : 0,
   tileUnused : 0,
   tileDirtWall : 1,
@@ -204,6 +205,8 @@ var Dungeon = {
 
    setCell: function ( x,  y,  celltype) {//pone una celda del tablero de un tipo (repe)
      Dungeon.dungeon_map[x + Dungeon.xsize * y] = celltype;
+
+    // if(celltype==7)  Dungeon.Aliens.push(new Alien((x,y,15, zerg,ancho)));
   },
 
   getCell: function ( x,  y) {//obtiene el valor de una celda del tablero

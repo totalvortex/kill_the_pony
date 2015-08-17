@@ -70,8 +70,14 @@ while(Dungeon.nh<level ){ //genera el dungeon hasta que las habitaciones sea may
 mapx=parseInt((ancho*Dungeon.xsize)/2)-parseInt(canvas.width/2);
 mapy=parseInt((ancho*Dungeon.ysize)/2)-parseInt(canvas.height/2);
 Machango.creamachango(hx,hy,marinez,48);
-Cujo=new Alien(hx-1,hy,15, zerg,ancho);
+//Cujo=new Alien(hx-1,hy,15, zerg,ancho);
 //Objeto2=new Objeto(hx,hy-1,15, zerg,ancho);
+
+Dungeon.Aliens.push(new Alien(hx-3,hy,15, zerg,ancho));
+Dungeon.Aliens.push(new Alien(hx-2,hy,15, zerg,ancho));
+
+
+
 ctx.translate(0,0);
 mapx=Machango.casx-parseInt(canvas.width/2);//mapy+2;
 mapy=Machango.casy-parseInt(canvas.height/2);//mapy+2;
