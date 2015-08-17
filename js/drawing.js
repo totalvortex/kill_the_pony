@@ -211,56 +211,9 @@ function update () //actualiza las variables antes del render
   //Cujo.update(Machango.casx,Machango.casy,Machango.radio);
 //Cujo2.update(Machango.casx,Machango.casy,Machango.radio);
 }
-function colisonconmuro(x,y,radio,dir,pm){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
-  var col=false;
-  for(a=0;a<Dungeon.Aliens.length;a++){
-    switch(dir){
-      case 0:
-      {
-        if(Dungeon.getCell(parseInt(x/ancho),parseInt((y-pm)/ancho),ancho)>1) {
-           col=true;
-           break;
-         }
 
-      }
-      case 1:
-      {
-        if(Dungeon.getCell(parseInt((x+pm)/ancho),parseInt(y/ancho),ancho)>1) {
-           col=true;
-           break;
-         }
 
-      }
-      case 2:
-      {
-       if(Dungeon.getCell(parseInt(x/ancho),parseInt((y-pm)/ancho),ancho)>1) {
-           col=true;
-           break;
-         }
 
-      }
-      case 3:
-      {
-        if(Dungeon.getCell(parseInt((x-pm)/ancho),parseInt(y/ancho),ancho)>1) {
-           col=true;
-           break;
-         }
-
-      }
-      default:
-      {
-        if(Dungeon.getCell(parseInt(x/ancho),parseInt((y)/ancho),ancho)>1) {
-           col=true;
-           break;
-         }
-
-      }
-    }
-    
-  }
-
-return col;
-}
 
 
 function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
