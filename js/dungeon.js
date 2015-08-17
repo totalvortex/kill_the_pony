@@ -18,7 +18,7 @@ var Dungeon = {
   tileCorridorh : 4,
   tileDirtFloor : 6,
   tileCorridorv : 5,
-  tileDownStairs : 7,
+  tileAlien : 7,
   tileChest : 8,
   tiledooropen : 9,
   tileExit : 100,
@@ -267,7 +267,9 @@ var Dungeon = {
   },
 
   setv: function ( x,  y) { //hace una celda visible
+    if(Dungeon.dungeon_map[x + Dungeon.xsize * y]==Dungeon.tileAlien && !Dungeon.isv(x,y)) Dungeon.Aliens.push(new Alien(x,y,15, zerg,ancho));
     Dungeon.visible[x + Dungeon.xsize * y] = true;
+    
   },
 
   unsetv: function ( x,  y) { //oscurece una celda

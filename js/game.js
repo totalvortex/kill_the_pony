@@ -73,8 +73,8 @@ Machango.creamachango(hx,hy,marinez,48);
 //Cujo=new Alien(hx-1,hy,15, zerg,ancho);
 //Objeto2=new Objeto(hx,hy-1,15, zerg,ancho);
 
-Dungeon.Aliens.push(new Alien(hx-3,hy,15, zerg,ancho));
-Dungeon.Aliens.push(new Alien(hx-2,hy,15, zerg,ancho));
+//Dungeon.Aliens.push(new Alien(hx-3,hy,15, zerg,ancho));
+//Dungeon.Aliens.push(new Alien(hx-2,hy,15, zerg,ancho));
 
 
 
