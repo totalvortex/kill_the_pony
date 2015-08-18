@@ -8,7 +8,7 @@ var mensaje = " ";
 var fps = 0;
 var Cujo = null;
 var gente = [];
-
+var maxaliens = 64;
 var click=false;
 var keysDown = {};
 var desplazamiento=ancho;
@@ -75,9 +75,10 @@ Machango.creamachango(hx,hy,marinez,48);
 
 //Dungeon.Aliens.push(new Alien(hx-3,hy,15, zerg,ancho));
 //Dungeon.Aliens.push(new Alien(hx-2,hy,15, zerg,ancho));
-Spawner = new Nido(hx-3,hy,zergb,256);
+
 
 Dungeon.iniciamapa(64,64);
+Dungeon.setCell(Dungeon.exitx,Dungeon.exity,Dungeon.tileExit);
 ctx.translate(0,0);
 mapx=Machango.casx-parseInt(canvas.width/2);//mapy+2;
 mapy=Machango.casy-parseInt(canvas.height/2);//mapy+2;

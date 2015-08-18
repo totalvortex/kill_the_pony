@@ -37,22 +37,9 @@ function Alien(x,y,r,sp,anc){
 this.colisonconmuro=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
   alfa=alfa%Math.PI;
   
-      if(Dungeon.getCell(parseInt((this.casx+16+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+16+this.radio*Math.cos(this.alfa))/ancho))>1) {
-           return  false;
-         
-         }
-         else{
-          return true;
-         } 
- 
-
-  
-
-}
-this.colisonconmurox=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
-  alfa=alfa%Math.PI;
-  
-      if(Dungeon.getCell(parseInt((this.casx+16+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+16)/ancho))>1) {
+      if(Dungeon.getCell(parseInt((this.casx+16+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+16+this.radio*Math.cos(this.alfa))/ancho))>1
+        && Dungeon.getCell(parseInt((this.casx+16+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+16+this.radio*Math.cos(this.alfa))/ancho))!=Dungeon.tileAlien) {
+                   
            return  false;
          
          }
@@ -67,13 +54,31 @@ this.colisonconmurox=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquie
 this.colisonconmuroy=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
   alfa=alfa%Math.PI;
   
-      if(Dungeon.getCell(parseInt((this.casx+16)/ancho),parseInt((this.casy+16+this.radio*Math.cos(this.alfa))/ancho))>1) {
+      if(Dungeon.getCell(parseInt((this.casx+16+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+16)/ancho))>1){
+     
            return  false;
          
          }
          else{
           return true;
          } 
+ 
+
+  
+
+}
+this.colisonconmurox=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
+  alfa=alfa%Math.PI;
+  
+      if(Dungeon.getCell(parseInt((this.casx+16)/ancho),parseInt((this.casy+16+this.radio*Math.cos(this.alfa))/ancho))>1){
+      
+           return  false;
+         
+      }
+      else{
+          return true;
+      } 
+      
  
 
   
@@ -104,8 +109,10 @@ this.colisonconmuroy=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquie
         }
         this.corriendo++;
      }
-     else corriendo=0;
-  
+     else {
+      corriendo=0;
+
+    }
 
 	//mensaje="Giro:" +this.giro + " Alfa:" + this.alfa;
 	  this.contador++;

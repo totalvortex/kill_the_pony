@@ -10,6 +10,7 @@ var Dungeon = {
   dungeon_map : [],
   visible : [],
   Aliens : [],
+  spawner : [],
   long_oldseed : 0,
   tileUnused : 0,
   tileDirtWall : 1,
@@ -58,6 +59,7 @@ var Dungeon = {
    this.dungeon_map = [];
    this.visible = [];
    this.mapa=[];
+   this.Aliens=[];
   //for(x=0;x<Dungeon.xsize*Dungeon.ysize;x++){
   //   Dungeon.visible.push(true);
   // }
@@ -186,8 +188,8 @@ var Dungeon = {
            //same thing here, add to the quota and a door
            currentFeatures++;
            Dungeon.setCell(newx, newy, Dungeon.tileDoorclosed);
-         //  exitx=newx;
-         //  exity=newy;
+           this.exitx=newx;
+           this.exity=newy;
        }
      }
    }
@@ -269,7 +271,7 @@ var Dungeon = {
   },
 
   setv: function ( x,  y) { //hace una celda visible
-    if(Dungeon.dungeon_map[x + Dungeon.xsize * y]==Dungeon.tileAlien && !Dungeon.isv(x,y)) Dungeon.Aliens.push(new Alien(x,y,15, zerg,ancho));
+    if(Dungeon.dungeon_map[x + Dungeon.xsize * y]==Dungeon.tileAlien && !Dungeon.isv(x,y)) Dungeon.spawner.push(new Nido(x,y,zergb,this.getRand(48,256)));
     Dungeon.visible[x + Dungeon.xsize * y] = true;
     o=(x + 64 * y);
     i=o*4;
@@ -292,12 +294,21 @@ var Dungeon = {
           this.mapa.data[i+3]=250;
           break; 
         }
-        case Dungeon.tiledooropen:
+        case Dungeon.tileDoorclosed:
         {
          this.mapa.data[i+0]=190;
          this.mapa.data[i+1]=130;
          this.mapa.data[i+2]=0;
          this.mapa.data[i+3]=250;
+          break; 
+        }
+        case Dungeon.tileExit:
+        {
+         this.mapa.data[i+0]=0;
+         this.mapa.data[i+1]=0;
+         this.mapa.data[i+2]=255;
+         this.mapa.data[i+3]=250;
+        // alert("exit");
           break; 
         }
         default:
@@ -337,7 +348,7 @@ var Dungeon = {
           this.mapa.data[i+3]=250;
     }
    }
-    //alert("inicia mapa"+this.mapa.data.length);
+    
   },
 
 
@@ -365,43 +376,9 @@ scaleImageData:function (imageData, scale) {
 
 
   dibujamapa: function (x,y) {
-//alert("inicia mapa"+this.mapa.data[0]);
 
 ctx.putImageData(this.scaleImageData(this.mapa,3.0),canvas.width-200,canvas.height-200);
 
-//ctx.fillStyle ="rgba(0, 0, 0,250)";
-//ctx.arc(canvas.width-138+parseInt(Machango.casx/ancho),canvas.height-138+parseInt(Machango.casy/ancho),3,2,Math.PI);
-
-
- //   ctx.putImageData(this.mapa,x,y);
- //   ctx.stroke()
-  /*
-    var a=4;
-    for(i=0;i<64;i++){
-       for(j=0;j<64;j++){
-          if(Dungeon.isv(i,j)){
-            if(Dungeon.getCell(i,j)==Dungeon.tileUnused){
-             ctx.fillStyle ="rgba(0, 0, 0,0.3)";
-             ctx.fillRect(x+i*a,y+j*a,a,a);
-            }
-          if(Dungeon.getCell(i,j)==Dungeon.tileDirtWall){
-             ctx.fillStyle ="rgba(250, 250, 0,0.3)";
-             ctx.fillRect(x+i*a,y+j*a,a,a);
-          }
-          if(Dungeon.getCell(i,j)==Dungeon.tiledooropen){
-             ctx.fillStyle ="rgba(190, 130, 0,0.3)";
-             ctx.fillRect(x+i*a,y+j*a,a,a);
-          }
-          if(Dungeon.getCell(i,j)>2){
-            ctx.fillStyle ="rgba(255, 255, 255,0.3)";
-            ctx.fillRect(x+i*a,y+j*a,a,a);
-         }
-       }else{
-          ctx.fillStyle ="rgba(0, 0, 0,0.3)";
-          ctx.fillRect(x+i*a,y+j*a,a,a);
-       }
-     } 
-    }*/
   },
 
 

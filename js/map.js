@@ -31,7 +31,7 @@ var zergb = new Image();
 zergb.onload = function () {
   zergbReady = true;
 };
-zergb.src = "images/zergb.png";
+zergb.src = "images/agujero.png";
 
 
 var tanqReady = false;

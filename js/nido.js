@@ -18,6 +18,7 @@ this.render=function(){
 }
 
 	this.reproducir=function (){
+		if(Dungeon.Aliens.length>maxaliens) Dungeon.Aliens.pop();
 		Dungeon.Aliens.push(new Alien(parseInt(this.casx/this.anchospr), parseInt(this.casy/this.anchospr),15, zerg,ancho));
 	}
 }

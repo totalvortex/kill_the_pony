@@ -211,15 +211,18 @@ function update () //actualiza las variables antes del render
         Dungeon.setv(x , y);
     }
   }
-
-  Spawner.update();
+if(Dungeon.spawner.length>0)
+  for(a=0;a<Dungeon.spawner.length;a++){
+    Dungeon.spawner[a].update();
+   }
+ 
   Machango.update();
    if(Dungeon.Aliens.length>0)
     for(a=0;a<Dungeon.Aliens.length;a++){
-    Dungeon.Aliens[a].update(Machango.casx,Machango.casy,Machango.radio);
+  
+   Dungeon.Aliens[a].update(Machango.casx,Machango.casy,Machango.radio,pm);
    }
-  //Cujo.update(Machango.casx,Machango.casy,Machango.radio);
-//Cujo2.update(Machango.casx,Machango.casy,Machango.radio);
+  
 }
 
 
@@ -400,8 +403,9 @@ function dibujasuelo() //dibuja el suelo
         //ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
         break;
       }
-          case 7:{ //tuercas
-            ctx.drawImage(piso0,x*ancho,y*ancho);
+          case 7:{ //spawners
+
+            ctx.drawImage(zergb,x*ancho,y*ancho);
 
             break;
           }
@@ -489,8 +493,11 @@ function dibujasuelo() //dibuja el suelo
 }
 
 function dibujaCujos(){
-
- Spawner.render();
+if(Dungeon.spawner.length>0)
+  for(a=0;a<Dungeon.spawner.length;a++){
+    Dungeon.spawner[a].render();
+   }
+ //Spawner.render();
   if(Dungeon.Aliens.length>0)
   for(a=0;a<Dungeon.Aliens.length;a++){
     Dungeon.Aliens[a].render();
