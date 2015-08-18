@@ -60,7 +60,7 @@ function update () //actualiza las variables antes del render
     if(Machango.casy > 0 && Machango.casy < Dungeon.ysize * ancho &&Dungeon.getCell(parseInt((Machango.casx)/ancho),parseInt((Machango.casy-10-pm-1)/ancho)+1)!=Dungeon.tileDirtWall
      // && !Cujo.CCcol(Machango.casx,Machango.casy+pm,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
       && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,2,pm)){
-      mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
+      mensaje="Nivel: " +Dungeon.level+"("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
 
       Machango.casy=Machango.casy+pm;
       ctx.translate(0,+mapy);
@@ -82,7 +82,7 @@ function update () //actualiza las variables antes del render
     && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,0,pm)){
       //  if(colmuro(parseInt((Machango.casx+25)/ancho),parseInt((Machango.casy+25)/ancho)-pm,parseInt((Machango.casx+25)/ancho),parseInt((Machango.casy+25)/ancho))+1){
 
-        mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
+        mensaje="Nivel: " +Dungeon.level+"("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
 
         Machango.casy=Machango.casy-pm;
         ctx.translate(0,+mapy);
@@ -107,7 +107,7 @@ function update () //actualiza las variables antes del render
     && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,1,pm)){
     //  if(colmuro(parseInt((Machango.casx+25)/ancho)-pm,parseInt((Machango.casy+25)/ancho),parseInt((Machango.casx+25)/ancho)-1,parseInt((Machango.casy+25)/ancho))){
 
-      mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
+      mensaje="Nivel: " +Dungeon.level+"("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
 
 
       Machango.casx=Machango.casx-pm;
@@ -132,7 +132,7 @@ function update () //actualiza las variables antes del render
     if(Machango.casx > 0 && Machango.casx < Dungeon.xsize * ancho && Dungeon.getCell(parseInt((Machango.casx-16+(pm+1))/ancho)+1,parseInt((Machango.casy)/ancho))!=Dungeon.tileDirtWall
       // && !Cujo.CCcol(Machango.casx+pm,Machango.casy,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
       && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,3,pm)){
-      mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
+      mensaje="Nivel: " +Dungeon.level+"("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
 
 
       Machango.casx=Machango.casx+pm;
@@ -211,6 +211,11 @@ function update () //actualiza las variables antes del render
         Dungeon.setv(x , y);
     }
   }
+  if (87 in keysDown) { // Player holding "w"
+    this.reboot();
+   
+   
+  }
 if(Dungeon.spawner.length>0)
   for(a=0;a<Dungeon.spawner.length;a++){
     Dungeon.spawner[a].update();
@@ -222,9 +227,39 @@ if(Dungeon.spawner.length>0)
   
    Dungeon.Aliens[a].update(Machango.casx,Machango.casy,Machango.radio,pm);
    }
-  
+
+
+
+
+
+   //salida
+  if(Dungeon.getCell(parseInt((Machango.casx+16)/ancho),parseInt((Machango.casy+16)/ancho))==Dungeon.tileExit){
+    this.reboot();
+    
+  }
 }
 
+function reboot(){
+  delta=3000;
+ 
+      Dungeon.borrar();  
+     ctx.translate(mapx,mapy);
+     var lev=Dungeon.level+1;
+   while(Dungeon.nh<lev ){ //genera el dungeon hasta que las habitaciones sea mayor que level
+    rooms=Dungeon.createDungeon(64,64,lev);
+  }
+      rooms=Dungeon.createDungeon(64,64,Dungeon.level++);
+    mensaje ="LEVEL "+ Dungeon.level;
+      Dungeon.iniciamapa(64,64);
+     
+      Machango.creamachango(hx,hy,marinez,48);
+      
+      Dungeon.setCell(Dungeon.exitx,Dungeon.exity,Dungeon.tileExit);
+      
+      mapx=Machango.casx-parseInt(canvas.width/2);//mapy+2;
+      mapy=Machango.casy-parseInt(canvas.height/2);//mapy+2;
+      ctx.translate(-mapx,-mapy);
+}
 
 
 

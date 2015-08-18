@@ -1,5 +1,6 @@
 
 var Dungeon = {
+  level : 0,
   xsize : 0,
   ysize : 0,
   hx : 0,
@@ -30,37 +31,7 @@ var Dungeon = {
       mpos : {"x":0, "y":0},
   
 
-  borrar: function (){
- this.xsize = 0;
-  this.ysize = 0;
-  this.hx = 0;
- this.hy = 0;
-  this.objects = 0;
-  this.chanceRoom = 55;
-  this.chanceCorridor = 85;
-  this.dungeon_map = [];
-  this.visible = [];
-  this.Aliens = [];
-  this.spawner = [];
-  this.long_oldseed = 0;
-  this.tileUnused = 0;
-  this.tileDirtWall = 1;
-  this.tileDoorclosed = 2;
-  this.tileStoneWall = 3;
-  this.tileCorridorh = 4;
-  this.tileDirtFloor = 6;
-  this.tileCorridorv = 5;
-  this.tileAlien = 7;
-  this.tileChest = 8;
-  this.tiledooropen = 9;
-  this.tileExit = 100;
- this.xexit = 0;
-  this.yexit = 0;
-  this.mapa.data=[];
-      nh = 0;  //numero de habitaciones
-      mpos = {"x":0, "y":0};
-  
-  },
+ 
 
 
 
@@ -68,8 +39,8 @@ var Dungeon = {
 
     /*******************************************************************************/
    // Here's the one generating the whole map
-   if (inobj < 1) Dungeon.objects = 10;
-   else Dungeon.objects = inobj;
+   if (inobj < 1) Dungeon.level = 3;
+   else Dungeon.level = inobj;
 
    // Adjust the size of the map if it's too small
    if (inx < 3) Dungeon.xsize = 3;
@@ -87,6 +58,7 @@ var Dungeon = {
    this.visible = [];
    this.mapa=[];
    this.Aliens=[];
+   
   //for(x=0;x<Dungeon.xsize*Dungeon.ysize;x++){
   //   Dungeon.visible.push(true);
   // }
@@ -221,10 +193,25 @@ var Dungeon = {
      }
    }
   }
-
-
-
+   },
+ borrar: function (){
+ 
+  for(i=0;i<this.dungeon_map.length;i++) this.dungeon_map.pop();
+  this.dungeon_map = [];
+  for(i=0;i<this.visible.length;i++) this.visible[i]=false;
+  this.visible = [];
+  for(i=0;i<this.Aliens.length;i++) this.Aliens.pop();
+  this.Aliens = [];
+  for(i=0;i<this.spawner.length;i++) this.spawner.pop();
+  this.spawner = [];
+  
+  for(i=0;i<this.mapa.data.length;i++) this.mapa.data[i]=0;
+  this.mapa.data=[];
+ 
   },
+
+
+ 
 
    setcriatura: function ( x,  y,  celltype) { //pone una celda del tablero de un tipo
      Dungeon.critaturas[x + Dungeon.xsize * y] = celltype;
@@ -358,6 +345,21 @@ var Dungeon = {
   isv: function ( x,  y) { //devuelve la visibilidad de una celda
     return Dungeon.visible[x + Dungeon.xsize * y];
   },
+
+  haypuerta: function (){
+    aux=false;
+    for(i=0;i<Dungeon.xsize;i++){
+      for(j=0;j<Dungeon.ysize;j++){
+        if(Dungeon.isv(i,j) && Dungeon.getCell(i,j)==Dungeon.tileDoorclosed) {
+          aux= true;
+        } 
+      }
+    }
+    return aux;
+  },
+
+
+
 
   iniciamapa : function (mx,my) {
  this.mapa=ctx.createImageData(64,64);
