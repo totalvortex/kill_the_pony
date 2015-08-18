@@ -56,8 +56,8 @@ var init = function() {
 
 
 
-	while(Dungeon.nh<5 ){ //genera el dungeon hasta que las habitaciones sea mayor que level
-		rooms=Dungeon.createDungeon(64,64,5);
+	while(Dungeon.nh<rooms && !Dungeon.puerta){ //genera el dungeon hasta que las habitaciones sea mayor que level
+		Dungeon.createDungeon(64,64,3);
 	}
 	
 

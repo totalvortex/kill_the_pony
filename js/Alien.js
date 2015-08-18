@@ -104,8 +104,8 @@ this.colisonconmurox=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquie
 
     	   
         }else{
-          if(!this.colisonconmurox(alfa)) this.casx=this.casx+Math.sin(this.alfa)*this.pm;
-          if(!this.colisonconmuroy(alfa))this.casy=this.casy+Math.cos(this.alfa)*this.pm;
+          if(!this.colisonconmuroy(alfa)) this.casx=this.casx+Math.sin(this.alfa)*this.pm;
+          if(!this.colisonconmurox(alfa))this.casy=this.casy+Math.cos(this.alfa)*this.pm;
         }
         this.corriendo++;
      }

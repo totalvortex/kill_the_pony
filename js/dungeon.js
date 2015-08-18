@@ -27,6 +27,7 @@ var Dungeon = {
   xexit : 0,
   yexit : 0,
   mapa : null,
+  puerta : false,
       nh : 0,  //numero de habitaciones
       mpos : {"x":0, "y":0},
   
@@ -100,7 +101,7 @@ var Dungeon = {
    for (countingTries = 0; countingTries < 2000; countingTries++) {
 
      //check if we've reached our quota
-     if (currentFeatures == Dungeon.objects) {
+     if (currentFeatures == Dungeon.level) {
       break;
      }
 
@@ -207,7 +208,7 @@ var Dungeon = {
   
   for(i=0;i<this.mapa.data.length;i++) this.mapa.data[i]=0;
   this.mapa.data=[];
- 
+  this.puerta=false;
   },
 
 
@@ -238,6 +239,7 @@ var Dungeon = {
   ver: function (x,y) { //hace visible una casilla y las adyacentes por flood (funcion recursiva, aveces peta por recursividad masiva)
     if((x > 0 && x < Dungeon.xsize) && Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)]>=4 && Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)]<16 && !Dungeon.visible[(x) + Dungeon.xsize * (y)]){
       Dungeon.setv(x,y);
+      if(Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)]==Dungeon.tileDoorclosed) this.puerta=true;
     }
     if((x > 0 && x < Dungeon.xsize) && Dungeon.dungeon_map[(x+1) + Dungeon.xsize * (y)]>=4 && Dungeon.dungeon_map[(x+1) + Dungeon.xsize * (y)]<16 && !Dungeon.visible[(x+1) + Dungeon.xsize * (y)]){
       Dungeon.ver(x+1,y);
@@ -346,17 +348,7 @@ var Dungeon = {
     return Dungeon.visible[x + Dungeon.xsize * y];
   },
 
-  haypuerta: function (){
-    aux=false;
-    for(i=0;i<Dungeon.xsize;i++){
-      for(j=0;j<Dungeon.ysize;j++){
-        if(Dungeon.isv(i,j) && Dungeon.getCell(i,j)==Dungeon.tileDoorclosed) {
-          aux= true;
-        } 
-      }
-    }
-    return aux;
-  },
+  
 
 
 
