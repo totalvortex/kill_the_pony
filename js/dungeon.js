@@ -28,13 +28,40 @@ var Dungeon = {
   mapa : null,
       nh : 0,  //numero de habitaciones
       mpos : {"x":0, "y":0},
-  //misc. messages to print
-  msgXSize : "X size of dungeon: \t",
-  msgYSize : "Y size of dungeon: \t",
-  msgMaxObjects : "max # of objects: \t",
-  msgNumObjects : "# of objects made: \t",
-  msgHelp : "",
-  msgDetailedHelp : "",
+  
+
+  borrar: function (){
+ this.xsize = 0;
+  this.ysize = 0;
+  this.hx = 0;
+ this.hy = 0;
+  this.objects = 0;
+  this.chanceRoom = 55;
+  this.chanceCorridor = 85;
+  this.dungeon_map = [];
+  this.visible = [];
+  this.Aliens = [];
+  this.spawner = [];
+  this.long_oldseed = 0;
+  this.tileUnused = 0;
+  this.tileDirtWall = 1;
+  this.tileDoorclosed = 2;
+  this.tileStoneWall = 3;
+  this.tileCorridorh = 4;
+  this.tileDirtFloor = 6;
+  this.tileCorridorv = 5;
+  this.tileAlien = 7;
+  this.tileChest = 8;
+  this.tiledooropen = 9;
+  this.tileExit = 100;
+ this.xexit = 0;
+  this.yexit = 0;
+  this.mapa.data=[];
+      nh = 0;  //numero de habitaciones
+      mpos = {"x":0, "y":0};
+  
+  },
+
 
 
   createDungeon: function ( inx,  iny,  inobj) {

@@ -23,7 +23,43 @@ var cy=0;
 var hx=0;
 var hy=0;
 
+var init = function() {
+	var rooms=0;
+	var level=5;
+	ctx.fillStyle = "#222222";
+	ctx.fillRect(1,1,canvas.width-1,canvas.height-1);
 
+
+
+	while(Dungeon.nh<level ){ //genera el dungeon hasta que las habitaciones sea mayor que level
+	
+
+		ctx.drawImage(cargando,32, 32);
+
+		rooms=Dungeon.createDungeon(64,64,level);
+		alfa++;
+	}
+
+
+
+
+	mapx=parseInt((ancho*Dungeon.xsize)/2)-parseInt(canvas.width/2);
+	mapy=parseInt((ancho*Dungeon.ysize)/2)-parseInt(canvas.height/2);
+	Machango.creamachango(hx,hy,marinez,48);
+
+
+
+Dungeon.iniciamapa(64,64);
+Dungeon.setCell(Dungeon.exitx,Dungeon.exity,Dungeon.tileExit);
+ctx.translate(0,0);
+mapx=Machango.casx-parseInt(canvas.width/2);//mapy+2;
+mapy=Machango.casy-parseInt(canvas.height/2);//mapy+2;
+ctx.translate(-mapx,-mapy);
+
+then = now;
+delta = now - then;
+setTimeout(main,delta);
+};
 
 
 	//The main game loop
@@ -47,43 +83,4 @@ var hy=0;
 	requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 	var now = Date.now();
 // Let's play this game!
-//reset();
-var rooms=0;
-var level=512;
-ctx.fillStyle = "#222222";
-ctx.fillRect(1,1,canvas.width-1,canvas.height-1);
-
-//netinit();
-
-while(Dungeon.nh<level ){ //genera el dungeon hasta que las habitaciones sea mayor que level
-	
-
-	ctx.drawImage(cargando,32, 32);
-
-	rooms=Dungeon.createDungeon(64,64,level);
-	alfa++;
-}
-
-//alert("Dungeon generado. Cuadros: "+Dungeon.dungeon_map.length)
-
-
-mapx=parseInt((ancho*Dungeon.xsize)/2)-parseInt(canvas.width/2);
-mapy=parseInt((ancho*Dungeon.ysize)/2)-parseInt(canvas.height/2);
-Machango.creamachango(hx,hy,marinez,48);
-//Cujo=new Alien(hx-1,hy,15, zerg,ancho);
-//Objeto2=new Objeto(hx,hy-1,15, zerg,ancho);
-
-//Dungeon.Aliens.push(new Alien(hx-3,hy,15, zerg,ancho));
-//Dungeon.Aliens.push(new Alien(hx-2,hy,15, zerg,ancho));
-
-
-Dungeon.iniciamapa(64,64);
-Dungeon.setCell(Dungeon.exitx,Dungeon.exity,Dungeon.tileExit);
-ctx.translate(0,0);
-mapx=Machango.casx-parseInt(canvas.width/2);//mapy+2;
-mapy=Machango.casy-parseInt(canvas.height/2);//mapy+2;
-ctx.translate(-mapx,-mapy);
-
-then = now;
-delta = now - then;
-setTimeout(main,delta);
+init();
