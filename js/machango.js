@@ -56,14 +56,13 @@ var Machango = { //clase para el personaje
         this.contador=0;
       }
 
+      if(Dungeon.getCell(parseInt((this.casx+16)/ancho),parseInt((this.casy+16)/ancho))==100){
+        //Dungeon.borrar();
+        alert("Siguiente Fase.")
+      }
 
     }
-    //calculo del angulo de la torreta
-    //this.alfa=Math.atan2(Dungeon.mpos.x-canvas.height/2+10,Dungeon.mpos.y-canvas.width/2+10);
-    //this.giro=16-parseInt((this.alfa*Math.PI*1.9));
-
-    //mensaje="("+mmx+", "+mmy+")";
-  //  this.pos=parseInt(alfa/34);
+    
 
 
 

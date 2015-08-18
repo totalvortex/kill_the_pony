@@ -26,6 +26,14 @@ zerg.onload = function () {
 };
 zerg.src = "images/zergling.png";
 
+var zergbReady = false;
+var zergb = new Image();
+zergb.onload = function () {
+  zergbReady = true;
+};
+zergb.src = "images/agujero.png";
+
+
 var tanqReady = false;
 var tanq = new Image();
 tanq.onload = function () {
@@ -175,59 +183,4 @@ muros.onload = function () {
 muros.src = "images/muros.png";
 
 
-var orcosprReady = false;
-var orcospr = new Image();
-orcospr.onload = function () {
-  orcosprReady = true;
-};
-orcospr.src = "images/orcos32.png";
-
-var bandidosprReady = false;
-var bandidospr = new Image();
-bandidospr.onload = function () {
-  bandidosprReady = true;
-};
-bandidospr.src = "images/bandido.png";
-
-var esqueletoReady = false;
-var esqueletospr = new Image();
-esqueletospr.onload = function () {
-  esqueletoReady = true;
-};
-esqueletospr.src = "images/esqueleto.png";
-
-var heroeReady = false;
-var heroespr = new Image();
-heroespr.onload = function () {
-  heroeReady = true;
-};
-heroespr.src = "images/lothar.png";
-
-var caballeroReady = false;
-var caballerospr = new Image();
-caballerospr.onload = function () {
-  caballeroReady = true;
-};
-caballerospr.src = "images/caballero.png";
-
-var cursorReady = false;
-var cursor = new Image();
-cursor.onload = function () {
-  cursorReady = true;
-};
-cursor.src = "images/cursor.png";
-
-var potroReady = false;
-var potro = new Image();
-potro.onload = function () {
-  potroReady = true;
-};
-potro.src = "images/potro.png";
-
-var escritorioReady = false;
-var escritorio = new Image();
-escritorio.onload = function () {
-  escritorioReady = true;
-};
-escritorio.src = "images/escritorio.png";
 

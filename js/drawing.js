@@ -13,8 +13,18 @@ addEventListener('mousemove', function(evt) { //funcion para los eventos de move
 }, false);
 
 addEventListener('click', function(evt) { //funcion para los eventos click del ratón
-    Machango.disparando=true;
-    //   mensaje="("+mx+","+my+")";
+    Machango.disparando=!Machango.disparando;
+    var p=getmp(canvas,evt);
+    if(Dungeon.Aliens.length>0)
+    for(a=0;a<Dungeon.Aliens.length;a++){
+      if(Dungeon.Aliens[a].CCcol((p.x-24+Machango.casx-canvas.width/2),(p.y-24+Machango.casy-canvas.height/2),3)) {
+        Dungeon.Aliens[a].vida--;
+      //  mensaje="("+Dungeon.Aliens[a].casx+","+Dungeon.Aliens[a].casy+"), click en ("+(p.x-24+Machango.casx-canvas.width/2)+","+(p.y-24+Machango.casy-canvas.height/2)+")";
+        break;
+        }
+      //  mensaje = "";
+    }
+       
 
   }, false);
 
@@ -48,7 +58,8 @@ function update () //actualiza las variables antes del render
   var up,down,left,right;
   if (40 in keysDown) { // Player holding down
     if(Machango.casy > 0 && Machango.casy < Dungeon.ysize * ancho &&Dungeon.getCell(parseInt((Machango.casx)/ancho),parseInt((Machango.casy-10-pm-1)/ancho)+1)!=Dungeon.tileDirtWall
-      && !Cujo.CCcol(Machango.casx,Machango.casy+pm,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+     // && !Cujo.CCcol(Machango.casx,Machango.casy+pm,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+      && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,2,pm)){
       mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
 
       Machango.casy=Machango.casy+pm;
@@ -67,8 +78,8 @@ function update () //actualiza las variables antes del render
     }
   if (38 in keysDown) { // Player holding up
     if(Machango.casy > 0 && Machango.casy < Dungeon.ysize * ancho && Dungeon.getCell(parseInt((Machango.casx)/ancho),parseInt((Machango.casy-(pm+1))/ancho))!=Dungeon.tileDirtWall
-            && !Cujo.CCcol(Machango.casx,Machango.casy-pm,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
-
+        //    && !Cujo.CCcol(Machango.casx,Machango.casy-pm,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+    && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,0,pm)){
       //  if(colmuro(parseInt((Machango.casx+25)/ancho),parseInt((Machango.casy+25)/ancho)-pm,parseInt((Machango.casx+25)/ancho),parseInt((Machango.casy+25)/ancho))+1){
 
         mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
@@ -92,8 +103,8 @@ function update () //actualiza las variables antes del render
   }
   if (37 in keysDown) { // Player holding left
     if(Machango.casx > 0 && Machango.casx < Dungeon.xsize * ancho && Dungeon.getCell(parseInt((Machango.casx-(pm+1))/ancho),parseInt((Machango.casy)/ancho))!=Dungeon.tileDirtWall
-            && !Cujo.CCcol(Machango.casx-pm,Machango.casy,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
-
+           // && !Cujo.CCcol(Machango.casx-pm,Machango.casy,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+    && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,1,pm)){
     //  if(colmuro(parseInt((Machango.casx+25)/ancho)-pm,parseInt((Machango.casy+25)/ancho),parseInt((Machango.casx+25)/ancho)-1,parseInt((Machango.casy+25)/ancho))){
 
       mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
@@ -119,7 +130,8 @@ function update () //actualiza las variables antes del render
   }
   if (39 in keysDown) { // Player holding right
     if(Machango.casx > 0 && Machango.casx < Dungeon.xsize * ancho && Dungeon.getCell(parseInt((Machango.casx-16+(pm+1))/ancho)+1,parseInt((Machango.casy)/ancho))!=Dungeon.tileDirtWall
-       && !Cujo.CCcol(Machango.casx+pm,Machango.casy,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+      // && !Cujo.CCcol(Machango.casx+pm,Machango.casy,Machango.radio,Cujo.casx,Cujo.casy,Cujo.radio)){
+      && !colisionaconaliens(Machango.casx,Machango.casy,Machango.radio,3,pm)){
       mensaje="("+parseInt(Machango.casx/ancho)+","+parseInt(Machango.casy/ancho)+"):"+Dungeon.getCell(parseInt(Machango.casx/(ancho)), parseInt(Machango.casy/(ancho)));
 
 
@@ -199,12 +211,84 @@ function update () //actualiza las variables antes del render
         Dungeon.setv(x , y);
     }
   }
-
-
+if(Dungeon.spawner.length>0)
+  for(a=0;a<Dungeon.spawner.length;a++){
+    Dungeon.spawner[a].update();
+   }
+ 
   Machango.update();
-  Cujo.update(Machango.casx,Machango.casy,Machango.radio);
-//Cujo2.update(Machango.casx,Machango.casy,Machango.radio);
+   if(Dungeon.Aliens.length>0)
+    for(a=0;a<Dungeon.Aliens.length;a++){
+  
+   Dungeon.Aliens[a].update(Machango.casx,Machango.casy,Machango.radio,pm);
+   }
+  
 }
+
+
+
+
+
+function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
+  var col=false;
+  for(a=0;a<Dungeon.Aliens.length;a++){
+    switch(dir){
+      case 0:
+      {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy-pm,Machango.radio)) {
+           col=true;
+           break;
+         }
+
+      }
+      case 1:
+      {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx+pm,Machango.casy,Machango.radio)) {
+           col=true;
+           break;
+         }
+
+      }
+      case 2:
+      {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy+pm,Machango.radio)) {
+           col=true;
+           break;
+         }
+
+      }
+      case 3:
+      {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx-pm,Machango.casy,Machango.radio)) {
+           col=true;
+           break;
+         }
+
+      }
+      default:
+      {
+        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy,Machango.radio+pm)) {
+           col=true;
+           break;
+         }
+
+      }
+    }
+    
+  }
+
+return col;
+
+}
+
+
+
+
+
+
+
+
+
 /*
 function hazcamino(x0, y0, x1, y1){ //algoritmo que te crea una linea de puntos desde x0,y0 hasta x1,y1 y las guarda en camino
   camino=[];
@@ -319,8 +403,9 @@ function dibujasuelo() //dibuja el suelo
         //ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
         break;
       }
-          case 7:{ //tuercas
-            ctx.drawImage(piso0,x*ancho,y*ancho);
+          case 7:{ //spawners
+
+            ctx.drawImage(zergb,x*ancho,y*ancho);
 
             break;
           }
@@ -408,155 +493,21 @@ function dibujasuelo() //dibuja el suelo
 }
 
 function dibujaCujos(){
+if(Dungeon.spawner.length>0)
+  for(a=0;a<Dungeon.spawner.length;a++){
+    Dungeon.spawner[a].render();
+   }
+ //Spawner.render();
+  if(Dungeon.Aliens.length>0)
+  for(a=0;a<Dungeon.Aliens.length;a++){
+    Dungeon.Aliens[a].render();
+   }
 
-  Machango.render();
-  Cujo.render();
-  // Cujo2.render();
-       /*
-        if(hx!=0 && hy!=0){
-
-          if(Machango.caballeromov){
-
-
-            if(Machango.contador%28==0){
-             // alert(caballeropaso);
-            //  Dungeon.ver(camino[caballeropaso][0],camino[caballeropaso][1]);
-              Machango.contador=0;
-              Machango.caballeropaso++;
-              if(Machango.caballeropaso>=camino.length){
-                Machango.caballeropaso=0;
-                Machango.caballeromov=false;
-               // Dungeon.ver(camino[caballeropaso][0],camino[caballeropaso][1]);
-                hx=cx;
-                hy=cy;
-                camino=[];
-                return;
-              }
-
-
-              if(Machango.caballeropaso<camino.length){
-                ox=camino[Machango.caballeropaso][2];
-                oy=camino[Machango.caballeropaso][3];
-
-
-                }
-              switch(ox){
-                case 1:
-                {
-                   switch(oy){
-                    case 1:
-                    {
-                      Machango.caballeropos=3;
-                    break;
-                    }
-                    case 0:
-                    {
-                      Machango.caballeropos=2;
-                    break;
-                    }
-                    case -1:
-                    {
-                      Machango.caballeropos=1;
-                    break;
-                    }
-
-                  }
-
-                break;
-                }
-                case 0:
-                {
-                   switch(oy){
-                    case 1:
-                    {
-                      Machango.caballeropos=4;
-                    break;
-                    }
-
-                    case -1:
-                    {
-                      Machango.caballeropos=0;
-                    break;
-                    }
-
-                  }
-
-                break;
-                }
-                case -1:
-                {
-                   switch(oy){
-                    case 1:
-                    {
-                      Machango.caballeropos=5;
-                    break;
-                    }
-                    case 0:
-                    {
-                      Machango.caballeropos=6;
-                    break;
-                    }
-                    case -1:
-                    {
-                      Machango.caballeropos=7;
-                    break;
-                    }
-
-                  }
-
-                break;
-                }
-
-              }
-
-            //  ctx.save();
-            //   alfa=Machango.caballeropos*Math.PI/4;
-            //  ctx.translate(hero.x-10+22,hero.y-10+22);
-            //  ctx.rotate(alfa);
-            //  ctx.drawImage(torreta,-22, -22);
-            //  ctx.restore();
-
-
-               ctx.drawImage(Machango.machangoimg,(Machango.contador%27)*(ancho),
-                    0,
-                            ancho-2,ancho,
-                           ( camino[Machango.caballeropaso][0]-ox)*ancho+parseInt(Machango.contador*ox*2.3)+10,
-                           ( camino[Machango.caballeropaso][1]-oy)*ancho+parseInt(Machango.contador*oy*2.3)-5,
-                            ancho,ancho);
+   
 
 
 
-           }
-           else{
-
-             ctx.drawImage(Machango.machangoimg,(Machango.contador%27)*(ancho),
-                 0,
-                          ancho-2,ancho,
-                         ( camino[Machango.caballeropaso][0]-ox)*ancho+parseInt(Machango.contador*ox*2.3)+10,
-                         ( camino[Machango.caballeropaso][1]-oy)*ancho+parseInt(Machango.contador*oy*2.5)-5,
-                          ancho,ancho);
-
-           }
-            Machango.contador++;
-           // alert(caballero%64);
-
-          }else{
-          //  ctx.save();
-          //     alfa=1*Math.PI/54;
-          //    ctx.translate(1,1);
-          //    ctx.rotate(alfa);
-
-            ctx.drawImage(Machango.machangoimg,0,0,ancho-3,ancho,hx*ancho+10,hy*ancho-5,ancho,ancho);
-          // ctx.restore();
-
-          }
-
-        }
-        */
-
-
-
-      }
+}
 
 var fps = { //calcula los fps
         startTime : 0,
@@ -602,9 +553,18 @@ function render() {
   //dibuja el piso
   dibujasuelo();
 
-  //dibuja muros y Cujos;
-  dibujaCujos();
 
+  //dibuja Aliens;
+  dibujaCujos();
+//dibuja mapa
+  Dungeon.dibujamapa(10+Machango.casx-canvas.width/2,10+Machango.casy-canvas.height/2);
+
+ //dibuja al personaje
+  Machango.render();
+
+
+  
+  //Dungeon.dibujamapa(Machango.casx,Machango.casy);
   // Mensaje fps
   ctx.fillStyle = "rgb(250, 250, 250)";
   ctx.font = "26px Helvetica";
@@ -625,7 +585,5 @@ function render() {
 
 }
 
-function boton(){
-  ws.send("hola");
-}
+
 

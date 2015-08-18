@@ -9,6 +9,8 @@ var Dungeon = {
   chanceCorridor : 85,
   dungeon_map : [],
   visible : [],
+  Aliens : [],
+  spawner : [],
   long_oldseed : 0,
   tileUnused : 0,
   tileDirtWall : 1,
@@ -17,21 +19,49 @@ var Dungeon = {
   tileCorridorh : 4,
   tileDirtFloor : 6,
   tileCorridorv : 5,
-  tileDownStairs : 7,
+  tileAlien : 7,
   tileChest : 8,
   tiledooropen : 9,
   tileExit : 100,
   xexit : 0,
   yexit : 0,
+  mapa : null,
       nh : 0,  //numero de habitaciones
       mpos : {"x":0, "y":0},
-  //misc. messages to print
-  msgXSize : "X size of dungeon: \t",
-  msgYSize : "Y size of dungeon: \t",
-  msgMaxObjects : "max # of objects: \t",
-  msgNumObjects : "# of objects made: \t",
-  msgHelp : "",
-  msgDetailedHelp : "",
+  
+
+  borrar: function (){
+ this.xsize = 0;
+  this.ysize = 0;
+  this.hx = 0;
+ this.hy = 0;
+  this.objects = 0;
+  this.chanceRoom = 55;
+  this.chanceCorridor = 85;
+  this.dungeon_map = [];
+  this.visible = [];
+  this.Aliens = [];
+  this.spawner = [];
+  this.long_oldseed = 0;
+  this.tileUnused = 0;
+  this.tileDirtWall = 1;
+  this.tileDoorclosed = 2;
+  this.tileStoneWall = 3;
+  this.tileCorridorh = 4;
+  this.tileDirtFloor = 6;
+  this.tileCorridorv = 5;
+  this.tileAlien = 7;
+  this.tileChest = 8;
+  this.tiledooropen = 9;
+  this.tileExit = 100;
+ this.xexit = 0;
+  this.yexit = 0;
+  this.mapa.data=[];
+      nh = 0;  //numero de habitaciones
+      mpos = {"x":0, "y":0};
+  
+  },
+
 
 
   createDungeon: function ( inx,  iny,  inobj) {
@@ -53,13 +83,15 @@ var Dungeon = {
   // System.out.println(msgMaxObjects + objects);
 
    //redefine the map var, so it's adjusted to our new map size
-   Dungeon.dungeon_map = [];
-   Dungeon.visible = [];
+   this.dungeon_map = [];
+   this.visible = [];
+   this.mapa=[];
+   this.Aliens=[];
   //for(x=0;x<Dungeon.xsize*Dungeon.ysize;x++){
   //   Dungeon.visible.push(true);
   // }
-
-
+   
+   
    //start with making the "standard stuff" on the map
    for ( y = 0; y < Dungeon.ysize; y++) {
     for ( x = 0; x < Dungeon.xsize; x++) {
@@ -183,8 +215,8 @@ var Dungeon = {
            //same thing here, add to the quota and a door
            currentFeatures++;
            Dungeon.setCell(newx, newy, Dungeon.tileDoorclosed);
-         //  exitx=newx;
-         //  exity=newy;
+           this.exitx=newx;
+           this.exity=newy;
        }
      }
    }
@@ -204,6 +236,8 @@ var Dungeon = {
 
    setCell: function ( x,  y,  celltype) {//pone una celda del tablero de un tipo (repe)
      Dungeon.dungeon_map[x + Dungeon.xsize * y] = celltype;
+
+    // if(celltype==7)  Dungeon.Aliens.push(new Alien((x,y,15, zerg,ancho)));
   },
 
   getCell: function ( x,  y) {//obtiene el valor de una celda del tablero
@@ -264,7 +298,57 @@ var Dungeon = {
   },
 
   setv: function ( x,  y) { //hace una celda visible
+    if(Dungeon.dungeon_map[x + Dungeon.xsize * y]==Dungeon.tileAlien && !Dungeon.isv(x,y)) Dungeon.spawner.push(new Nido(x,y,zergb,this.getRand(48,256)));
     Dungeon.visible[x + Dungeon.xsize * y] = true;
+    o=(x + 64 * y);
+    i=o*4;
+    switch(Dungeon.dungeon_map[o]){
+      case Dungeon.tileUnused:
+        {
+
+          this.mapa.data[i+0]=16;
+          this.mapa.data[i+1]=16;
+          this.mapa.data[i+2]=16;
+          this.mapa.data[i+3]=250;
+          break; 
+        }
+        case Dungeon.tileDirtWall:
+        {
+         
+          this.mapa.data[i+0]=250;
+          this.mapa.data[i+1]=0;
+          this.mapa.data[i+2]=0;
+          this.mapa.data[i+3]=250;
+          break; 
+        }
+        case Dungeon.tileDoorclosed:
+        {
+         this.mapa.data[i+0]=190;
+         this.mapa.data[i+1]=130;
+         this.mapa.data[i+2]=0;
+         this.mapa.data[i+3]=250;
+          break; 
+        }
+        case Dungeon.tileExit:
+        {
+         this.mapa.data[i+0]=0;
+         this.mapa.data[i+1]=0;
+         this.mapa.data[i+2]=255;
+         this.mapa.data[i+3]=250;
+        // alert("exit");
+          break; 
+        }
+        default:
+        {
+         this.mapa.data[i+0]=200;
+         this.mapa.data[i+1]=200;
+         this.mapa.data[i+2]=200;
+         this.mapa.data[i+3]=250;
+          break; 
+        }
+    }
+      
+    
   },
 
   unsetv: function ( x,  y) { //oscurece una celda
@@ -275,7 +359,54 @@ var Dungeon = {
     return Dungeon.visible[x + Dungeon.xsize * y];
   },
 
+  iniciamapa : function (mx,my) {
+ this.mapa=ctx.createImageData(64,64);
+  for (var i=0;i<this.mapa.data.length;i+=4)
+   {
+    if((i)%(mx*4)==0 || (i)%(mx*4)==mx*4-4 || (i<my*4) || i>mx*my*4-mx*4){
+          this.mapa.data[i+0]=250;
+          this.mapa.data[i+1]=0;
+          this.mapa.data[i+2]=0;
+          this.mapa.data[i+3]=250;
+    }else{
+          this.mapa.data[i+0]=0;
+          this.mapa.data[i+1]=0;
+          this.mapa.data[i+2]=0;
+          this.mapa.data[i+3]=250;
+    }
+   }
+    
+  },
 
+
+scaleImageData:function (imageData, scale) {
+    var scaled = ctx.createImageData(imageData.width * scale, imageData.height * scale);
+    var subLine = ctx.createImageData(scale, 1).data
+    for (var row = 0; row < imageData.height; row++) {
+        for (var col = 0; col < imageData.width; col++) {
+            var sourcePixel = imageData.data.subarray(
+                (row * imageData.width + col) * 4,
+                (row * imageData.width + col) * 4 + 4
+            );
+            for (var x = 0; x < scale; x++) subLine.set(sourcePixel, x*4)
+            for (var y = 0; y < scale; y++) {
+                var destRow = row * scale + y;
+                var destCol = col * scale;
+                scaled.data.set(subLine, (destRow * scaled.width + destCol) * 4)
+            }
+        }
+    }
+
+    return scaled;
+},
+
+
+
+  dibujamapa: function (x,y) {
+
+ctx.putImageData(this.scaleImageData(this.mapa,3.0),canvas.width-200,canvas.height-200);
+
+  },
 
 
   getRand : function ( low,  high) { //obtiene un nº aleatorio de low a high
