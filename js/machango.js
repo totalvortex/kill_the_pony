@@ -16,6 +16,7 @@ var Machango = { //clase para el personaje
   rafaga: 23,
   radio: 20,
   cosa : 0,
+  vida : 0,
 
   creamachango: function ( inx,  iny,  sprite, anchos) {
 
@@ -34,9 +35,11 @@ var Machango = { //clase para el personaje
     this.radio=16;
     this.rafaga=23;
     this.cosa=0;
+    this.vida=100;
   },
 
   update: function (){
+    if(this.vida>0){
     if(!this.mov){
       this.contadorquieto++;
       if(this.contadorquieto>100){
@@ -59,6 +62,7 @@ var Machango = { //clase para el personaje
       
 
     }
+  }
     //calculo del angulo de la torreta
     //this.alfa=Math.atan2(Dungeon.mpos.x-canvas.height/2+10,Dungeon.mpos.y-canvas.width/2+10);
     //this.giro=16-parseInt((this.alfa*Math.PI*1.9));
@@ -78,6 +82,7 @@ var Machango = { //clase para el personaje
 
 
 render: function(){
+  if(this.vida>0){
   if(!this.mov){
     if(this.disparando){
 
@@ -139,4 +144,13 @@ render: function(){
       this.disparando=false;
     }
   }
+  else{
+  if (this.vida > -6){
+    ctx.drawImage(this.machangoimg,16-ancho*this.vida,16+ancho*13,this.anchospr-16,this.anchospr-16,this.casx,this.casy,this.anchospr,this.anchospr);
+  } 
+  else{
+     ctx.drawImage(this.machangoimg,16+ancho*7,16+ancho*13,this.anchospr-16,this.anchospr-16,this.casx,this.casy,this.anchospr,this.anchospr);
+   }
+  }
+}
 }
