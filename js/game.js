@@ -22,24 +22,44 @@ var cx=0;
 var cy=0;
 var hx=0;
 var hy=0;
+var rooms=5;
+
 
 var init = function() {
-	var rooms=0;
-	var level=5;
+	ancho=64;
+	mapx=0;
+	mapy=0;
+	escala=1.0;
+	pm=2; //pixels por movimiento
+	mensaje = " ";
+	fps = 0;
+	Cujo = null;
+	gente = [];
+	maxaliens = 64;
+	click=false;
+	keysDown = {};
+	desplazamiento=ancho;
+	camino = [];
+	mmx=0,mmy=0;
+	xmin,ymin,xmax,ymax;
+
+	mx=0;
+	my=0;
+	cx=0;
+	cy=0;
+	hx=0;
+	hy=0;
+	rooms=3;
+	
 	ctx.fillStyle = "#222222";
 	ctx.fillRect(1,1,canvas.width-1,canvas.height-1);
 
 
 
-	while(Dungeon.nh<level ){ //genera el dungeon hasta que las habitaciones sea mayor que level
-	
-
-		ctx.drawImage(cargando,32, 32);
-
-		rooms=Dungeon.createDungeon(64,64,level);
-		alfa++;
+	while(Dungeon.nh<rooms && !Dungeon.puerta){ //genera el dungeon hasta que las habitaciones sea mayor que level
+		Dungeon.createDungeon(64,64,3);
 	}
-
+	
 
 
 
