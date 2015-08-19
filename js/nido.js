@@ -1,9 +1,10 @@
 function Nido(x,y,sprt,freq){
+
 	this.casx=x*ancho;
 	this.casy=y*ancho;
 	this.contador=0;
 	this.img=sprt;
-	this.anchospr=64;
+	this.anchospr=anchocuadro;
 	this.freq=freq;
 
 this.update=function (){
@@ -13,7 +14,6 @@ this.update=function (){
 	}
 }
 this.render=function(){
-	//alert("render");
 	ctx.drawImage(this.img,0,0,this.anchospr,this.anchospr,this.casx,this.casy,this.anchospr,this.anchospr);
 }
 

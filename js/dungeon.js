@@ -30,9 +30,9 @@ var Dungeon = {
   puerta : false,
       nh : 0,  //numero de habitaciones
       mpos : {"x":0, "y":0},
-  
 
- 
+
+
 
 
 
@@ -59,12 +59,12 @@ var Dungeon = {
    this.visible = [];
    this.mapa=[];
    this.Aliens=[];
-   
+
   //for(x=0;x<Dungeon.xsize*Dungeon.ysize;x++){
   //   Dungeon.visible.push(true);
   // }
-   
-   
+
+
    //start with making the "standard stuff" on the map
    for ( y = 0; y < Dungeon.ysize; y++) {
     for ( x = 0; x < Dungeon.xsize; x++) {
@@ -196,7 +196,7 @@ var Dungeon = {
   }
    },
  borrar: function (){
- 
+
   for(i=0;i<this.dungeon_map.length;i++) this.dungeon_map.pop();
   this.dungeon_map = [];
   for(i=0;i<this.visible.length;i++) this.visible[i]=false;
@@ -205,14 +205,14 @@ var Dungeon = {
   this.Aliens = [];
   for(i=0;i<this.spawner.length;i++) this.spawner.pop();
   this.spawner = [];
-  
+
   for(i=0;i<this.mapa.data.length;i++) this.mapa.data[i]=0;
   this.mapa.data=[];
   this.puerta=false;
   },
 
 
- 
+
 
    setcriatura: function ( x,  y,  celltype) { //pone una celda del tablero de un tipo
      Dungeon.critaturas[x + Dungeon.xsize * y] = celltype;
@@ -299,16 +299,16 @@ var Dungeon = {
           this.mapa.data[i+1]=16;
           this.mapa.data[i+2]=16;
           this.mapa.data[i+3]=250;
-          break; 
+          break;
         }
         case Dungeon.tileDirtWall:
         {
-         
+
           this.mapa.data[i+0]=250;
           this.mapa.data[i+1]=0;
           this.mapa.data[i+2]=0;
           this.mapa.data[i+3]=250;
-          break; 
+          break;
         }
         case Dungeon.tileDoorclosed:
         {
@@ -316,7 +316,7 @@ var Dungeon = {
          this.mapa.data[i+1]=130;
          this.mapa.data[i+2]=0;
          this.mapa.data[i+3]=250;
-          break; 
+          break;
         }
         case Dungeon.tileExit:
         {
@@ -325,7 +325,7 @@ var Dungeon = {
          this.mapa.data[i+2]=255;
          this.mapa.data[i+3]=250;
         // alert("exit");
-          break; 
+          break;
         }
         default:
         {
@@ -333,11 +333,11 @@ var Dungeon = {
          this.mapa.data[i+1]=200;
          this.mapa.data[i+2]=200;
          this.mapa.data[i+3]=250;
-          break; 
+          break;
         }
     }
-      
-    
+
+
   },
 
   unsetv: function ( x,  y) { //oscurece una celda
@@ -348,7 +348,7 @@ var Dungeon = {
     return Dungeon.visible[x + Dungeon.xsize * y];
   },
 
-  
+
 
 
 
@@ -369,7 +369,7 @@ var Dungeon = {
           this.mapa.data[i+3]=250;
     }
    }
-    
+
   },
 
 
