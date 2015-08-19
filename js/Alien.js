@@ -12,6 +12,11 @@ function Alien(x,y,r,sp,anc){
     this.animm=0;
 		this.pm=1.5;
     this.vida=1;
+    this.vidamax=1;
+    this.barravida=ctx.createImageData(2,16);
+
+    
+
 	this.CRcol=function (cx,cy,cr,rx,ry,rw) {
    var circleDistanceX = Math.abs(cx - rx - rw/2);
    var circleDistanceY = Math.abs(cy - ry - rw/2);
@@ -137,11 +142,69 @@ return col;
         this.pos=parseInt(this.contador/10);
         if(this.pos>2) this.pos=1;
       }
+
+
+      for (var i=0;i<this.barravida.data.length;i+=8) //borra la barra de vida
+       {
+
+          this.barravida.data[i+0]=250;
+          this.barravida.data[i+1]=0;
+          this.barravida.data[i+2]=0;
+          this.barravida.data[i+3]=250;
+          this.barravida.data[i+4]=250;
+          this.barravida.data[i+5]=0;
+          this.barravida.data[i+6]=0;
+          this.barravida.data[i+7]=250;
+    
+       }
+        aux=parseInt(this.vidamax/this.vida)*32;
+
+
+
+
+      for (var i=0;i<=aux;i+=8)  //dibuja la barra de vida
+       {
+
+          this.barravida.data[i+0]=0;
+          this.barravida.data[i+1]=0;
+          this.barravida.data[i+2]=0;
+          this.barravida.data[i+3]=250;
+          this.barravida.data[i+4]=0;
+          this.barravida.data[i+5]=0;
+          this.barravida.data[i+6]=0;
+          this.barravida.data[i+7]=250;
+    
+       }
     
 }
 else{
 if(this.animm<8)this.animm++;
  }
+
+
+
+
+}
+
+this.scaleImageData=function (imageData, scale) {
+    var scaled = ctx.createImageData(imageData.width * scale, imageData.height * scale);
+    var subLine = ctx.createImageData(scale, 1).data
+    for (var row = 0; row < imageData.height; row++) {
+        for (var col = 0; col < imageData.width; col++) {
+            var sourcePixel = imageData.data.subarray(
+                (row * imageData.width + col) * 4,
+                (row * imageData.width + col) * 4 + 4
+            );
+            for (var x = 0; x < scale; x++) subLine.set(sourcePixel, x*4)
+            for (var y = 0; y < scale; y++) {
+                var destRow = row * scale + y;
+                var destCol = col * scale;
+                scaled.data.set(subLine, (destRow * scaled.width + destCol) * 4)
+            }
+        }
+    }
+
+    return scaled;
 }
 
 this.render=function(){
@@ -187,13 +250,9 @@ if(this.vida>0){
         //mensaje="("+parseInt((this.casx+25)/ancho)+", "+parseInt((this.casy+25)/ancho)+")";
       }
     }
-
-
-
-      //  ctx.drawImage(this.img,0,0,this.anchospr,this.anchospr,this.casx,this.casy,this.anchospr,this.anchospr);
-        //ctx.drawImage(this.img,20,(this.pos*this.anchospr)+20,this.anchospr-20,this.anchospr-20,this.casx,this.casy,this.anchospr,this.anchospr);
-
-
+    ctx.putImageData(this.barravida,32+this.casx-Machango.casx+canvas.width/2,this.casy-Machango.casy+canvas.height/2); //dibuja la barra de vida
+   
+     
 	
 }
 else{
