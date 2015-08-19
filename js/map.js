@@ -33,6 +33,12 @@ zergb.onload = function () {
 };
 zergb.src = "images/agujero.png";
 
+var balaReady = false;
+var bala = new Image();
+bala.onload = function () {
+  balaReady = true;
+};
+bala.src = "images/bala.png";
 
 var tanqReady = false;
 var tanq = new Image();
@@ -47,6 +53,13 @@ marinez.onload = function () {
   marinezReady = true;
 };
 marinez.src = "images/marinez.png";
+
+var mapReady = false;
+var map = new Image();
+map.onload = function () {
+  mapReady = true;
+};
+map.src = "images/map.png";
 
 var piso0Ready = false;
 var piso0 = new Image();

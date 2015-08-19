@@ -14,7 +14,17 @@ addEventListener('mousemove', function(evt) { //funcion para los eventos de move
 
 addEventListener('click', function(evt) { //funcion para los eventos click del ratón
     Machango.disparando=!Machango.disparando;
-    var p=getmp(canvas,evt);
+  var p=getmp(canvas,evt);
+  if(Machango.balas.length<maxbalas){
+    angulo=Math.atan2(Dungeon.mpos.x-canvas.height/2-8,Dungeon.mpos.y-canvas.width/2-8);
+
+    Machango.balas.push(new Bala(p.x,p.y,3,bala,3,angulo));
+
+
+  }
+
+
+   
     if(Dungeon.Aliens.length>0)
     for(a=0;a<Dungeon.Aliens.length;a++){
       if(Dungeon.Aliens[a].CCcol((p.x-24+Machango.casx-canvas.width/2),(p.y-24+Machango.casy-canvas.height/2),3)) {
@@ -222,13 +232,17 @@ if(Dungeon.spawner.length>0)
    }
  
   Machango.update();
-   if(Dungeon.Aliens.length>0)
+   if(Machango.balas.length>0)
+    for(a=0;a<Machango.balas.length;a++){
+  
+   Machango.balas[a].update();
+   }
+
+if(Dungeon.Aliens.length>0)
     for(a=0;a<Dungeon.Aliens.length;a++){
   
    Dungeon.Aliens[a].update(Machango.casx,Machango.casy,Machango.radio,pm);
    }
-
-
 
 
 
@@ -270,7 +284,7 @@ function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abaj
     switch(dir){
       case 0:
       {
-        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy-pm,Machango.radio)) {
+        if(Dungeon.Aliens[a].CCcol(x,y-pm,radio)) {
            col=true;
            break;
          }
@@ -278,7 +292,7 @@ function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abaj
       }
       case 1:
       {
-        if(Dungeon.Aliens[a].CCcol(Machango.casx+pm,Machango.casy,Machango.radio)) {
+        if(Dungeon.Aliens[a].CCcol(x+pm,y,radio)) {
            col=true;
            break;
          }
@@ -286,7 +300,7 @@ function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abaj
       }
       case 2:
       {
-        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy+pm,Machango.radio)) {
+        if(Dungeon.Aliens[a].CCcol(x,y+pm,radio)) {
            col=true;
            break;
          }
@@ -294,7 +308,7 @@ function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abaj
       }
       case 3:
       {
-        if(Dungeon.Aliens[a].CCcol(Machango.casx-pm,Machango.casy,Machango.radio)) {
+        if(Dungeon.Aliens[a].CCcol(x-pm,y,radio)) {
            col=true;
            break;
          }
@@ -302,7 +316,7 @@ function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abaj
       }
       default:
       {
-        if(Dungeon.Aliens[a].CCcol(Machango.casx,Machango.casy,Machango.radio+pm)) {
+        if(Dungeon.Aliens[a].CCcol(x,y,radio+pm)) {
            col=true;
            break;
          }
@@ -538,7 +552,10 @@ if(Dungeon.spawner.length>0)
     Dungeon.Aliens[a].render();
    }
 
-   
+    if(Machango.balas.length>0)
+  for(a=0;a<Machango.balas.length;a++){
+    Machango.balas[a].render();
+   }
 
 
 
@@ -592,6 +609,7 @@ function render() {
   //dibuja Aliens;
   dibujaCujos();
 //dibuja mapa
+  ctx.drawImage(map,Machango.casx+canvas.width/2-208,Machango.casy+canvas.height/2-230,243,178);
   Dungeon.dibujamapa(10+Machango.casx-canvas.width/2,10+Machango.casy-canvas.height/2);
 
  //dibuja al personaje

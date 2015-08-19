@@ -84,6 +84,20 @@ this.colisonconmurox=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquie
   
 
 }
+ this.colisionaconaliens=function(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
+  var col=false;
+  for(a=0;a<Dungeon.Aliens.length;a++){
+ 
+      
+        if(Dungeon.Aliens[a].CCcol(x,y,radio)) {
+           col=true;
+           break;
+         }
+       }
+
+return col;
+
+}
 
 
 
@@ -96,7 +110,7 @@ this.colisonconmurox=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquie
       if(!this.CCcol(x,y,radio)){
 
 
-        if(!this.colisonconmuro(alfa)){
+        if(!this.colisonconmuro(alfa)){ //&& !this.colisionaconaliens(this.casx,this.casy,this.radio,this.alfa)){
 
          this.casx=this.casx+Math.sin(this.alfa)*this.pm;
     	   this.casy=this.casy+Math.cos(this.alfa)*this.pm;
