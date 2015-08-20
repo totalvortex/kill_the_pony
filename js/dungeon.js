@@ -8,7 +8,7 @@ var Dungeon = {
   objects : 0,
   chanceRoom : 55,
   chanceCorridor : 85,
-  dungeon_map : [],
+  int dungeon_map : [],
   visible : [],
   Aliens : [],
   spawner : [],
@@ -36,62 +36,49 @@ var Dungeon = {
 
 
 
-  createDungeon: function ( inx,  iny,  inobj) {
+  createDungeon: function ( inx,  iny,  inobj)
+  {
+    console.log("Creating Dungeon of size (x,y,lvl)= (" + inx + "," + iny + "," + inobj + ")");
+        /*******************************************************************************/
+    // Here's the one generating the whole map
+    if (inobj < 1) Dungeon.level = 3;
+    else Dungeon.level = inobj;
 
-    /*******************************************************************************/
-   // Here's the one generating the whole map
-   if (inobj < 1) Dungeon.level = 3;
-   else Dungeon.level = inobj;
+    // Adjust the size of the map if it's too small
+    if (inx < 3) Dungeon.xsize = 3;
+    else Dungeon.xsize = inx;
 
-   // Adjust the size of the map if it's too small
-   if (inx < 3) Dungeon.xsize = 3;
-   else Dungeon.xsize = inx;
+    if (iny < 3) Dungeon.ysize = 3;
+    else Dungeon.ysize = iny;
 
-   if (iny < 3) Dungeon.ysize = 3;
-   else Dungeon.ysize = iny;
+    //redefine the map var, so it's adjusted to our new map size
+    this.dungeon_map = [];
+    this.visible = [];
+    this.mapa=[];
+    this.Aliens=[];
 
-  // System.out.println(msgXSize + xsize);
-  // System.out.println(msgYSize + ysize);
-  // System.out.println(msgMaxObjects + objects);
-
-   //redefine the map var, so it's adjusted to our new map size
-   this.dungeon_map = [];
-   this.visible = [];
-   this.mapa=[];
-   this.Aliens=[];
-
-  //for(x=0;x<Dungeon.xsize*Dungeon.ysize;x++){
-  //   Dungeon.visible.push(true);
-  // }
-
-
-   //start with making the "standard stuff" on the map
-   for ( y = 0; y < Dungeon.ysize; y++) {
-    for ( x = 0; x < Dungeon.xsize; x++) {
-       //ie, making the borders of unwalkable walls
-       if (y == 0) Dungeon.setCell(x, y, 1);
-       else if (y == Dungeon.ysize-1) Dungeon.setCell(x, y, 1);
-       else if (x == 0) Dungeon.setCell(x, y, 1);
-       else if (x == Dungeon.xsize-1) Dungeon.setCell(x, y, 1);
-
-       //and fill the rest with dirt
-       else Dungeon.setCell(x, y, 0);
+    //start with making the "standard stuff" on the map
+    for ( y = 0; y < Dungeon.ysize; y++) {
+      for ( x = 0; x < Dungeon.xsize; x++) {
+        //ie, making the borders of unwalkable walls
+        if (y == 0) Dungeon.setCell(x, y, 1);
+        else if (y == Dungeon.ysize-1) Dungeon.setCell(x, y, 1);
+        else if (x == 0) Dungeon.setCell(x, y, 1);
+        else if (x == Dungeon.xsize-1) Dungeon.setCell(x, y, 1);
+         //and fill the rest with dirt
+        else Dungeon.setCell(x, y, 0);
+      }
      }
-   }
 
    if(!Dungeon.makeRoom(parseInt(Dungeon.xsize/2), parseInt(Dungeon.ysize/2),10,8,Dungeon.getRand(0,3))){
-    alert("habitacion central no creada");
-   }
+    console.log("habitacion central no creada");
+  }
 
-   if(exitx!=0 || exity!=0){
+  if(exitx!=0 || exity!=0){
     Dungeon.setCell(exitx,exity,99);
     hx=exitx;
     hy=exity;
-
-   }
-   // alert(Dungeon.dugeon_map.lenght+"TOTAL:"+Dungeon.xsize*Dungeon.ysize);
-
-
+  }
 
    //keep count of the number of "objects" we've made
     currentFeatures = 1; //+1 for the first room we just made
@@ -101,9 +88,8 @@ var Dungeon = {
    for (countingTries = 0; countingTries < 2000; countingTries++) {
 
      //check if we've reached our quota
-     if (currentFeatures == Dungeon.level) {
+    if (currentFeatures == Dungeon.level)
       break;
-     }
 
      //start with a random wall
      newx = 0;
@@ -112,91 +98,91 @@ var Dungeon = {
      ymod = 0;
      validTile = -1;
 
-     //1000 chances to find a suitable object (room or corridor)..
-     //(yea, i know it's kinda ugly with a for-loop... -_-')
+    //1000 chances to find a suitable object (room or corridor)..
+    //(yea, i know it's kinda ugly with a for-loop... -_-')
 
-     for ( testing = 0; testing < 2000; testing++) {
+    for ( testing = 0; testing < 2000; testing++) {
       newx = Dungeon.getRand(1, Dungeon.xsize-1);
       newy = Dungeon.getRand(1, Dungeon.ysize-1);
       validTile = -1;
 
-       //System.out.println("tempx: " + newx + "\ttempy: " + newy);
+      if (Dungeon.getCell(newx, newy) == Dungeon.tileDirtWall || Dungeon.getCell(newx, newy) == Dungeon.tileCorridorv|| Dungeon.getCell(newx, newy) == Dungeon.tileCorridorh) {
+        //check if we can reach the place
+        if (Dungeon.getCell(newx, newy+1) == Dungeon.tileDirtFloor || Dungeon.getCell(newx, newy) == Dungeon.tileCorridorv|| Dungeon.getCell(newx, newy) == Dungeon.tileCorridorh) {
+          validTile = 0; //
+          xmod = 0;
+          ymod = -1;
+        }
+        else if (Dungeon.getCell(newx-1, newy) == Dungeon.tileDirtFloor || Dungeon.getCell(newx-1, newy) == Dungeon.tileCorridorv || Dungeon.getCell(newx-1, newy) == Dungeon.tileCorridorh) {
+          validTile = 1; //
+          xmod = +1;
+          ymod = 0;
+        }
 
-       if (Dungeon.getCell(newx, newy) == Dungeon.tileDirtWall || Dungeon.getCell(newx, newy) == Dungeon.tileCorridorv|| Dungeon.getCell(newx, newy) == Dungeon.tileCorridorh) {
-         //check if we can reach the place
-         if (Dungeon.getCell(newx, newy+1) == Dungeon.tileDirtFloor || Dungeon.getCell(newx, newy) == Dungeon.tileCorridorv|| Dungeon.getCell(newx, newy) == Dungeon.tileCorridorh) {
-           validTile = 0; //
-           xmod = 0;
-           ymod = -1;
-         }
-         else if (Dungeon.getCell(newx-1, newy) == Dungeon.tileDirtFloor || Dungeon.getCell(newx-1, newy) == Dungeon.tileCorridorv || Dungeon.getCell(newx-1, newy) == Dungeon.tileCorridorh) {
-           validTile = 1; //
-           xmod = +1;
-           ymod = 0;
-         }
+        else if (Dungeon.getCell(newx, newy-1) == Dungeon.tileDirtFloor || Dungeon.getCell(newx, newy-1) == Dungeon.tileCorridorv|| Dungeon.getCell(newx, newy-1) == Dungeon.tileCorridorh) {
+          validTile = 2; //
+          xmod = 0;
+          ymod = +1;
+        }
 
-         else if (Dungeon.getCell(newx, newy-1) == Dungeon.tileDirtFloor || Dungeon.getCell(newx, newy-1) == Dungeon.tileCorridorv|| Dungeon.getCell(newx, newy-1) == Dungeon.tileCorridorh) {
-           validTile = 2; //
-           xmod = 0;
-           ymod = +1;
-         }
+        else if (Dungeon.getCell(newx+1, newy) == Dungeon.tileDirtFloor || Dungeon.getCell(newx+1, newy) == Dungeon.tileCorridorv|| Dungeon.getCell(newx+1, newy) == Dungeon.tileCorridorh) {
+          validTile = 3; //
+          xmod = -1;
+          ymod = 0;
+        }
 
-         else if (Dungeon.getCell(newx+1, newy) == Dungeon.tileDirtFloor || Dungeon.getCell(newx+1, newy) == Dungeon.tileCorridorv|| Dungeon.getCell(newx+1, newy) == Dungeon.tileCorridorh) {
-           validTile = 3; //
-           xmod = -1;
-           ymod = 0;
-         }
+        //check that we haven't got another door nearby, so we won't get alot of openings besides each other
 
-         //check that we haven't got another door nearby, so we won't get alot of openings besides each other
-
-         if (validTile > -1) {
-           if (Dungeon.getCell(newx, newy+1) == Dungeon.tileDoorclosed) //north
+        if (validTile > -1) {
+          if (Dungeon.getCell(newx, newy+1) == Dungeon.tileDoorclosed) //north
             validTile = -1;
-           else if (Dungeon.getCell(newx-1, newy) == Dungeon.tileDoorclosed)//east
+          else if (Dungeon.getCell(newx-1, newy) == Dungeon.tileDoorclosed)//east
             validTile = -1;
-           else if (Dungeon.getCell(newx, newy-1) == Dungeon.tileDoorclosed)//south
+          else if (Dungeon.getCell(newx, newy-1) == Dungeon.tileDoorclosed)//south
             validTile = -1;
-           else if (Dungeon.getCell(newx+1, newy) == Dungeon.tileDoorclosed)//west
+          else if (Dungeon.getCell(newx+1, newy) == Dungeon.tileDoorclosed)//west
             validTile = -1;
-         }
+          else
+            //if we can, jump out of the loop and continue with the rest
+            break;
+        }
 
-         //if we can, jump out of the loop and continue with the rest
-         if (validTile > -1) break;
-       }
-     }
+      }
+    }
 
-     if (validTile > -1) {
+    if (validTile > -1)
+    {
 
-       //choose what to build now at our newly found place, and at what direction
-       feature = Dungeon.getRand(0, 100);
+      //choose what to build now at our newly found place, and at what direction
+      feature = Dungeon.getRand(0, 100);
 
-       if (feature <= Dungeon.chanceRoom) { //a new room
+      if (feature <= Dungeon.chanceRoom) { //a new room
         if (Dungeon.makeRoom((newx+xmod), (newy+ymod),  10,8, validTile)) {
-           currentFeatures++; //add to our quota
+          currentFeatures++; //add to our quota
 
            //then we mark the wall opening with a door
-           Dungeon.setCell(newx, newy, Dungeon.tileDoorclosed);
+          Dungeon.setCell(newx, newy, Dungeon.tileDoorclosed);
 
            //clean up infront of the door so we can reach it
-           Dungeon.setCell((newx+xmod), (newy+ymod), Dungeon.tileDirtFloor);
+          Dungeon.setCell((newx+xmod), (newy+ymod), Dungeon.tileDirtFloor);
 
-         }
-       }
+        }
+      }
 
-       else if (feature >= Dungeon.chanceRoom) { //new corridor
+      else if (feature >= Dungeon.chanceRoom) { //new corridor
         if (Dungeon.makeCorridor((newx+xmod), (newy+ymod), 6, validTile)) {
            //same thing here, add to the quota and a door
-           currentFeatures++;
-           Dungeon.setCell(newx, newy, Dungeon.tileDoorclosed);
-           this.exitx=newx;
-           this.exity=newy;
-       }
-     }
-   }
+          currentFeatures++;
+          Dungeon.setCell(newx, newy, Dungeon.tileDoorclosed);
+          this.exitx=newx;
+          this.exity=newy;
+        }
+      }
+    }
   }
-   },
+ },
  borrar: function (){
-
+  console.log("Destroying map");
   for(i=0;i<this.dungeon_map.length;i++) this.dungeon_map.pop();
   this.dungeon_map = [];
   for(i=0;i<this.visible.length;i++) this.visible[i]=false;
@@ -209,23 +195,11 @@ var Dungeon = {
   for(i=0;i<this.mapa.data.length;i++) this.mapa.data[i]=0;
   this.mapa.data=[];
   this.puerta=false;
+  console.log("Map destroyed");
   },
 
-
-
-
-   setcriatura: function ( x,  y,  celltype) { //pone una celda del tablero de un tipo
-     Dungeon.critaturas[x + Dungeon.xsize * y] = celltype;
-  },
-
-  getcriatura: function ( x,  y) { //obtiene el valor de una celda del tablero
-   return Dungeon.critaturas[x + Dungeon.xsize * y];
-  },
-
-   setCell: function ( x,  y,  celltype) {//pone una celda del tablero de un tipo (repe)
-     Dungeon.dungeon_map[x + Dungeon.xsize * y] = celltype;
-
-    // if(celltype==7)  Dungeon.Aliens.push(new Alien((x,y,15, zerg,ancho)));
+  setCell: function ( x,  y,  celltype) {//pone una celda del tablero de un tipo (repe)
+    Dungeon.dungeon_map[x + Dungeon.xsize * y] = celltype;
   },
 
   getCell: function ( x,  y) {//obtiene el valor de una celda del tablero
@@ -655,28 +629,4 @@ ctx.putImageData(this.scaleImageData(this.mapa,3.0),canvas.width-200,canvas.heig
    return true;
   },
 
-  showDungeon:function () {
-    /*******************************************************************************/
-   //used to print the map on the screen
-   dungeonMap = "";
-   for ( y = 0; y < Dungeon.ysize; y++) {
-    for ( x = 0; x < Dungeon.xsize; x++) {
-      switch(Dungeon.getCell(x, y)) {
-        case 0: dungeonMap += "m"; break;
-        case 1: dungeonMap += "+"; break;
-        case 2: dungeonMap += "_"; break;
-        case 3: dungeonMap += "O"; break;
-        case 4: dungeonMap += "#"; break;
-        case 5: dungeonMap += "D"; break;
-        case 6: dungeonMap += "<"; break;
-        case 7: dungeonMap += ">"; break;
-        case 8: dungeonMap += "*"; break;
-      }
-    }
-    dungeonMap += "\n";
-   }
-   return dungeonMap;
-  }
-
-
-}
+} //fin clase dungeon

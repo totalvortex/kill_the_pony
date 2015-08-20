@@ -24,7 +24,7 @@ addEventListener('click', function(evt) { //funcion para los eventos click del r
         }
       //  mensaje = "";
     }
-       
+
 
   }, false);
 
@@ -213,18 +213,18 @@ function update () //actualiza las variables antes del render
   }
   if (87 in keysDown) { // Player holding "w"
     this.reboot();
-   
-   
+
+
   }
 if(Dungeon.spawner.length>0)
   for(a=0;a<Dungeon.spawner.length;a++){
     Dungeon.spawner[a].update();
    }
- 
+
   Machango.update();
    if(Dungeon.Aliens.length>0)
     for(a=0;a<Dungeon.Aliens.length;a++){
-  
+
    Dungeon.Aliens[a].update(Machango.casx,Machango.casy,Machango.radio,pm);
    }
 
@@ -235,14 +235,14 @@ if(Dungeon.spawner.length>0)
    //salida
   if(Dungeon.getCell(parseInt((Machango.casx+16)/ancho),parseInt((Machango.casy+16)/ancho))==Dungeon.tileExit){
     this.reboot();
-    
+
   }
 }
 
 function reboot(){
   delta=3000;
- 
-      Dungeon.borrar();  
+
+      Dungeon.borrar();
      ctx.translate(mapx,mapy);
      var lev=Dungeon.level+4;
    while(Dungeon.nh<lev && !Dungeon.puerta){ //genera el dungeon hasta que las habitaciones sea mayor que level
@@ -251,11 +251,11 @@ function reboot(){
       rooms=Dungeon.createDungeon(64,64,Dungeon.level);
     mensaje ="LEVEL "+ Dungeon.level;
       Dungeon.iniciamapa(64,64);
-     
+
       Machango.creamachango(hx,hy,marinez,48);
-      
+
       Dungeon.setCell(Dungeon.exitx,Dungeon.exity,Dungeon.tileExit);
-      
+
       mapx=Machango.casx-parseInt(canvas.width/2);//mapy+2;
       mapy=Machango.casy-parseInt(canvas.height/2);//mapy+2;
       ctx.translate(-mapx,-mapy);
@@ -309,7 +309,7 @@ function colisionaconaliens(x,y,radio,dir,pm){ //dir: 0 arriba 1 derecha, 2 abaj
 
       }
     }
-    
+
   }
 
 return col;
@@ -317,49 +317,8 @@ return col;
 }
 
 
-
-
-
-
-
-
-
-/*
-function hazcamino(x0, y0, x1, y1){ //algoritmo que te crea una linea de puntos desde x0,y0 hasta x1,y1 y las guarda en camino
-  camino=[];
-  var dx = Math.abs(x1-x0);
-  var dy = Math.abs(y1-y0);
-  var sx = (x0 < x1) ? 1 : -1;
-  var sy = (y0 < y1) ? 1 : -1;
-  var err = dx-dy;
-  var pox=0;
-  var poy=0;
-  var e2 = 2*err;
-  if (e2 >-dy){  pox=sx;}
-  if (e2 < dx){  poy=sy;}
-
-
-   //mensaje="Orcopos("+orcopos+"),("+pox+", "+poy+")";
-   while(true){
-
-    camino.push([x0, y0,pox,poy]);
-    pox=poy=0;
-
-    if ((x0==x1) && (y0==y1)) break;
-    var e2 = 2*err;
-    if (e2 >-dy){ err -= dy; x0  += sx; pox=sx;}
-    if (e2 < dx){ err += dx; y0  += sy; poy=sy;}
-
-   }
- }
-*/
 function dibujasuelo() //dibuja el suelo
 {
-  //ctx.translate(xmap,ymap);
-  //Dungeon.ver(hx,hy);
-
-
-
   if(ymin<0) ymin=0;
   if(xmin<0) xmin=0;
   if(xmax>Dungeon.xsize) xmax=Dungeon.xsize;
@@ -371,10 +330,8 @@ function dibujasuelo() //dibuja el suelo
     for(x=xmin;x<xmax+1;x++){
 
       if(Dungeon.isv(x,y)){
-
         var n =Dungeon.getCell(x,y);
-      //  if(n!=0) n=Dungeon.getRand(5,15);
-      //  var t =tablero[x*tablerow+y][1];
+
       if(n>12 && n<99){
         ctx.drawImage(piso0,x*ancho,y*ancho);
       }
@@ -387,18 +344,7 @@ function dibujasuelo() //dibuja el suelo
         }
 
         case 1:{
-          /*
-            ctx.shadowColor = "rgba( 0, 0, 0, 1.0 )";
-            ctx.shadowOffsetX = -2;
-            ctx.shadowOffsetY = -2;
-            ctx.shadowBlur = 8;*/
             ctx.drawImage(piso1,x*ancho,y*ancho);
-
-            //ctx.fillStyle ="rgba(127, 250, 0,0.4)";
-          //ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
-
-        //  ctx.drawImage(muros,24*ancho, ancho, ancho,ancho, x*ancho, y*ancho, ancho,ancho);
-
         break;
       }
       case 2:{
@@ -409,33 +355,18 @@ function dibujasuelo() //dibuja el suelo
       }
       case 3:{
         ctx.drawImage(piso11,x*ancho,y*ancho);
-          //   ctx.fillStyle ="rgba(0, 0, 0,0.7)";
-        //    ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
-
-
         break;
       }
         case 4:{//pasillov
           ctx.drawImage(pisopasillov,x*ancho,y*ancho);
-          // ctx.fillStyle ="rgba(250, 0, 250,0.2)";
-          // ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
-
-
           break;
         }
         case 5:{ //pasilloh
           ctx.drawImage(pisopasillo,x*ancho,y*ancho);
-          // ctx.fillStyle ="rgba(0, 0, 0,0.3)";
-          // ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
-
-
-
           break;
         }
         case 6:{
           ctx.drawImage(piso11,x*ancho,y*ancho);
-        //ctx.fillStyle ="rgba(255, 250,250,0.8)";
-        //ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
         break;
       }
           case 7:{ //spawners
@@ -538,7 +469,7 @@ if(Dungeon.spawner.length>0)
     Dungeon.Aliens[a].render();
    }
 
-   
+
 
 
 
@@ -598,7 +529,7 @@ function render() {
   Machango.render();
 
 
-  
+
   //Dungeon.dibujamapa(Machango.casx,Machango.casy);
   // Mensaje fps
   ctx.fillStyle = "rgb(250, 250, 250)";
