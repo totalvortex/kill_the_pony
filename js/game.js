@@ -9,7 +9,7 @@ var fps = 0;
 var Cujo = null;
 var gente = [];
 var maxaliens = 64;
-var maxbalas = 64;
+
 var click=false;
 var keysDown = {};
 var desplazamiento=ancho;

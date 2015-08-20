@@ -15,8 +15,8 @@ function Bala(x,y,ra,sprt,avance,angulo){
 this.colisionconmuro=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
   alfa=alfa%Math.PI;
   
-      if(Dungeon.getCell(parseInt((this.casx+this.av+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+this.av+this.radio*Math.cos(this.alfa))/ancho))>1
-        && Dungeon.getCell(parseInt((this.casx+this.av+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+this.av+this.radio*Math.cos(this.alfa))/ancho))!=Dungeon.tileAlien) {
+      if(Dungeon.getCell(parseInt((this.casx+this.av+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+this.av+this.radio*Math.cos(this.alfa))/ancho))>1){
+       // && Dungeon.getCell(parseInt((this.casx+this.av+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+this.av+this.radio*Math.cos(this.alfa))/ancho))!=Dungeon.tileAlien) {
                    
            return  false;
          
@@ -35,14 +35,11 @@ this.update=function (){
     if(this.activo){
 	this.contador++;
 	 var col=false;
-    // for(a=0;a<Dungeon.Aliens.length;a++){
- 
-      
+         
        if(!this.colisionconmuro(alfa)) {
             this.casx=this.casx+Math.sin(this.alfa)*this.av;
    			this.casy=this.casy+Math.cos(this.alfa)*this.av;
-   		//	alert("avance");
-        //    break;
+   		
        }else{
        	this.activo=false;
        }

@@ -38,6 +38,7 @@ var Machango = { //clase para el personaje
     this.cosa=0;
     this.vida=100;
     this.balas=[];
+    this.maxbalas=128;
   },
 
   update: function (){

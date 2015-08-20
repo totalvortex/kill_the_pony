@@ -18,9 +18,9 @@ addEventListener('click', function(evt) { //funcion para los eventos click del r
 
   //disipara una bala
 
-  if(Machango.balas.length<maxbalas){
+  if(Machango.balas.length<Machango.maxbalas){
     angulo=Math.atan2(p.x-canvas.height/2-8,p.y-canvas.width/2-8);
-    if(Machango.balas.length<maxbalas) Machango.balas.push(new Bala(Machango.casx+20,Machango.casy+20,8,bala,5,angulo));
+    if(Machango.balas.length<Machango.maxbalas) Machango.balas.push(new Bala(Machango.casx+20,Machango.casy+20,8,bala,5,angulo));
     else{
 
       Machango.balas.pop();
