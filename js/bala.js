@@ -1,6 +1,6 @@
 function Bala(x,y,ra,sprt,avance,angulo){
-	this.casx=x*ancho;
-	this.casy=y*ancho;
+	this.casx=x+(3+avance*Math.sin(angulo));
+	this.casy=y+(3+avance*Math.cos(angulo));
 	this.contador=0;
 	this.img=sprt;
 	this.anchospr=64;
@@ -9,30 +9,53 @@ function Bala(x,y,ra,sprt,avance,angulo){
 	this.radio=ra;
 	this.activo=true;
 
+
+
+
+this.colisionconmuro=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquierda:      /////pm puntos de movimiento (pixeles)
+  alfa=alfa%Math.PI;
+  
+      if(Dungeon.getCell(parseInt((this.casx+this.av+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+this.av+this.radio*Math.cos(this.alfa))/ancho))>1
+        && Dungeon.getCell(parseInt((this.casx+this.av+this.radio*Math.sin(this.alfa))/ancho),parseInt((this.casy+this.av+this.radio*Math.cos(this.alfa))/ancho))!=Dungeon.tileAlien) {
+                   
+           return  false;
+         
+         }
+         else{
+          return true;
+         } 
+ 
+
+  
+
+}
+
+
 this.update=function (){
     if(this.activo){
 	this.contador++;
 	 var col=false;
-     for(a=0;a<Dungeon.Aliens.length;a++){
+    // for(a=0;a<Dungeon.Aliens.length;a++){
  
       
-        if(Dungeon.Aliens[a].CCcol(this.casx,this.casy,this.radio) && Dungeon.Aliens[a].colisonconmuro(alfa)) {
+       if(!this.colisionconmuro(alfa)) {
             this.casx=this.casx+Math.sin(this.alfa)*this.av;
    			this.casy=this.casy+Math.cos(this.alfa)*this.av;
-            break;
-         }
-         else{
-         	this.activo=false;
-         	break;
-         }
+   		//	alert("avance");
+        //    break;
+       }else{
+       	this.activo=false;
        }
+      // }
+     //  }
    }
-},
+}
 
 
 this.render=function(){
 	if(this.activo){
-		ctx.drawImage(this.img,0,0,this.anchospr,this.anchospr,this.casx,this.casy,this.radio+avance,this.radio+avance);
+		//alert("render");
+		ctx.drawImage(this.img,0,0,this.anchospr,this.anchospr,this.casx,this.casy,this.radio,this.radio);
 	}
 }
 

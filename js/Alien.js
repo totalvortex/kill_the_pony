@@ -157,7 +157,7 @@ return col;
           this.barravida.data[i+7]=250;
     
        }
-        aux=parseInt(this.vidamax/this.vida)*32;
+        aux=parseInt(this.vidamax/this.vida)*32-32;
 
 
 

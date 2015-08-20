@@ -15,25 +15,24 @@ addEventListener('mousemove', function(evt) { //funcion para los eventos de move
 addEventListener('click', function(evt) { //funcion para los eventos click del ratón
     Machango.disparando=!Machango.disparando;
   var p=getmp(canvas,evt);
+
+  //disipara una bala
+
   if(Machango.balas.length<maxbalas){
-    angulo=Math.atan2(Dungeon.mpos.x-canvas.height/2-8,Dungeon.mpos.y-canvas.width/2-8);
+    angulo=Math.atan2(p.x-canvas.height/2-8,p.y-canvas.width/2-8);
+    if(Machango.balas.length<maxbalas) Machango.balas.push(new Bala(Machango.casx+20,Machango.casy+20,8,bala,5,angulo));
+    else{
 
-    Machango.balas.push(new Bala(p.x,p.y,3,bala,3,angulo));
-
+      Machango.balas.pop();
+      Machango.balas.push(new Bala(Machango.casx+20,Machango.casy+20,8,bala,5,angulo));
+    }
+   
 
   }
 
 
    
-    if(Dungeon.Aliens.length>0)
-    for(a=0;a<Dungeon.Aliens.length;a++){
-      if(Dungeon.Aliens[a].CCcol((p.x-24+Machango.casx-canvas.width/2),(p.y-24+Machango.casy-canvas.height/2),3)) {
-        Dungeon.Aliens[a].vida--;
-      //  mensaje="("+Dungeon.Aliens[a].casx+","+Dungeon.Aliens[a].casy+"), click en ("+(p.x-24+Machango.casx-canvas.width/2)+","+(p.y-24+Machango.casy-canvas.height/2)+")";
-        break;
-        }
-      //  mensaje = "";
-    }
+    
        
 
   }, false);
@@ -232,17 +231,32 @@ if(Dungeon.spawner.length>0)
    }
  
   Machango.update();
-   if(Machango.balas.length>0)
-    for(a=0;a<Machango.balas.length;a++){
   
-   Machango.balas[a].update();
-   }
 
 if(Dungeon.Aliens.length>0)
     for(a=0;a<Dungeon.Aliens.length;a++){
   
    Dungeon.Aliens[a].update(Machango.casx,Machango.casy,Machango.radio,pm);
    }
+
+
+//colisiones de balas con aliens
+
+for(a=0;a<Dungeon.Aliens.length;a++){
+  for(b=0;b<Machango.balas.length;b++){
+    if(Machango.balas[b].activo){
+      if(Dungeon.Aliens[a].CCcol((Machango.balas[b].casx),(Machango.balas[b].casy),Machango.balas[0].radio)){
+        Dungeon.Aliens[a].vida--;
+        Machango.balas[b].activo=false;
+      }
+    }
+  }
+}
+
+
+
+
+
 
 
 

@@ -171,7 +171,8 @@ var Dungeon = {
        feature = Dungeon.getRand(0, 100);
 
        if (feature <= Dungeon.chanceRoom) { //a new room
-        if (Dungeon.makeRoom((newx+xmod), (newy+ymod),  10,8, validTile)) {
+        var w=Dungeon.getRand(6,14);
+        if (Dungeon.makeRoom((newx+xmod), (newy+ymod), w,w-2, validTile)) {
            currentFeatures++; //add to our quota
 
            //then we mark the wall opening with a door

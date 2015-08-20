@@ -64,13 +64,12 @@ var Machango = { //clase para el personaje
       
 
     }
-    if(Machango.balas.length>0)
-      var balasaux = [];
-      for(a=0;a<Machango.balas.length;a++){
-  
-        if(Machango.balas[a].activo) Machango.balas[a].update();
-      }
+   if(Machango.balas.length>0){
       
+      for(a=0;a<Machango.balas.length;a++){
+          if(Machango.balas[a].activo) Machango.balas[a].update();
+      }
+   }
   }
     //calculo del angulo de la torreta
     //this.alfa=Math.atan2(Dungeon.mpos.x-canvas.height/2+10,Dungeon.mpos.y-canvas.width/2+10);
@@ -92,6 +91,10 @@ var Machango = { //clase para el personaje
 
 render: function(){
   if(this.vida>0){
+  if(Machango.balas.length>0) {
+    Machango.balas[0].render();
+
+  } 
   if(!this.mov){
     if(this.disparando){
 
