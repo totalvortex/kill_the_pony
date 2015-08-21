@@ -10,21 +10,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Kill the Poneys, javascript game,  js game">
-    <meta name="author" content="TotalVortex, g0ldan">
-		<title>Kill the Poneys!</title>
-
+    <meta name="author" content="TotalVortex, g0ldan, Morti">
+		<title>Kill the Poneys! BETA</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 	</head>
 
-	<body >
-        <script src="js/init.js"></script>
-        <script src="js/map.js"></script>
-        <script src="js/drawing.js"></script>
+	<body>
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="text-center italic bold"><em>Kill the Poney!</em></h1>
+                <hr/>
+                <section id="HUD">
 
-        <script src="js/alien.js"></script>
-        <script src="js/nido.js"></script>
-        <script src="js/dungeon.js"></script>
-        <script src="js/machango.js"></script>
-		<script src="js/game.js"></script>
-
+                    <div class="progress">
+                      <div id="lifeCounter" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="-10" aria-valuemax="100" style="width:100%">100%</div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-6">
+                <canvas id="canvas" class="" style="width:768px;height:768px"></canvas>
+            </div>
+        </div>
+        <hr class="divider">
 	</body>
+
+    <script src="js/init.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/drawing.js"></script>
+    <script src="js/alien.js"></script>
+    <script src="js/nido.js"></script>
+    <script src="js/dungeon.js"></script>
+    <script src="js/machango.js"></script>
+    <script src="js/game.js"></script>
 </html>

@@ -3,12 +3,10 @@ var Dungeon = {
   level : 0,
   xsize : 0,
   ysize : 0,
-  hx : 0,
-  hy : 0,
   objects : 0,
   chanceRoom : 55,
   chanceCorridor : 85,
-  int dungeon_map : [],
+  dungeon_map : [],
   visible : [],
   Aliens : [],
   spawner : [],
@@ -180,6 +178,7 @@ var Dungeon = {
       }
     }
   }
+  console.log("Dungeon created");
  },
  borrar: function (){
   console.log("Destroying map");

@@ -1,31 +1,29 @@
 
 
-var anchocuadro=64;
+var anchocuadro=64; //nº de pixeles por baldosa
 var mapx=0;
 var mapy=0;
 var escala=1.0;
 var pm=2; //pixels por movimiento
 var mensaje = " ";
 var fps = 0;
-var Cujo = null;
-var gente = [];
+var Cujo = null; //animal companion of the player character (disabled)
 var maxaliens = 64;
-var click=false;
-var keysDown = {};
+var click=false; //keeps record of the mouse clicking
+var keysDown = {}; //array of pressed keys at any given time
 var xmin,ymin,xmax,ymax;
-var mx=0;
-var my=0;
-var cx=0;
-var cy=0;
-var hx=0;
-var hy=0;
-var rooms=5;
+var mx=0; //position x of machango?
+var my=0; //position y of machango?
+var cx=0; //position x of cujo?
+var cy=0; //position y of cujo?
+var hx=0; //initial position starting the game, x
+var hy=0; //initial position starting the game, y
+var rooms=5; //nbr of rooms by default
 
 // Create the canvas
-var canvas = document.createElement("canvas");
+var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-canvas.width = 768;
-canvas.height = 768;
+var lifeCounter = document.getElementById("lifeCounter");
 var alfa=0.0;
 
 
@@ -39,7 +37,7 @@ var main = function () {
     render();
     then = now;
     delta = now - then;
-    setTimeout(main,1000/80-delta);
+    var renderTime = setTimeout(main,1000/80-delta);
 };
 
 var init = function() {
@@ -50,7 +48,7 @@ var init = function() {
 
 
   while(Dungeon.nh<rooms && !Dungeon.puerta){
-  //genera el dungeon hasta que las habitaciones sea mayor que level
+  //genera el dungeon hasta que las habitaciones sean mayor que level
     Dungeon.createDungeon(anchocuadro,anchocuadro,3);
   }
 
@@ -63,14 +61,14 @@ var init = function() {
 
 
 
-Dungeon.iniciamapa(anchocuadro,anchocuadro);
-Dungeon.setCell(Dungeon.exitx,Dungeon.exity,Dungeon.tileExit);
-ctx.translate(0,0);
-mapx=Machango.casx-parseInt(canvas.width/2);//mapy+2;
-mapy=Machango.casy-parseInt(canvas.height/2);//mapy+2;
-ctx.translate(-mapx,-mapy);
+  Dungeon.iniciamapa(anchocuadro,anchocuadro);
+  Dungeon.setCell(Dungeon.exitx,Dungeon.exity,Dungeon.tileExit);
+  ctx.translate(0,0);
+  mapx=Machango.casx-parseInt(canvas.width/2);//mapy+2;
+  mapy=Machango.casy-parseInt(canvas.height/2);//mapy+2;
+  ctx.translate(-mapx,-mapy);
 
-then = now;
-delta = now - then;
-setTimeout(main,delta);
+  then = now;
+  delta = now - then;
+  var gameTime = setTimeout(main,delta);
 };

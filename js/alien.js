@@ -112,7 +112,6 @@ this.colisonconmurox=function(alfa){//dir: 0 arriba 1 derecha, 2 abajo, 3 izquie
      else {
       corriendo=0;
       Machango.vida--;
-
     }
 
 	//mensaje="Giro:" +this.giro + " Alfa:" + this.alfa;

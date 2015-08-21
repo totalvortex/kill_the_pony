@@ -51,6 +51,7 @@ var Machango = { //clase para el personaje
   },
 
   render: function(){
+    this.updateLifeCounter(); //after redrawing the player character, update his stats
     if(this.vida>0){
     if(!this.mov){
       if(this.disparando){
@@ -86,8 +87,6 @@ var Machango = { //clase para el personaje
           ctx.restore();
         }
         else{
-
-
           ctx.drawImage(this.machangoimg,16+ancho*this.pos,16+ancho*(this.contador+4),this.anchospr-16,this.anchospr-16,this.casx,this.casy,this.anchospr,this.anchospr);
         }
         this.disparando=false;
@@ -98,8 +97,28 @@ var Machango = { //clase para el personaje
       ctx.drawImage(this.machangoimg,16-ancho*this.vida,16+ancho*13,this.anchospr-16,this.anchospr-16,this.casx,this.casy,this.anchospr,this.anchospr);
     }
     else{
-       ctx.drawImage(this.machangoimg,16+ancho*7,16+ancho*13,this.anchospr-16,this.anchospr-16,this.casx,this.casy,this.anchospr,this.anchospr);
+      ctx.drawImage(this.machangoimg,16+ancho*7,16+ancho*13,this.anchospr-16,this.anchospr-16,this.casx,this.casy,this.anchospr,this.anchospr);
+      EndGame;
      }
     }
+
+  },
+  updateLifeCounter: function(){ //updates the lifeCounter in the HUD based on the remaining life of the player character
+    lifeCounter.setAttribute("aria-valuenow",this.vida);
+    lifeCounter.style.width = "".concat(this.vida, "%");
+    //console.log(lifeCounter.style.width);
+    lifeCounter.innerHTML = this.vida;
+    switch(this.vida){
+      case (this.vida>80):
+        lifeCounter.classList.add("progress-bar-success");
+      break;
+      case (this.vida>50):
+        lifeCounter.classList.add("progress-bar-warning");
+      break;
+      case (this.vida<21):
+        lifeCounter.classList.add("progress-bar-danger");
+      break;
+    }
   }
+
 }
