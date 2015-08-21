@@ -5,7 +5,7 @@ function llama(x,y,sprt,avance,distanciamax,angulo){
 
 	this.casy=y+(-24+32*Math.cos(angulo));
 	this.casyinit=this.casy;
-
+	this.radio=6;
 	this.contador=0;
 	this.img=sprt;
 	this.anchospr=64;
@@ -43,8 +43,9 @@ this.update=function (){
     if(this.activo){
 	
 	 var col=false;
-         
-       if(this.colisionconmuro(alfa)) {
+       this.radio++;
+       if(this.radio>24) this.radio=24;
+    //   if(this.colisionconmuro(alfa)) {
             this.casx=this.casx+Math.sin(this.alfa)*this.av;
    			this.casy=this.casy+Math.cos(this.alfa)*this.av;
    			this.spx++;
@@ -57,7 +58,7 @@ this.update=function (){
    					this.activo=false;
    				}
    			}
-   	}
+   //	}
      //  }else{
      //  	this.activo=false;
      //  }

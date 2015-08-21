@@ -295,7 +295,7 @@ function update() // actualiza las variables antes del render
 	for (a = 0; a < Dungeon.Aliens.length; a++) {
 		for (b = 0; b < Machango.balas.length; b++) {
 			if (Machango.balas[b].activo) {
-				if (Dungeon.Aliens[a].CCcol((Machango.balas[b].casx),(Machango.balas[b].casy-8), Machango.balas[0].radio)) {
+				if (Dungeon.Aliens[a].CCcol((Machango.balas[b].casx),(Machango.balas[b].casy-8), Machango.balas[b].radio)) {
 					Dungeon.Aliens[a].vida--;
 					Machango.balas[b].activo = false;
 				}
