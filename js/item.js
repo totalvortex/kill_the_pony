@@ -1,4 +1,5 @@
 function item(x,y,ti,sprt){
+  
 	this.casx=x*ancho+ancho/4;
 	this.casy=y*ancho+ancho/4;
 	this.tipo=ti; //tipo

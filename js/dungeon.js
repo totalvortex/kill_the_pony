@@ -93,7 +93,7 @@ var Dungeon = {
 			alert("habitacion central no creada");
 		}
 
-		if (exitx != 0 || exity != 0) {
+		if (exitx !== 0 || exity !== 0) {
 			Dungeon.setCell(exitx, exity, 99);
 			hx = exitx;
 			hy = exity;
@@ -485,7 +485,7 @@ var Dungeon = {
 			for (ytemp = y; ytemp > (y - len); ytemp--) {
 				if (ytemp < 0 || ytemp > Dungeon.ysize)
 					return false; // oh boho, it was!
-				if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+				if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 					return false;
 			}
 
@@ -516,7 +516,7 @@ var Dungeon = {
 			for (xtemp = x; xtemp < (x + len); xtemp++) {
 				if (xtemp < 0 || xtemp > Dungeon.xsize)
 					return false;
-				if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+				if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 					return false;
 			}
 
@@ -544,7 +544,7 @@ var Dungeon = {
 			for (ytemp = y; ytemp < (y + len); ytemp++) {
 				if (ytemp < 0 || ytemp > Dungeon.ysize)
 					return false;
-				if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+				if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 					return false;
 			}
 
@@ -574,7 +574,7 @@ var Dungeon = {
 			for (xtemp = x; xtemp > (x - len); xtemp--) {
 				if (xtemp < 0 || xtemp > Dungeon.xsize)
 					return false;
-				if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+				if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 					return false;
 			}
 
@@ -631,7 +631,7 @@ var Dungeon = {
 						+ parseInt((xlen + 1) / 2); xtemp++) {
 					if (xtemp < 0 || xtemp > Dungeon.xsize)
 						return false;
-					if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+					if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 						return false; // no space left...
 
 				}
@@ -669,7 +669,7 @@ var Dungeon = {
 				for (xtemp = x; xtemp < (x + xlen); xtemp++) {
 					if (xtemp < 0 || xtemp > Dungeon.xsize)
 						return false;
-					if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+					if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 						return false;
 				}
 			}
@@ -703,7 +703,7 @@ var Dungeon = {
 						+ parseInt((xlen + 1) / 2); xtemp++) {
 					if (xtemp < 0 || xtemp > Dungeon.xsize)
 						return false;
-					if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+					if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 						return false;
 				}
 			}
@@ -738,7 +738,7 @@ var Dungeon = {
 				for (xtemp = x; xtemp > (x - xlen); xtemp--) {
 					if (xtemp < 0 || xtemp > Dungeon.xsize)
 						return false;
-					if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+					if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 						return false;
 				}
 			}

@@ -12,24 +12,14 @@ addEventListener('mousemove', function(evt) { // funcion para los eventos de
 
 }, false);
 
-addEventListener('click', function(evt) { // funcion para los eventos click
+addEventListener('mousedown', function(evt) { // funcion para los eventos click
 											// del ratón
 	Machango.disparando = !Machango.disparando;
 	var p = getmp(canvas, evt);
 
 	// disipara una bala
 
-	if (Machango.balas.length < Machango.maxbalas) {
-		angulo = Math.atan2(p.x - canvas.height / 2 - 16, p.y - canvas.width / 2 -8);
-		if (Machango.balas.length < Machango.maxbalas)
-			Machango.balas.push(new Bala(Machango.casx + 20, Machango.casy + 20, 8, bala, 5, angulo));
-		else {
-
-			Machango.balas.pop();
-			Machango.balas.push(new Bala(Machango.casx + 20, Machango.casy + 20, 8, bala, 5, angulo));
-		}
-
-	}
+	
 
 }, false);
 
@@ -321,8 +311,23 @@ if(Dungeon.items.length>0){
     }
   }
 }
+//lanzallamas
+if(Machango.disparando){
+if (Machango.balas.length < Machango.maxbalas) {
+    angulo = Math.atan2(Dungeon.mpos.x - canvas.height / 2 - 16, Dungeon.mpos.y - canvas.width / 2 -8);
+    if (Machango.balas.length < Machango.maxbalas)
+    //  Machango.balas.push(new Bala(Machango.casx + 20, Machango.casy + 20, 8, bala, 5, angulo));
+    Machango.balas.push(new llama(Machango.casx + 20, Machango.casy + 20, fuego , 8, 256, angulo));
+    else {
 
+      Machango.balas.pop();
+    //  Machango.balas.push(new Bala(Machango.casx + 20, Machango.casy + 20, 8, bala, 5, angulo));
+     Machango.balas.push(new llama(Machango.casx + 20, Machango.casy + 20, fuego , 12, 256, angulo));
+     // x,y,sprt,avance,distanciamax,angulo
+    }
 
+  }
+}
 	// salida
 	if (Dungeon.getCell(parseInt((Machango.casx + 16) / ancho),
 			parseInt((Machango.casy + 16) / ancho)) == Dungeon.tileExit) {
