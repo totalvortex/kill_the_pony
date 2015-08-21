@@ -53,16 +53,8 @@ function Alien(x, y, r, sp, anc) {
 											// movimiento (pixeles)
 		alfa = alfa % Math.PI;
 
-		if (Dungeon.getCell(parseInt((this.casx + 16 + this.radio
-				* Math.sin(this.alfa))
-				/ ancho), parseInt((this.casy + 16 + this.radio
-				* Math.cos(this.alfa))
-				/ ancho)) > 1
-				&& Dungeon.getCell(parseInt((this.casx + 16 + this.radio
-						* Math.sin(this.alfa))
-						/ ancho), parseInt((this.casy + 16 + this.radio
-						* Math.cos(this.alfa))
-						/ ancho)) != Dungeon.tileAlien) {
+		if (Dungeon.getCell(parseInt((this.casx + 16 + this.radio	* Math.sin(this.alfa)) / ancho), parseInt((this.casy + 16 + this.radio * Math.cos(this.alfa)) / ancho)) > 1
+				&& Dungeon.getCell(parseInt((this.casx + 16 + this.radio * Math.sin(this.alfa))	/ ancho), parseInt((this.casy + 16 + this.radio	* Math.cos(this.alfa)) / ancho)) != Dungeon.tileAlien) {
 
 			return false;
 
@@ -76,9 +68,7 @@ function Alien(x, y, r, sp, anc) {
 											// movimiento (pixeles)
 		alfa = alfa % Math.PI;
 
-		if (Dungeon.getCell(parseInt((this.casx + 16 + this.radio
-				* Math.sin(this.alfa))
-				/ ancho), parseInt((this.casy + 16) / ancho)) > 1) {
+		if (Dungeon.getCell(parseInt((this.casx + 16 + this.radio	* Math.sin(this.alfa)) / ancho), parseInt((this.casy + 16) / ancho)) > 1) {
 
 			return false;
 
@@ -93,8 +83,7 @@ function Alien(x, y, r, sp, anc) {
 		alfa = alfa % Math.PI;
 
 		if (Dungeon.getCell(parseInt((this.casx + 16) / ancho),
-				parseInt((this.casy + 16 + this.radio * Math.cos(this.alfa))
-						/ ancho)) > 1) {
+				parseInt((this.casy + 16 + this.radio * Math.cos(this.alfa)) / ancho)) > 1) {
 
 			return false;
 
@@ -169,6 +158,7 @@ function Alien(x, y, r, sp, anc) {
 				this.barravida.data[i + 1] = 0;
 				this.barravida.data[i + 2] = 0;
 				this.barravida.data[i + 3] = 250;
+
 				this.barravida.data[i + 4] = 250;
 				this.barravida.data[i + 5] = 0;
 				this.barravida.data[i + 6] = 0;
@@ -184,6 +174,7 @@ function Alien(x, y, r, sp, anc) {
 				this.barravida.data[i + 1] = 0;
 				this.barravida.data[i + 2] = 0;
 				this.barravida.data[i + 3] = 250;
+
 				this.barravida.data[i + 4] = 0;
 				this.barravida.data[i + 5] = 0;
 				this.barravida.data[i + 6] = 0;
