@@ -21,7 +21,6 @@ function Nido(x, y, sprt, freq) {
 	this.reproducir = function() {
 		if (Dungeon.Aliens.length > maxaliens)
 			Dungeon.Aliens.pop();
-		Dungeon.Aliens.push(new Alien(parseInt(this.casx / this.anchospr),
-				parseInt(this.casy / this.anchospr), 9, zerg, ancho));
+		Dungeon.Aliens.push(new Alien(parseInt(this.casx / this.anchospr), parseInt(this.casy / this.anchospr), 6, zerg, ancho));
 	}
 }

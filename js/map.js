@@ -17,6 +17,14 @@ cargando.onload = function() {
 
 cargando.src = "images/cargando.png";
 
+var botiquinReady = false;
+var botiquin = new Image();
+botiquin.onload = function() {
+  botiquinReady = true;
+};
+
+botiquin.src = "images/botiquin.png";
+
 var zergReady = false;
 var zerg = new Image();
 zerg.onload = function() {

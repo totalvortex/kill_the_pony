@@ -11,6 +11,7 @@ var Dungeon = {
 	visible : [],
 	Aliens : [],
 	spawner : [],
+  items : [],
 	long_oldseed : 0,
 	tileUnused : 0,
 	tileDirtWall : 1,
@@ -62,7 +63,8 @@ var Dungeon = {
 		this.visible = [];
 		this.mapa = [];
 		this.Aliens = [];
-
+    this.items = [];
+    this.spawner = [];
 		// for(x=0;x<Dungeon.xsize*Dungeon.ysize;x++){
 		// Dungeon.visible.push(true);
 		// }
@@ -342,9 +344,11 @@ var Dungeon = {
 	},
 
 	setv : function(x, y) { // hace una celda visible
-		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileAlien
-				&& !Dungeon.isv(x, y))
+		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileAlien	&& !Dungeon.isv(x, y))
 			Dungeon.spawner.push(new Nido(x, y, zergb, this.getRand(48, 256)));
+    if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileChest && !Dungeon.isv(x, y))
+      Dungeon.items.push(new item(x, y, 1, botiquin));
+
 		Dungeon.visible[x + Dungeon.xsize * y] = true;
 		o = (x + 64 * y);
 		i = o * 4;
@@ -607,7 +611,7 @@ var Dungeon = {
 		ylen = Dungeon.getRand(5, ylength);
 
 		// the tile type it's going to be filled with
-		floor = Dungeon.getRand(5, 15);
+		floor = Dungeon.getRand(5, 9);
 		wall = Dungeon.tileDirtWall; // jordv????gg
 
 		// choose the way it's pointing at

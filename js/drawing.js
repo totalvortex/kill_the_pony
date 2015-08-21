@@ -20,8 +20,7 @@ addEventListener('click', function(evt) { // funcion para los eventos click
 	// disipara una bala
 
 	if (Machango.balas.length < Machango.maxbalas) {
-		angulo = Math.atan2(p.x - canvas.height / 2 - 8, p.y - canvas.width / 2
-				- 8);
+		angulo = Math.atan2(p.x - canvas.height / 2 - 16, p.y - canvas.width / 2 -8);
 		if (Machango.balas.length < Machango.maxbalas)
 			Machango.balas.push(new Bala(Machango.casx + 20, Machango.casy + 20, 8, bala, 5, angulo));
 		else {
@@ -294,7 +293,7 @@ function update() // actualiza las variables antes del render
 
 	Machango.update();
 
-	if (Dungeon.Aliens.length > 0)
+	if (Dungeon.Aliens.length > 0){
 		for (a = 0; a < Dungeon.Aliens.length; a++) {
 
 			Dungeon.Aliens[a].update(Machango.casx, Machango.casy,
@@ -306,14 +305,23 @@ function update() // actualiza las variables antes del render
 	for (a = 0; a < Dungeon.Aliens.length; a++) {
 		for (b = 0; b < Machango.balas.length; b++) {
 			if (Machango.balas[b].activo) {
-				if (Dungeon.Aliens[a].CCcol((Machango.balas[b].casx),
-						(Machango.balas[b].casy), Machango.balas[0].radio)) {
+				if (Dungeon.Aliens[a].CCcol((Machango.balas[b].casx),(Machango.balas[b].casy-8), Machango.balas[0].radio)) {
 					Dungeon.Aliens[a].vida--;
 					Machango.balas[b].activo = false;
 				}
 			}
 		}
 	}
+}
+if(Dungeon.items.length>0){
+  for(i=0;i<Dungeon.items.length;i++){
+    if(Dungeon.items[i].CCcol(Machango.casx,Machango.casy,Machango.radio)){
+      Dungeon.items[i].activo=false;
+      Machango.vida+=25;
+    }
+  }
+}
+
 
 	// salida
 	if (Dungeon.getCell(parseInt((Machango.casx + 16) / ancho),
@@ -502,6 +510,8 @@ function dibujasuelo() // dibuja el suelo
 						break;
 					}
 					case 8: {
+            ctx.fillStyle = "rgba(255, 255, 0,0.7)";
+            ctx.fillRect(x * ancho, y * ancho, ancho, ancho);
 						ctx.drawImage(piso0, x * ancho, y * ancho);
 
 						break;
@@ -582,8 +592,15 @@ function dibujasuelo() // dibuja el suelo
 
 }
 
-function dibujaCujos() {
-	if (Dungeon.spawner.length > 0)
+function dibujaobj() {
+
+  if (Dungeon.items.length > 0) //dibuja items
+    for (a = 0; a < Dungeon.items.length; a++) {
+      Dungeon.items[a].render();
+    }
+  
+
+  if (Dungeon.spawner.length > 0)
 		for (a = 0; a < Dungeon.spawner.length; a++) {
 			Dungeon.spawner[a].render();
 		}
@@ -597,7 +614,6 @@ function dibujaCujos() {
 		for (a = 0; a < Machango.balas.length; a++) {
 			Machango.balas[a].render();
 		}
-
 }
 
 var fps = { // calcula los fps
@@ -635,7 +651,7 @@ function render() {
 	dibujasuelo();
 
 	// dibuja Aliens;
-	dibujaCujos();
+	dibujaobj();
 	// dibuja mapa
 	ctx.drawImage(map, Machango.casx + canvas.width / 2 - 208, Machango.casy
 			+ canvas.height / 2 - 230, 243, 178);

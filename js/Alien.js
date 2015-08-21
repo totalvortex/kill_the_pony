@@ -1,6 +1,6 @@
 function Alien(x, y, r, sp, anc) {
-	this.casx = x * ancho + ancho / 8 + 3;
-	this.casy = y * ancho + ancho / 8;
+	this.casx = x * ancho + 14;
+	this.casy = y * ancho + 24;
 	this.radio = r;
 	this.img = sp;
 	this.anchospr = anc;
@@ -189,31 +189,10 @@ function Alien(x, y, r, sp, anc) {
 
 	}
 
-	this.scaleImageData = function(imageData, scale) {
-		var scaled = ctx.createImageData(imageData.width * scale,
-				imageData.height * scale);
-		var subLine = ctx.createImageData(scale, 1).data
-		for (var row = 0; row < imageData.height; row++) {
-			for (var col = 0; col < imageData.width; col++) {
-				var sourcePixel = imageData.data.subarray((row
-						* imageData.width + col) * 4,
-						(row * imageData.width + col) * 4 + 4);
-				for (var x = 0; x < scale; x++)
-					subLine.set(sourcePixel, x * 4)
-				for (var y = 0; y < scale; y++) {
-					var destRow = row * scale + y;
-					var destCol = col * scale;
-					scaled.data.set(subLine,
-							(destRow * scaled.width + destCol) * 4)
-				}
-			}
-		}
-
-		return scaled;
-	}
-
+	
 	this.render = function() {
 		if (this.vida > 0) {
+
 			if (this.giro < 0)
 				this.giro = 0;
 			if (this.corriendo == 0) {
@@ -268,6 +247,8 @@ function Alien(x, y, r, sp, anc) {
 			ctx.putImageData(this.barravida, 32 + this.casx - Machango.casx
 					+ canvas.width / 2, this.casy - Machango.casy
 					+ canvas.height / 2); // dibuja la barra de vida
+
+       
 
 		} else {
 			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (13),
