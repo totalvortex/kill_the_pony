@@ -40,7 +40,7 @@ function Alien(x, y, r, sp, anc) {
 	}
 
 	this.CCcol = function(x1, y1, w1) { // colision del circulo x1,y1 con radio
-										// w1 con el x2,y2 con radio w2
+		// w1 con el x2,y2 con radio w2
 		var xd = x1 - this.casx;
 		var yd = y1 - this.casy;
 		var wt = this.radio + w1;
@@ -49,12 +49,20 @@ function Alien(x, y, r, sp, anc) {
 	}
 
 	this.colisonconmuro = function(alfa) {// dir: 0 arriba 1 derecha, 2 abajo,
-											// 3 izquierda: /////pm puntos de
-											// movimiento (pixeles)
+		// 3 izquierda: /////pm puntos de
+		// movimiento (pixeles)
 		alfa = alfa % Math.PI;
 
-		if (Dungeon.getCell(parseInt((this.casx + 16 + this.radio	* Math.sin(this.alfa)) / ancho), parseInt((this.casy + 16 + this.radio * Math.cos(this.alfa)) / ancho)) > 1
-				&& Dungeon.getCell(parseInt((this.casx + 16 + this.radio * Math.sin(this.alfa))	/ ancho), parseInt((this.casy + 16 + this.radio	* Math.cos(this.alfa)) / ancho)) != Dungeon.tileAlien) {
+		if (Dungeon.getCell(parseInt((this.casx + 16 + this.radio
+				* Math.sin(this.alfa))
+				/ ancho), parseInt((this.casy + 16 + this.radio
+				* Math.cos(this.alfa))
+				/ ancho)) > 1
+				&& Dungeon.getCell(parseInt((this.casx + 16 + this.radio
+						* Math.sin(this.alfa))
+						/ ancho), parseInt((this.casy + 16 + this.radio
+						* Math.cos(this.alfa))
+						/ ancho)) != Dungeon.tileAlien) {
 
 			return false;
 
@@ -64,11 +72,13 @@ function Alien(x, y, r, sp, anc) {
 
 	}
 	this.colisonconmuroy = function(alfa) {// dir: 0 arriba 1 derecha, 2 abajo,
-											// 3 izquierda: /////pm puntos de
-											// movimiento (pixeles)
+		// 3 izquierda: /////pm puntos de
+		// movimiento (pixeles)
 		alfa = alfa % Math.PI;
 
-		if (Dungeon.getCell(parseInt((this.casx + 16 + this.radio	* Math.sin(this.alfa)) / ancho), parseInt((this.casy + 16) / ancho)) > 1) {
+		if (Dungeon.getCell(parseInt((this.casx + 16 + this.radio
+				* Math.sin(this.alfa))
+				/ ancho), parseInt((this.casy + 16) / ancho)) > 1) {
 
 			return false;
 
@@ -78,12 +88,13 @@ function Alien(x, y, r, sp, anc) {
 
 	}
 	this.colisonconmurox = function(alfa) {// dir: 0 arriba 1 derecha, 2 abajo,
-											// 3 izquierda: /////pm puntos de
-											// movimiento (pixeles)
+		// 3 izquierda: /////pm puntos de
+		// movimiento (pixeles)
 		alfa = alfa % Math.PI;
 
 		if (Dungeon.getCell(parseInt((this.casx + 16) / ancho),
-				parseInt((this.casy + 16 + this.radio * Math.cos(this.alfa)) / ancho)) > 1) {
+				parseInt((this.casy + 16 + this.radio * Math.cos(this.alfa))
+						/ ancho)) > 1) {
 
 			return false;
 
@@ -93,13 +104,13 @@ function Alien(x, y, r, sp, anc) {
 
 	}
 	this.colisionaconaliens = function(x, y, radio, dir, pm) { // dir: 0 arriba
-																// 1 derecha, 2
-																// abajo, 3
-																// izquierda:
-																// /////pm
-																// puntos de
-																// movimiento
-																// (pixeles)
+		// 1 derecha, 2
+		// abajo, 3
+		// izquierda:
+		// /////pm
+		// puntos de
+		// movimiento
+		// (pixeles)
 		var col = false;
 		for (a = 0; a < Dungeon.Aliens.length; a++) {
 
@@ -121,7 +132,7 @@ function Alien(x, y, r, sp, anc) {
 			if (!this.CCcol(x, y, radio)) {
 
 				if (!this.colisonconmuro(alfa)) { // &&
-													// !this.colisionaconaliens(this.casx,this.casy,this.radio,this.alfa)){
+					// !this.colisionaconaliens(this.casx,this.casy,this.radio,this.alfa)){
 
 					this.casx = this.casx + Math.sin(this.alfa) * this.pm;
 					this.casy = this.casy + Math.cos(this.alfa) * this.pm;
@@ -150,8 +161,8 @@ function Alien(x, y, r, sp, anc) {
 			}
 
 			for (var i = 0; i < this.barravida.data.length; i += 8) // borra la
-																	// barra de
-																	// vida
+			// barra de
+			// vida
 			{
 
 				this.barravida.data[i + 0] = 250;
@@ -189,7 +200,6 @@ function Alien(x, y, r, sp, anc) {
 
 	}
 
-	
 	this.render = function() {
 		if (this.vida > 0) {
 
@@ -247,8 +257,6 @@ function Alien(x, y, r, sp, anc) {
 			ctx.putImageData(this.barravida, 32 + this.casx - Machango.casx
 					+ canvas.width / 2, this.casy - Machango.casy
 					+ canvas.height / 2); // dibuja la barra de vida
-
-       
 
 		} else {
 			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (13),

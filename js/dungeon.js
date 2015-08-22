@@ -11,7 +11,7 @@ var Dungeon = {
 	visible : [],
 	Aliens : [],
 	spawner : [],
-  items : [],
+	items : [],
 	long_oldseed : 0,
 	tileUnused : 0,
 	tileDirtWall : 1,
@@ -63,8 +63,8 @@ var Dungeon = {
 		this.visible = [];
 		this.mapa = [];
 		this.Aliens = [];
-    this.items = [];
-    this.spawner = [];
+		this.items = [];
+		this.spawner = [];
 		// for(x=0;x<Dungeon.xsize*Dungeon.ysize;x++){
 		// Dungeon.visible.push(true);
 		// }
@@ -242,7 +242,7 @@ var Dungeon = {
 	},
 
 	setcriatura : function(x, y, celltype) { // pone una celda del tablero de
-												// un tipo
+		// un tipo
 		Dungeon.critaturas[x + Dungeon.xsize * y] = celltype;
 	},
 
@@ -251,7 +251,7 @@ var Dungeon = {
 	},
 
 	setCell : function(x, y, celltype) {// pone una celda del tablero de un tipo
-										// (repe)
+		// (repe)
 		Dungeon.dungeon_map[x + Dungeon.xsize * y] = celltype;
 
 		// if(celltype==7) Dungeon.Aliens.push(new Alien((x,y,15, zerg,ancho)));
@@ -264,8 +264,8 @@ var Dungeon = {
 	// visibilidad
 
 	ver : function(x, y) { // hace visible una casilla y las adyacentes por
-							// flood (funcion recursiva, aveces peta por
-							// recursividad masiva)
+		// flood (funcion recursiva, aveces peta por
+		// recursividad masiva)
 		if ((x > 0 && x < Dungeon.xsize)
 				&& Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)] >= 4
 				&& Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)] < 16
@@ -344,10 +344,12 @@ var Dungeon = {
 	},
 
 	setv : function(x, y) { // hace una celda visible
-		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileAlien	&& !Dungeon.isv(x, y))
+		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileAlien
+				&& !Dungeon.isv(x, y))
 			Dungeon.spawner.push(new Nido(x, y, zergb, this.getRand(48, 256)));
-    if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileChest && !Dungeon.isv(x, y))
-      Dungeon.items.push(new item(x, y, 1, botiquin));
+		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileChest
+				&& !Dungeon.isv(x, y))
+			Dungeon.items.push(new item(x, y, 1, botiquin));
 
 		Dungeon.visible[x + Dungeon.xsize * y] = true;
 		o = (x + 64 * y);
@@ -602,7 +604,7 @@ var Dungeon = {
 	},
 
 	makeRoom : function(x, y, xlength, ylength, direction) { // crea una
-																// habitacion
+		// habitacion
 		/** **************************************************************************** */
 
 		// define the dimensions of the room, it should be at least 4x4 tiles

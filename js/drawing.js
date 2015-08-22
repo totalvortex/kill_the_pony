@@ -7,24 +7,23 @@ function getmp(canvas, evt) {
 }
 
 addEventListener('mousemove', function(evt) { // funcion para los eventos de
-												// mover ratón
+	// mover ratón
 	Dungeon.mpos = getmp(canvas, evt);
 
 }, false);
 
-addEventListener('mousedown', function(evt) { // funcion para los eventos click
-											// del ratón
+addEventListener('mousedown', function(evt) { // funcion para los eventos
+												// click
+	// del ratón
 	Machango.disparando = !Machango.disparando;
 	var p = getmp(canvas, evt);
 
 	// disipara una bala
 
-	
-
 }, false);
 
 addEventListener("keydown", function(e) { // funcion que mete en keysDown[]
-											// las teclas pulsadas en el frame
+	// las teclas pulsadas en el frame
 
 	keysDown[e.keyCode] = true;
 }, false);
@@ -35,8 +34,8 @@ addEventListener("keyup", function(e) {
 }, false);
 
 function colmuro(f, x0, y0, rx, ry) { // colisiones de un cuadrado situado en
-										// x0,y0 de ancho f con un circulo rx,ry
-										// con radio Machango.sprite
+	// x0,y0 de ancho f con un circulo rx,ry
+	// con radio Machango.sprite
 	var circleDistanceX = Math.abs(x0 - rx - f);
 	var circleDistanceY = Math.abs(y0 - ry - f);
 
@@ -65,8 +64,9 @@ function update() // actualiza las variables antes del render
 	var up, down, left, right;
 	if (40 in keysDown) { // Player holding down
 		if (Machango.casy > 0
-			&& Machango.casy < Dungeon.ysize * ancho
-			&& Dungeon.getCell(parseInt((Machango.casx) / ancho), parseInt((Machango.casy - 10 - pm - 1) / ancho) + 1) != Dungeon.tileDirtWall
+				&& Machango.casy < Dungeon.ysize * ancho
+				&& Dungeon.getCell(parseInt((Machango.casx) / ancho),
+						parseInt((Machango.casy - 10 - pm - 1) / ancho) + 1) != Dungeon.tileDirtWall
 				&& !colisionaconaliens(Machango.casx, Machango.casy,
 						Machango.radio, 2, pm)) {
 			mensaje = "Nivel: "
@@ -199,9 +199,9 @@ function update() // actualiza las variables antes del render
 	Machango.mov = (up || down || left || right);
 	Dungeon.ver(parseInt(Machango.casx / ancho), parseInt((Machango.casy)
 			/ ancho));// mensaje="("+(parseInt(Machango.casx/(ancho*2))+25)+",
-						// "+(parseInt(Machango.casy/(ancho*2))+25)+"):
-						// "+Dungeon.getCell(parseInt(Machango.casx/(ancho*2))+25,
-						// parseInt(Machango.casy/(ancho*2))+25);
+	// "+(parseInt(Machango.casy/(ancho*2))+25)+"):
+	// "+Dungeon.getCell(parseInt(Machango.casx/(ancho*2))+25,
+	// parseInt(Machango.casy/(ancho*2))+25);
 
 	// posicion del tanque segun movimiento
 	if (up && !left && !right)
@@ -283,51 +283,59 @@ function update() // actualiza las variables antes del render
 
 	Machango.update();
 
-	if (Dungeon.Aliens.length > 0){
+	if (Dungeon.Aliens.length > 0) {
 		for (a = 0; a < Dungeon.Aliens.length; a++) {
 
 			Dungeon.Aliens[a].update(Machango.casx, Machango.casy,
 					Machango.radio, pm);
 		}
 
-	// colisiones de balas con aliens
+		// colisiones de balas con aliens
 
-	for (a = 0; a < Dungeon.Aliens.length; a++) {
-		for (b = 0; b < Machango.balas.length; b++) {
-			if (Machango.balas[b].activo) {
-				if (Dungeon.Aliens[a].CCcol((Machango.balas[b].casx),(Machango.balas[b].casy-8), Machango.balas[b].radio)) {
-					Dungeon.Aliens[a].vida--;
-					Machango.balas[b].activo = false;
+		for (a = 0; a < Dungeon.Aliens.length; a++) {
+			for (b = 0; b < Machango.balas.length; b++) {
+				if (Machango.balas[b].activo) {
+					if (Dungeon.Aliens[a].CCcol((Machango.balas[b].casx),
+							(Machango.balas[b].casy - 8),
+							Machango.balas[b].radio + 3)) {
+						Dungeon.Aliens[a].vida--;
+						Machango.balas[b].activo = false;
+					}
 				}
 			}
 		}
 	}
-}
-if(Dungeon.items.length>0){
-  for(i=0;i<Dungeon.items.length;i++){
-    if(Dungeon.items[i].CCcol(Machango.casx,Machango.casy,Machango.radio)){
-      Dungeon.items[i].activo=false;
-      Machango.vida+=25;
-    }
-  }
-}
-//lanzallamas
-if(Machango.disparando){
-if (Machango.balas.length < Machango.maxbalas) {
-    angulo = Math.atan2(Dungeon.mpos.x - canvas.height / 2 - 16, Dungeon.mpos.y - canvas.width / 2 -8);
-    if (Machango.balas.length < Machango.maxbalas)
-    //  Machango.balas.push(new Bala(Machango.casx + 20, Machango.casy + 20, 8, bala, 5, angulo));
-    Machango.balas.push(new llama(Machango.casx + 20, Machango.casy + 20, fuego , 8, 256, angulo));
-    else {
+	if (Dungeon.items.length > 0) {
+		for (i = 0; i < Dungeon.items.length; i++) {
+			if (Dungeon.items[i].CCcol(Machango.casx, Machango.casy,
+					Machango.radio)) {
+				Dungeon.items[i].activo = false;
+				Machango.vida += 25;
+			}
+		}
+	}
+	// lanzallamas
+	if (Machango.disparando) {
+		if (Machango.balas.length < Machango.maxbalas) {
+			angulo = Math.atan2(Dungeon.mpos.x - canvas.height / 2 - 16,
+					Dungeon.mpos.y - canvas.width / 2 - 8);
+			if (Machango.balas.length < Machango.maxbalas)
+				// Machango.balas.push(new Bala(Machango.casx + 20,
+				// Machango.casy + 20, 8, bala, 5, angulo));
+				Machango.balas.push(new llama(Machango.casx + 20,
+						Machango.casy + 20, fuego, 8, 256, angulo));
+			else {
 
-      Machango.balas.pop();
-    //  Machango.balas.push(new Bala(Machango.casx + 20, Machango.casy + 20, 8, bala, 5, angulo));
-     Machango.balas.push(new llama(Machango.casx + 20, Machango.casy + 20, fuego , 12, 256, angulo));
-     // x,y,sprt,avance,distanciamax,angulo
-    }
+				Machango.balas.pop();
+				// Machango.balas.push(new Bala(Machango.casx + 20,
+				// Machango.casy + 20, 8, bala, 5, angulo));
+				Machango.balas.push(new llama(Machango.casx + 20,
+						Machango.casy + 20, fuego, 12, 256, angulo));
+				// x,y,sprt,avance,distanciamax,angulo
+			}
 
-  }
-}
+		}
+	}
 	// salida
 	if (Dungeon.getCell(parseInt((Machango.casx + 16) / ancho),
 			parseInt((Machango.casy + 16) / ancho)) == Dungeon.tileExit) {
@@ -343,8 +351,8 @@ function reboot() {
 	ctx.translate(mapx, mapy);
 	var lev = Dungeon.level + 4;
 	while (Dungeon.nh < lev && !Dungeon.puerta) { // genera el dungeon hasta
-													// que las habitaciones sea
-													// mayor que level
+		// que las habitaciones sea
+		// mayor que level
 		rooms = Dungeon.createDungeon(64, 64, lev);
 	}
 	rooms = Dungeon.createDungeon(64, 64, Dungeon.level);
@@ -361,9 +369,9 @@ function reboot() {
 }
 
 function colisionaconaliens(x, y, radio, dir, pm) { // dir: 0 arriba 1 derecha,
-													// 2 abajo, 3 izquierda:
-													// /////pm puntos de
-													// movimiento (pixeles)
+	// 2 abajo, 3 izquierda:
+	// /////pm puntos de
+	// movimiento (pixeles)
 	var col = false;
 	for (a = 0; a < Dungeon.Aliens.length; a++) {
 		switch (dir) {
@@ -423,8 +431,7 @@ function colisionaconaliens(x, y, radio, dir, pm) { // dir: 0 arriba 1 derecha,
  * camino.push([x0, y0,pox,poy]); pox=poy=0;
  * 
  * if ((x0==x1) && (y0==y1)) break; var e2 = 2*err; if (e2 >-dy){ err -= dy; x0 +=
- * sx; pox=sx;} if (e2 < dx){ err += dx; y0 += sy; poy=sy;}
- *  } }
+ * sx; pox=sx;} if (e2 < dx){ err += dx; y0 += sy; poy=sy;} } }
  */
 function dibujasuelo() // dibuja el suelo
 {
@@ -515,8 +522,8 @@ function dibujasuelo() // dibuja el suelo
 						break;
 					}
 					case 8: {
-            ctx.fillStyle = "rgba(255, 255, 0,0.7)";
-            ctx.fillRect(x * ancho, y * ancho, ancho, ancho);
+						ctx.fillStyle = "rgba(255, 255, 0,0.7)";
+						ctx.fillRect(x * ancho, y * ancho, ancho, ancho);
 						ctx.drawImage(piso0, x * ancho, y * ancho);
 
 						break;
@@ -599,13 +606,12 @@ function dibujasuelo() // dibuja el suelo
 
 function dibujaobj() {
 
-  if (Dungeon.items.length > 0) //dibuja items
-    for (a = 0; a < Dungeon.items.length; a++) {
-      Dungeon.items[a].render();
-    }
-  
+	if (Dungeon.items.length > 0) // dibuja items
+		for (a = 0; a < Dungeon.items.length; a++) {
+			Dungeon.items[a].render();
+		}
 
-  if (Dungeon.spawner.length > 0)
+	if (Dungeon.spawner.length > 0)
 		for (a = 0; a < Dungeon.spawner.length; a++) {
 			Dungeon.spawner[a].render();
 		}

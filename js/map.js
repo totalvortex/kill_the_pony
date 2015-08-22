@@ -20,7 +20,7 @@ cargando.src = "images/cargando.png";
 var fuegoReady = false;
 var fuego = new Image();
 fuego.onload = function() {
-  fuegoReady = true;
+	fuegoReady = true;
 };
 
 fuego.src = "images/fire.png";
@@ -28,7 +28,7 @@ fuego.src = "images/fire.png";
 var botiquinReady = false;
 var botiquin = new Image();
 botiquin.onload = function() {
-  botiquinReady = true;
+	botiquinReady = true;
 };
 
 botiquin.src = "images/botiquin.png";
