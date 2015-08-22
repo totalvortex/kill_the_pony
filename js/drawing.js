@@ -349,14 +349,14 @@ function reboot() {
 
 	Dungeon.borrar();
 	ctx.translate(mapx, mapy);
-	var lev = Dungeon.level + 4;
-	while (Dungeon.nh < lev && !Dungeon.puerta) { // genera el dungeon hasta
+	 Dungeon.level++;
+	while (Dungeon.nh < Dungeon.level && !Dungeon.puerta) { // genera el dungeon hasta
 		// que las habitaciones sea
 		// mayor que level
-		rooms = Dungeon.createDungeon(64, 64, lev);
+		rooms = Dungeon.createDungeon(64, 64, Dungeon.level);
 	}
 	rooms = Dungeon.createDungeon(64, 64, Dungeon.level);
-	mensaje = "LEVEL " + Dungeon.level;
+	mensaje = "LEVEL: " + Dungeon.level;
 	Dungeon.iniciamapa(64, 64);
 
 	Machango.creamachango(hx, hy, marinez, 48);

@@ -29,10 +29,10 @@ var init = function() {
 	mapx = 0;
 	mapy = 0;
 	escala = 1.0;
+	nivelinicial=32;
 	pm = 2; // pixels por movimiento
 	mensaje = " ";
 	fps = 0;
-	Cujo = null;
 	gente = [];
 	maxaliens = 64;
 	click = false;
@@ -56,7 +56,7 @@ var init = function() {
 	while (Dungeon.nh < rooms && !Dungeon.puerta) { // genera el dungeon hasta
 		// que las habitaciones sea
 		// mayor que level
-		Dungeon.createDungeon(64, 64, 3);
+		Dungeon.createDungeon(64, 64, nivelinicial);
 	}
 
 	mapx = parseInt((ancho * Dungeon.xsize) / 2) - parseInt(canvas.width / 2);
