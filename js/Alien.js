@@ -152,7 +152,8 @@ function Alien(x, y, r, sp, vid, anc) {
 				this.corriendo++;
 			} else {
 				corriendo = 0;
-				Machango.vida--;
+				Machango.vida--;            //resta vida al machango
+
 
 			}
 

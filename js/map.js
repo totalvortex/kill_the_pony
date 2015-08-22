@@ -25,6 +25,14 @@ fuego.onload = function() {
 
 fuego.src = "images/fire.png";
 
+var chapaReady = false;
+var chapa = new Image();
+chapa.onload = function() {
+  chapaReady = true;
+};
+
+chapa.src = "images/chapa.png";
+
 var botiquinReady = false;
 var botiquin = new Image();
 botiquin.onload = function() {

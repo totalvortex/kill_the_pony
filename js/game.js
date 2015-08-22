@@ -62,7 +62,7 @@ var init = function() {
 	mapx = parseInt((ancho * Dungeon.xsize) / 2) - parseInt(canvas.width / 2);
 	mapy = parseInt((ancho * Dungeon.ysize) / 2) - parseInt(canvas.height / 2);
 	Machango.creamachango(hx, hy, marinez, 48);
-
+	panel.creapanel(map,true);
 	Dungeon.iniciamapa(64, 64);
 	Dungeon.setCell(Dungeon.exitx, Dungeon.exity, Dungeon.tileExit);
 	ctx.translate(0, 0);

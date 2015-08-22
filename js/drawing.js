@@ -336,6 +336,12 @@ function update() // actualiza las variables antes del render
 
 		}
 	}
+
+  panel.update();
+
+
+
+
 	// salida
 	if (Dungeon.getCell(parseInt((Machango.casx + 16) / ancho),
 			parseInt((Machango.casy + 16) / ancho)) == Dungeon.tileExit) {
@@ -668,6 +674,9 @@ function render() {
 			+ canvas.height / 2 - 230, 243, 178);
 	Dungeon.dibujamapa(10 + Machango.casx - canvas.width / 2, 10
 			+ Machango.casy - canvas.height / 2);
+  
+  //dibuja el panel de vida
+  panel.render();
 
 	// dibuja al personaje
 	Machango.render();
