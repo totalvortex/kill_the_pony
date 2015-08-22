@@ -54,8 +54,8 @@ var init = function() {
 	ctx.fillRect(1, 1, canvas.width - 1, canvas.height - 1);
 
 	while (Dungeon.nh < rooms && !Dungeon.puerta) { // genera el dungeon hasta
-													// que las habitaciones sea
-													// mayor que level
+		// que las habitaciones sea
+		// mayor que level
 		Dungeon.createDungeon(64, 64, 3);
 	}
 
@@ -85,7 +85,6 @@ var main = function() {
 	then = now;
 	delta = now - then;
 	setTimeout(main, 1000 / 80 - delta);
-	
 
 };
 

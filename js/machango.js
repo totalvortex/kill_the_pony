@@ -100,8 +100,8 @@ var Machango = { // clase para el personaje
 				 * //mensaje="sprite:"+this.cosa; if(this.cosa>=13)
 				 * ctx.drawImage(marine,this.anchospr*12+1,1,this.anchospr-2,this.anchospr-2,this.casx,this.casy,this.anchospr,this.anchospr);
 				 * else
-				 * ctx.drawImage(marine,this.anchospr*(this.cosa)+1,1,this.anchospr-2,this.anchospr-2,this.casx,this.casy,this.anchospr,this.anchospr);
-				 *  } if(this.cosa<=26 && this.cosa>14){ ctx.save();
+				 * ctx.drawImage(marine,this.anchospr*(this.cosa)+1,1,this.anchospr-2,this.anchospr-2,this.casx,this.casy,this.anchospr,this.anchospr); }
+				 * if(this.cosa<=26 && this.cosa>14){ ctx.save();
 				 * ctx.scale(-1.0,1.0);
 				 * ctx.drawImage(marine,this.anchospr*(26-this.cosa)+1,1,this.anchospr-2,this.anchospr-2,-this.casx-this.anchospr,this.casy,this.anchospr,this.anchospr);
 				 * 

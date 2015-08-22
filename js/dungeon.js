@@ -11,6 +11,7 @@ var Dungeon = {
 	visible : [],
 	Aliens : [],
 	spawner : [],
+	items : [],
 	long_oldseed : 0,
 	tileUnused : 0,
 	tileDirtWall : 1,
@@ -62,7 +63,8 @@ var Dungeon = {
 		this.visible = [];
 		this.mapa = [];
 		this.Aliens = [];
-
+		this.items = [];
+		this.spawner = [];
 		// for(x=0;x<Dungeon.xsize*Dungeon.ysize;x++){
 		// Dungeon.visible.push(true);
 		// }
@@ -91,7 +93,7 @@ var Dungeon = {
 			alert("habitacion central no creada");
 		}
 
-		if (exitx != 0 || exity != 0) {
+		if (exitx !== 0 || exity !== 0) {
 			Dungeon.setCell(exitx, exity, 99);
 			hx = exitx;
 			hy = exity;
@@ -240,7 +242,7 @@ var Dungeon = {
 	},
 
 	setcriatura : function(x, y, celltype) { // pone una celda del tablero de
-												// un tipo
+		// un tipo
 		Dungeon.critaturas[x + Dungeon.xsize * y] = celltype;
 	},
 
@@ -249,7 +251,7 @@ var Dungeon = {
 	},
 
 	setCell : function(x, y, celltype) {// pone una celda del tablero de un tipo
-										// (repe)
+		// (repe)
 		Dungeon.dungeon_map[x + Dungeon.xsize * y] = celltype;
 
 		// if(celltype==7) Dungeon.Aliens.push(new Alien((x,y,15, zerg,ancho)));
@@ -262,8 +264,8 @@ var Dungeon = {
 	// visibilidad
 
 	ver : function(x, y) { // hace visible una casilla y las adyacentes por
-							// flood (funcion recursiva, aveces peta por
-							// recursividad masiva)
+		// flood (funcion recursiva, aveces peta por
+		// recursividad masiva)
 		if ((x > 0 && x < Dungeon.xsize)
 				&& Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)] >= 4
 				&& Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)] < 16
@@ -345,6 +347,10 @@ var Dungeon = {
 		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileAlien
 				&& !Dungeon.isv(x, y))
 			Dungeon.spawner.push(new Nido(x, y, zergb, this.getRand(48, 256)));
+		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileChest
+				&& !Dungeon.isv(x, y))
+			Dungeon.items.push(new item(x, y, 1, botiquin));
+
 		Dungeon.visible[x + Dungeon.xsize * y] = true;
 		o = (x + 64 * y);
 		i = o * 4;
@@ -481,7 +487,7 @@ var Dungeon = {
 			for (ytemp = y; ytemp > (y - len); ytemp--) {
 				if (ytemp < 0 || ytemp > Dungeon.ysize)
 					return false; // oh boho, it was!
-				if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+				if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 					return false;
 			}
 
@@ -512,7 +518,7 @@ var Dungeon = {
 			for (xtemp = x; xtemp < (x + len); xtemp++) {
 				if (xtemp < 0 || xtemp > Dungeon.xsize)
 					return false;
-				if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+				if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 					return false;
 			}
 
@@ -540,7 +546,7 @@ var Dungeon = {
 			for (ytemp = y; ytemp < (y + len); ytemp++) {
 				if (ytemp < 0 || ytemp > Dungeon.ysize)
 					return false;
-				if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+				if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 					return false;
 			}
 
@@ -570,7 +576,7 @@ var Dungeon = {
 			for (xtemp = x; xtemp > (x - len); xtemp--) {
 				if (xtemp < 0 || xtemp > Dungeon.xsize)
 					return false;
-				if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+				if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 					return false;
 			}
 
@@ -598,7 +604,7 @@ var Dungeon = {
 	},
 
 	makeRoom : function(x, y, xlength, ylength, direction) { // crea una
-																// habitacion
+		// habitacion
 		/** **************************************************************************** */
 
 		// define the dimensions of the room, it should be at least 4x4 tiles
@@ -607,7 +613,7 @@ var Dungeon = {
 		ylen = Dungeon.getRand(5, ylength);
 
 		// the tile type it's going to be filled with
-		floor = Dungeon.getRand(5, 15);
+		floor = Dungeon.getRand(5, 9);
 		wall = Dungeon.tileDirtWall; // jordv????gg
 
 		// choose the way it's pointing at
@@ -627,7 +633,7 @@ var Dungeon = {
 						+ parseInt((xlen + 1) / 2); xtemp++) {
 					if (xtemp < 0 || xtemp > Dungeon.xsize)
 						return false;
-					if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+					if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 						return false; // no space left...
 
 				}
@@ -665,7 +671,7 @@ var Dungeon = {
 				for (xtemp = x; xtemp < (x + xlen); xtemp++) {
 					if (xtemp < 0 || xtemp > Dungeon.xsize)
 						return false;
-					if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+					if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 						return false;
 				}
 			}
@@ -699,7 +705,7 @@ var Dungeon = {
 						+ parseInt((xlen + 1) / 2); xtemp++) {
 					if (xtemp < 0 || xtemp > Dungeon.xsize)
 						return false;
-					if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+					if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 						return false;
 				}
 			}
@@ -734,7 +740,7 @@ var Dungeon = {
 				for (xtemp = x; xtemp > (x - xlen); xtemp--) {
 					if (xtemp < 0 || xtemp > Dungeon.xsize)
 						return false;
-					if (Dungeon.getCell(xtemp, ytemp) != Dungeon.tileUnused)
+					if (Dungeon.getCell(xtemp, ytemp) !== Dungeon.tileUnused)
 						return false;
 				}
 			}
