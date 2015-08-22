@@ -24,4 +24,4 @@ function Nido(x, y, sprt, freq) {
 		Dungeon.Aliens.push(new Alien(parseInt(this.casx / this.anchospr),
 				parseInt(this.casy / this.anchospr), 6, zerg, ancho));
 	}
-}
+} 

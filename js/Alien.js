@@ -1,3 +1,4 @@
+ 
 function Alien(x, y, r, sp, anc) {
 	this.casx = x * ancho + 14;
 	this.casy = y * ancho + 24;
