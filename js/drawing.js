@@ -467,7 +467,7 @@ function dibujasuelo() // dibuja el suelo
 				// if(n!=0) n=Dungeon.getRand(5,15);
 				// var t =tablero[x*tablerow+y][1];
 				if (n > 12 && n < 99) {
-					ctx.drawImage(piso0, x * ancho, y * ancho);
+					ctx.drawImage(suelo, x * ancho, y * ancho);
 				} else
 					switch (n) {
 					case 0: {
@@ -500,28 +500,28 @@ function dibujasuelo() // dibuja el suelo
 						break;
 					}
 					case 3: {
-						ctx.drawImage(piso11, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 						// ctx.fillStyle ="rgba(0, 0, 0,0.7)";
 						// ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
 
 						break;
 					}
 					case 4: {// pasillov
-						ctx.drawImage(pisopasillov, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 						// ctx.fillStyle ="rgba(250, 0, 250,0.2)";
 						// ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
 
 						break;
 					}
 					case 5: { // pasilloh
-						ctx.drawImage(pisopasillo, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 						// ctx.fillStyle ="rgba(0, 0, 0,0.3)";
 						// ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
 
 						break;
 					}
 					case 6: {
-						ctx.drawImage(piso11, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 						// ctx.fillStyle ="rgba(255, 250,250,0.8)";
 						// ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
 						break;
@@ -535,27 +535,27 @@ function dibujasuelo() // dibuja el suelo
 					case 8: {
 						ctx.fillStyle = "rgba(255, 255, 0,0.7)";
 						ctx.fillRect(x * ancho, y * ancho, ancho, ancho);
-						ctx.drawImage(piso0, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 9: {
-						ctx.drawImage(piso0, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 10: {
-						ctx.drawImage(piso0, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 11: {
-						ctx.drawImage(piso0, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 12: {
-						ctx.drawImage(piso0, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
@@ -564,22 +564,22 @@ function dibujasuelo() // dibuja el suelo
 						break;
 					}
 					case 14: {
-						ctx.drawImage(piso41, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 15: {
-						ctx.drawImage(piso42, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 16: {
-						ctx.drawImage(piso43, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 99: {
-						ctx.drawImage(piso13, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 						// ctx.fillStyle ="rgba(0, 0, 250,0.4)";
 						// ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
 						break;

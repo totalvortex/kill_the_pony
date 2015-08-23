@@ -24,6 +24,13 @@ fuego.onload = function() {
 };
 fuego.src = "images/fire.png";
 
+var sueloReady = false;
+var suelo = new Image();
+suelo.onload = function() {
+  sueloReady = true;
+};
+suelo.src = "images/suelo.png";
+
 var bloodReady = false;
 var blood = new Image();
 blood.onload = function() {
