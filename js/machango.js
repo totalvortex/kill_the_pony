@@ -35,7 +35,7 @@ var Machango = { // clase para el personaje
 		this.radio = 16;
 		this.rafaga = 23;
 		this.cosa = 0;
-		this.vida = 100;
+		this.vida = 50;
 		this.balas = [];
 		this.maxbalas = 128;
 	},

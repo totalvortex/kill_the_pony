@@ -276,6 +276,12 @@ function update() // actualiza las variables antes del render
 		this.reboot();
 
 	}
+  
+   
+    
+
+  
+
 	if (Dungeon.spawner.length > 0)
 		for (a = 0; a < Dungeon.spawner.length; a++) {
 			Dungeon.spawner[a].update();
@@ -316,29 +322,33 @@ function update() // actualiza las variables antes del render
 			}
 		}
 	}
+
 	// lanzallamas
 	if (Machango.disparando) {
 		if (Machango.balas.length < Machango.maxbalas) {
 			angulo = Math.atan2(Dungeon.mpos.x - canvas.height / 2 - 16,
 					Dungeon.mpos.y - canvas.width / 2 - 8);
 			if (Machango.balas.length < Machango.maxbalas)
-				// Machango.balas.push(new Bala(Machango.casx + 20,
-				// Machango.casy + 20, 8, bala, 5, angulo));
+				
 				Machango.balas.push(new llama(Machango.casx + 20,
 						Machango.casy + 20, fuego, 8, 256, angulo));
 			else {
 
 				Machango.balas.pop();
-				// Machango.balas.push(new Bala(Machango.casx + 20,
-				// Machango.casy + 20, 8, bala, 5, angulo));
+				
 				Machango.balas.push(new llama(Machango.casx + 20,
 						Machango.casy + 20, fuego, 12, 256, angulo));
-				// x,y,sprt,avance,distanciamax,angulo
+				
 			}
 
 		}
-	}
 
+	}
+if(Machango.balas.length>=Machango.maxbalas-1){
+        Machango.balas.length=0;
+        Machango.balas = [];
+        //alert("Recargando");
+    }
   panel.update();
 
 
