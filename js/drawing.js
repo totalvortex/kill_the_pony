@@ -521,7 +521,7 @@ function dibujasuelo() // dibuja el suelo
 						break;
 					}
 					case 6: {
-						ctx.drawImage(suelo, x * ancho, y * ancho);
+						ctx.drawImage(piso11, x * ancho, y * ancho);
 						// ctx.fillStyle ="rgba(255, 250,250,0.8)";
 						// ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
 						break;
@@ -560,7 +560,7 @@ function dibujasuelo() // dibuja el suelo
 						break;
 					}
 					case 13: {
-						ctx.drawImage(piso4, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 						break;
 					}
 					case 14: {
