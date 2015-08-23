@@ -303,7 +303,9 @@ function update() // actualiza las variables antes del render
 					}
 				}
 			}
-		}
+
+    }
+		
 	}
 	if (Dungeon.items.length > 0) {
 		for (i = 0; i < Dungeon.items.length; i++) {

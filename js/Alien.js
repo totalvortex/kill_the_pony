@@ -108,7 +108,7 @@ function Alien(x, y, r, sp, vid, anc) {
 		}
 
 	}
-	this.colisionaconaliens = function(x, y, radio, dir, pm) { // dir: 0 arriba
+	this.colisionaconaliens = function(alfa) { // dir: 0 arriba
 		// 1 derecha, 2
 		// abajo, 3
 		// izquierda:
@@ -119,7 +119,7 @@ function Alien(x, y, r, sp, vid, anc) {
 		var col = false;
 		for (a = 0; a < Dungeon.Aliens.length; a++) {
 
-			if (Dungeon.Aliens[a].CCcol(x, y, radio+this.vidamax)) {
+			if (Dungeon.Aliens[a].CCcol(x+ Math.sin(this.alfa) * this.pm, y, this.radio+parseInt(this.vidamax/2)) && x!=this.casx && y!=this.casy) {
 				col = true;
 				break;
 			}
@@ -135,10 +135,16 @@ function Alien(x, y, r, sp, vid, anc) {
       
 			this.alfa = Math.atan2(x - this.casx, y - this.casy);
 			this.giro = 16 - parseInt((this.alfa * Math.PI * 1.9));
-			if (!this.CCcol(x, y, radio)) {
 
-				if (!this.colisonconmuro(alfa)) { // &&
-					// !this.colisionaconaliens(this.casx,this.casy,(this.radio+this.vidamax),this.alfa)){
+      
+
+
+
+			if (!this.CCcol(x, y, radio)) {
+              
+				if (!this.colisonconmuro(alfa)){
+         
+				
 
 					this.casx = this.casx + Math.sin(this.alfa) * this.pm;
 					this.casy = this.casy + Math.cos(this.alfa) * this.pm;
@@ -282,6 +288,16 @@ function Alien(x, y, r, sp, vid, anc) {
 					+ canvas.height / 2); // dibuja la barra de vida
 
 		} else {
+
+      var i=parseInt((this.contador%16)/4);
+      var j=parseInt(this.contador/4)%4;
+
+
+      ctx.drawImage(blood,  ancho * i ,  ancho * j,
+          ancho , ancho ,
+           this.casx - this.vidamax -20 ,  this.casy - this.vidamax - 10 ,
+            this.anchospr , this.anchospr );
+
 			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (13),
 					this.anchospr - 20, this.anchospr - 20, this.casx - this.vidamax ,
 					this.casy - this.vidamax , this.anchospr + this.vidamax * 2, this.anchospr + this.vidamax * 2);

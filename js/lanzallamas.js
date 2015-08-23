@@ -65,7 +65,6 @@ function llama(x, y, sprt, avance, distanciamax, angulo) {
 
 	this.render = function() {
 		if (this.activo) {
-			
 			ctx.drawImage(this.img, this.spx * ancho, this.spy * ancho,
 					this.anchospr, this.anchospr, this.casx, this.casy, ancho,
 					ancho);

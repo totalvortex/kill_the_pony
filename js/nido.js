@@ -20,6 +20,6 @@ function Nido(x, y, sprt, freq) {
 	this.reproducir = function() {
 		if (Dungeon.Aliens.length > maxaliens)
 			Dungeon.Aliens.pop();
-		    Dungeon.Aliens.push(new Alien(parseInt(this.casx / this.anchospr), parseInt(this.casy / this.anchospr), 6, zerg, Dungeon.getRand(1,Dungeon.level), ancho));
+		    Dungeon.Aliens.push(new Alien(parseInt(this.casx / this.anchospr), parseInt(this.casy / this.anchospr), 6, zerg, Dungeon.getRand(1,8), ancho));
 	}
 }
