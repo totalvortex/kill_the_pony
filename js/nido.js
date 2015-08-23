@@ -13,12 +13,15 @@ function Nido(x, y, sprt, freq) {
 		}
 	}
 	this.render = function() {
-		
-		ctx.drawImage(this.img, 0, 0, this.anchospr, this.anchospr, this.casx, this.casy, this.anchospr, this.anchospr);
+
+		ctx.drawImage(this.img, 0, 0, this.anchospr, this.anchospr, this.casx,
+				this.casy, this.anchospr, this.anchospr);
 	}
 
 	this.reproducir = function() {
-		
-		Dungeon.Aliens.push(new Alien(parseInt(this.casx / this.anchospr), parseInt(this.casy / this.anchospr), 6, zerg, Dungeon.getRand(2,8), ancho));
+
+		Dungeon.Aliens.push(new Alien(parseInt(this.casx / this.anchospr),
+				parseInt(this.casy / this.anchospr), 6, zerg, Dungeon.getRand(
+						2, 8), ancho));
 	}
 }

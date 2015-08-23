@@ -14,23 +14,23 @@ function Alien(x, y, r, sp, vid, anc) {
 	this.vida = vid;
 	this.vidamax = vid;
 	this.barravida = ctx.createImageData(2, 16);
-  for (var i = 0; i < this.barravida.data.length; i += 8) // borra la
-      // barra de
-      // vida
-      {
+	for (var i = 0; i < this.barravida.data.length; i += 8) // borra la
+	// barra de
+	// vida
+	{
 
-        this.barravida.data[i + 0] = 0;
-        this.barravida.data[i + 1] = 250;
-        this.barravida.data[i + 2] = 0;
-        this.barravida.data[i + 3] = 250;
+		this.barravida.data[i + 0] = 0;
+		this.barravida.data[i + 1] = 250;
+		this.barravida.data[i + 2] = 0;
+		this.barravida.data[i + 3] = 250;
 
-        this.barravida.data[i + 4] = 0;
-        this.barravida.data[i + 5] = 250;
-        this.barravida.data[i + 6] = 0;
-        this.barravida.data[i + 7] = 250;
+		this.barravida.data[i + 4] = 0;
+		this.barravida.data[i + 5] = 250;
+		this.barravida.data[i + 6] = 0;
+		this.barravida.data[i + 7] = 250;
 
-      }
-  this.vidaant = vid;
+	}
+	this.vidaant = vid;
 
 	this.CRcol = function(cx, cy, cr, rx, ry, rw) {
 		var circleDistanceX = Math.abs(cx - rx - rw / 2);
@@ -60,7 +60,7 @@ function Alien(x, y, r, sp, vid, anc) {
 		// w1 con el x2,y2 con radio w2
 		var xd = x1 - this.casx;
 		var yd = y1 - this.casy;
-		var wt = this.radio+this.vidamax + w1;
+		var wt = this.radio + this.vidamax + w1;
 		if (this.vida > 0)
 			return (xd * xd + yd * yd <= wt * wt);
 	}
@@ -70,8 +70,20 @@ function Alien(x, y, r, sp, vid, anc) {
 		// movimiento (pixeles)
 		alfa = alfa % Math.PI;
 
-		if (Dungeon.getCell(parseInt((this.casx + 16 + (this.radio+this.vidamax)	* Math.sin(this.alfa)) / ancho), parseInt((this.casy + 16 + (this.radio+this.vidamax) * Math.cos(this.alfa))	/ ancho)) > 1
-				&& Dungeon.getCell(parseInt((this.casx + 16 + (this.radio+this.vidamax) * Math.sin(this.alfa))	/ ancho), parseInt((this.casy + 16 + (this.radio+this.vidamax)	* Math.cos(this.alfa)) / ancho)) != Dungeon.tileAlien) {
+		if (Dungeon.getCell(
+				parseInt((this.casx + 16 + (this.radio + this.vidamax)
+						* Math.sin(this.alfa))
+						/ ancho),
+				parseInt((this.casy + 16 + (this.radio + this.vidamax)
+						* Math.cos(this.alfa))
+						/ ancho)) > 1
+				&& Dungeon.getCell(
+						parseInt((this.casx + 16 + (this.radio + this.vidamax)
+								* Math.sin(this.alfa))
+								/ ancho),
+						parseInt((this.casy + 16 + (this.radio + this.vidamax)
+								* Math.cos(this.alfa))
+								/ ancho)) != Dungeon.tileAlien) {
 
 			return false;
 
@@ -85,7 +97,10 @@ function Alien(x, y, r, sp, vid, anc) {
 		// movimiento (pixeles)
 		alfa = alfa % Math.PI;
 
-		if (Dungeon.getCell(parseInt((this.casx + 16 + (this.radio+this.vidamax)	* Math.sin(this.alfa)) / ancho), parseInt((this.casy + 16) / ancho)) > 1) {
+		if (Dungeon.getCell(
+				parseInt((this.casx + 16 + (this.radio + this.vidamax)
+						* Math.sin(this.alfa))
+						/ ancho), parseInt((this.casy + 16) / ancho)) > 1) {
 
 			return false;
 
@@ -99,7 +114,10 @@ function Alien(x, y, r, sp, vid, anc) {
 		// movimiento (pixeles)
 		alfa = alfa % Math.PI;
 
-		if (Dungeon.getCell(parseInt((this.casx + 16) / ancho),	parseInt((this.casy + 16 + (this.radio+this.vidamax) * Math.cos(this.alfa)) / ancho)) > 1) {
+		if (Dungeon.getCell(parseInt((this.casx + 16) / ancho),
+				parseInt((this.casy + 16 + (this.radio + this.vidamax)
+						* Math.cos(this.alfa))
+						/ ancho)) > 1) {
 
 			return false;
 
@@ -119,7 +137,9 @@ function Alien(x, y, r, sp, vid, anc) {
 		var col = false;
 		for (a = 0; a < Dungeon.Aliens.length; a++) {
 
-			if (Dungeon.Aliens[a].CCcol(x+ Math.sin(this.alfa) * this.pm, y, this.radio+parseInt(this.vidamax/2)) && x!=this.casx && y!=this.casy) {
+			if (Dungeon.Aliens[a].CCcol(x + Math.sin(this.alfa) * this.pm, y,
+					this.radio + parseInt(this.vidamax / 2))
+					&& x != this.casx && y != this.casy) {
 				col = true;
 				break;
 			}
@@ -132,19 +152,13 @@ function Alien(x, y, r, sp, vid, anc) {
 	this.update = function(x, y, radio, pm) {
 		// this.hazcamino(this.casx,this.casy,x,y);
 		if (this.vida > 0) {
-      
+
 			this.alfa = Math.atan2(x - this.casx, y - this.casy);
 			this.giro = 16 - parseInt((this.alfa * Math.PI * 1.9));
 
-      
-
-
-
 			if (!this.CCcol(x, y, radio)) {
-              
-				if (!this.colisonconmuro(alfa)){
-         
-				
+
+				if (!this.colisonconmuro(alfa)) {
 
 					this.casx = this.casx + Math.sin(this.alfa) * this.pm;
 					this.casy = this.casy + Math.cos(this.alfa) * this.pm;
@@ -158,8 +172,7 @@ function Alien(x, y, r, sp, vid, anc) {
 				this.corriendo++;
 			} else {
 				corriendo = 0;
-				Machango.vida--;            //resta vida al machango
-
+				Machango.vida--; // resta vida al machango
 
 			}
 
@@ -173,63 +186,61 @@ function Alien(x, y, r, sp, vid, anc) {
 					this.pos = 1;
 			}
 
-
-      var rcolor=250;
-      var gcolor=250;
-      if(this.vida>0 && this.vida < parseInt(this.vidamax/2)){
-          rcolor = 250;
-          gcolor = 0;
-      }else{
-          if(this.vida >= parseInt(this.vidamax/2) && this.vida<4){
-            rcolor=255;
-            gcolor=133;
-          }
-      }
-
-
-
-     if(this.vidaant!=this.vida){
-			for (var i = 0; i < this.barravida.data.length; i += 8) // borra la
-			// barra de
-			// vida
-			{
-
-				this.barravida.data[i + 0] = rcolor;
-				this.barravida.data[i + 1] = gcolor;
-				this.barravida.data[i + 2] = 0;
-				this.barravida.data[i + 3] = 250;
-
-				this.barravida.data[i + 4] = rcolor;
-				this.barravida.data[i + 5] = gcolor;
-				this.barravida.data[i + 6] = 0;
-				this.barravida.data[i + 7] = 250;
-
+			var rcolor = 250;
+			var gcolor = 250;
+			if (this.vida > 0 && this.vida < parseInt(this.vidamax / 2)) {
+				rcolor = 250;
+				gcolor = 0;
+			} else {
+				if (this.vida >= parseInt(this.vidamax / 2) && this.vida < 4) {
+					rcolor = 255;
+					gcolor = 133;
+				}
 			}
-			aux = parseInt(this.vidamax / this.vida) * 32 - 32;
 
-			for (var i = 0; i <= aux; i += 8) // dibuja la barra de vida
-			{
+			if (this.vidaant != this.vida) {
+				for (var i = 0; i < this.barravida.data.length; i += 8) // borra
+																		// la
+				// barra de
+				// vida
+				{
 
-				this.barravida.data[i + 0] = 0;
-				this.barravida.data[i + 1] = 0;
-				this.barravida.data[i + 2] = 0;
-				this.barravida.data[i + 3] = 250;
+					this.barravida.data[i + 0] = rcolor;
+					this.barravida.data[i + 1] = gcolor;
+					this.barravida.data[i + 2] = 0;
+					this.barravida.data[i + 3] = 250;
 
-				this.barravida.data[i + 4] = 0;
-				this.barravida.data[i + 5] = 0;
-				this.barravida.data[i + 6] = 0;
-				this.barravida.data[i + 7] = 250;
+					this.barravida.data[i + 4] = rcolor;
+					this.barravida.data[i + 5] = gcolor;
+					this.barravida.data[i + 6] = 0;
+					this.barravida.data[i + 7] = 250;
 
+				}
+				aux = parseInt(this.vidamax / this.vida) * 32 - 32;
+
+				for (var i = 0; i <= aux; i += 8) // dibuja la barra de vida
+				{
+
+					this.barravida.data[i + 0] = 0;
+					this.barravida.data[i + 1] = 0;
+					this.barravida.data[i + 2] = 0;
+					this.barravida.data[i + 3] = 250;
+
+					this.barravida.data[i + 4] = 0;
+					this.barravida.data[i + 5] = 0;
+					this.barravida.data[i + 6] = 0;
+					this.barravida.data[i + 7] = 250;
+
+				}
+				this.vidaant = this.vida;
+
+			} else {
+				if (this.animm < 8)
+					this.animm++;
 			}
-    this.vidaant=this.vida;
-    
-		} else {
-			if (this.animm < 8)
-				this.animm++;
+
 		}
-
 	}
-}
 	this.render = function() {
 		if (this.vida > 0) {
 
@@ -240,8 +251,10 @@ function Alien(x, y, r, sp, vid, anc) {
 				if (this.giro < 16) {
 					ctx.drawImage(this.img, 20 + ancho * this.giro, 20 + ancho
 							* (this.pos), this.anchospr - 20,
-							this.anchospr - 20 , this.casx - this.vidamax, this.casy- this.vidamax,
-							this.anchospr + this.vidamax * 2, this.anchospr + this.vidamax * 2);
+							this.anchospr - 20, this.casx - this.vidamax,
+							this.casy - this.vidamax, this.anchospr
+									+ this.vidamax * 2, this.anchospr
+									+ this.vidamax * 2);
 				} else {
 					if (this.giro > 30)
 						this.giro = 30;
@@ -251,8 +264,10 @@ function Alien(x, y, r, sp, vid, anc) {
 					ctx.scale(-1.0, 1.0);
 					ctx.drawImage(this.img, 20 + ancho * (33 - this.giro), 20
 							+ ancho * (this.pos), this.anchospr - 20,
-							this.anchospr - 20, -this.casx - this.vidamax - ancho / 2 - 10,
-							this.casy- this.vidamax , this.anchospr + this.vidamax * 2, this.anchospr + this.vidamax * 2);
+							this.anchospr - 20, -this.casx - this.vidamax
+									- ancho / 2 - 10, this.casy - this.vidamax,
+							this.anchospr + this.vidamax * 2, this.anchospr
+									+ this.vidamax * 2);
 
 					ctx.restore();
 					kk = 33 - this.giro;
@@ -263,8 +278,10 @@ function Alien(x, y, r, sp, vid, anc) {
 				if (this.giro < 16) {
 					ctx.drawImage(this.img, 20 + ancho * this.giro, 20 + ancho
 							* (this.corriendo % 8 + 4), this.anchospr - 20,
-							this.anchospr - 20, this.casx - this.vidamax , this.casy - this.vidamax ,
-							this.anchospr + this.vidamax * 2, this.anchospr + this.vidamax * 2);
+							this.anchospr - 20, this.casx - this.vidamax,
+							this.casy - this.vidamax, this.anchospr
+									+ this.vidamax * 2, this.anchospr
+									+ this.vidamax * 2);
 				} else {
 					if (this.giro > 30)
 						this.giro = 30;
@@ -274,8 +291,11 @@ function Alien(x, y, r, sp, vid, anc) {
 					ctx.scale(-1.0, 1.0);
 					ctx.drawImage(this.img, 20 + ancho * (33 - this.giro), 20
 							+ ancho * (this.corriendo % 8 + 4),
-							this.anchospr - 20, this.anchospr - 20, -this.casx - this.vidamax 
-									- ancho / 2 - 10, this.casy - this.vidamax , this.anchospr + this.vidamax * 2, this.anchospr + this.vidamax * 2);
+							this.anchospr - 20, this.anchospr - 20, -this.casx
+									- this.vidamax - ancho / 2 - 10, this.casy
+									- this.vidamax, this.anchospr
+									+ this.vidamax * 2, this.anchospr
+									+ this.vidamax * 2);
 
 					ctx.restore();
 					kk = 33 - this.giro;
@@ -289,18 +309,18 @@ function Alien(x, y, r, sp, vid, anc) {
 
 		} else {
 
-      var i=parseInt((this.contador%16)/4);
-      var j=parseInt(this.contador/4)%4;
+			var i = parseInt((this.contador % 16) / 4);
+			var j = parseInt(this.contador / 4) % 4;
 
-
-      ctx.drawImage(blood,  ancho * i ,  ancho * j,
-          ancho , ancho ,
-           this.casx - this.vidamax -20 ,  this.casy - this.vidamax - 10 ,
-            this.anchospr , this.anchospr );
+			ctx.drawImage(blood, ancho * i, ancho * j, ancho, ancho, this.casx
+					- this.vidamax - 20, this.casy - this.vidamax - 10,
+					this.anchospr, this.anchospr);
 
 			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (13),
-					this.anchospr - 20, this.anchospr - 20, this.casx - this.vidamax ,
-					this.casy - this.vidamax , this.anchospr + this.vidamax * 2, this.anchospr + this.vidamax * 2);
+					this.anchospr - 20, this.anchospr - 20, this.casx
+							- this.vidamax, this.casy - this.vidamax,
+					this.anchospr + this.vidamax * 2, this.anchospr
+							+ this.vidamax * 2);
 		}
 	}
 }

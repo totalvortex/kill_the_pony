@@ -8,7 +8,6 @@ var fps = 0;
 var Cujo = null;
 var gente = [];
 
-
 var click = false;
 var keysDown = {};
 var desplazamiento = ancho;
@@ -29,7 +28,7 @@ var init = function() {
 	mapx = 0;
 	mapy = 0;
 	escala = 1.0;
-	nivelinicial=5;
+	nivelinicial = 5;
 	pm = 2; // pixels por movimiento
 	mensaje = " ";
 	fps = 0;
@@ -62,7 +61,7 @@ var init = function() {
 	mapx = parseInt((ancho * Dungeon.xsize) / 2) - parseInt(canvas.width / 2);
 	mapy = parseInt((ancho * Dungeon.ysize) / 2) - parseInt(canvas.height / 2);
 	Machango.creamachango(hx, hy, marinez, 48);
-	panel.creapanel(map,true);
+	panel.creapanel(map, true);
 	Dungeon.iniciamapa(64, 64);
 	Dungeon.setCell(Dungeon.exitx, Dungeon.exity, Dungeon.tileExit);
 	ctx.translate(0, 0);

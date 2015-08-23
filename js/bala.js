@@ -10,8 +10,8 @@ function Bala(x, y, ra, sprt, avance, angulo) {
 	this.activo = true;
 
 	this.colisionconmuro = function(alfa) {// dir: 0 arriba 1 derecha, 2 abajo,
-											// 3 izquierda: /////pm puntos de
-											// movimiento (pixeles)
+		// 3 izquierda: /////pm puntos de
+		// movimiento (pixeles)
 		alfa = alfa % Math.PI;
 
 		if (Dungeon.getCell(parseInt((this.casx + this.av + this.radio

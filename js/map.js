@@ -27,7 +27,7 @@ fuego.src = "images/fire.png";
 var bloodReady = false;
 var blood = new Image();
 blood.onload = function() {
-  bloodReady = true;
+	bloodReady = true;
 };
 
 blood.src = "images/blood.png";
@@ -35,7 +35,7 @@ blood.src = "images/blood.png";
 var chapaReady = false;
 var chapa = new Image();
 chapa.onload = function() {
-  chapaReady = true;
+	chapaReady = true;
 };
 
 chapa.src = "images/chapa.png";
