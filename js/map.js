@@ -22,8 +22,30 @@ var fuego = new Image();
 fuego.onload = function() {
 	fuegoReady = true;
 };
-
 fuego.src = "images/fire.png";
+
+var sueloReady = false;
+var suelo = new Image();
+suelo.onload = function() {
+  sueloReady = true;
+};
+suelo.src = "images/suelo.png";
+
+var bloodReady = false;
+var blood = new Image();
+blood.onload = function() {
+	bloodReady = true;
+};
+
+blood.src = "images/blood.png";
+
+var chapaReady = false;
+var chapa = new Image();
+chapa.onload = function() {
+	chapaReady = true;
+};
+
+chapa.src = "images/chapa.png";
 
 var botiquinReady = false;
 var botiquin = new Image();

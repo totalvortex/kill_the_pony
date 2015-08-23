@@ -346,7 +346,7 @@ var Dungeon = {
 	setv : function(x, y) { // hace una celda visible
 		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileAlien
 				&& !Dungeon.isv(x, y))
-			Dungeon.spawner.push(new Nido(x, y, zergb, this.getRand(48, 256)));
+			Dungeon.spawner.push(new Nido(x, y, zergb, this.getRand(48, 64)));
 		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileChest
 				&& !Dungeon.isv(x, y))
 			Dungeon.items.push(new item(x, y, 1, botiquin));

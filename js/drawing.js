@@ -13,7 +13,7 @@ addEventListener('mousemove', function(evt) { // funcion para los eventos de
 }, false);
 
 addEventListener('mousedown', function(evt) { // funcion para los eventos
-												// click
+	// click
 	// del ratón
 	Machango.disparando = !Machango.disparando;
 	var p = getmp(canvas, evt);
@@ -276,6 +276,7 @@ function update() // actualiza las variables antes del render
 		this.reboot();
 
 	}
+
 	if (Dungeon.spawner.length > 0)
 		for (a = 0; a < Dungeon.spawner.length; a++) {
 			Dungeon.spawner[a].update();
@@ -303,7 +304,9 @@ function update() // actualiza las variables antes del render
 					}
 				}
 			}
+
 		}
+
 	}
 	if (Dungeon.items.length > 0) {
 		for (i = 0; i < Dungeon.items.length; i++) {
@@ -314,28 +317,35 @@ function update() // actualiza las variables antes del render
 			}
 		}
 	}
+
 	// lanzallamas
 	if (Machango.disparando) {
 		if (Machango.balas.length < Machango.maxbalas) {
 			angulo = Math.atan2(Dungeon.mpos.x - canvas.height / 2 - 16,
 					Dungeon.mpos.y - canvas.width / 2 - 8);
 			if (Machango.balas.length < Machango.maxbalas)
-				// Machango.balas.push(new Bala(Machango.casx + 20,
-				// Machango.casy + 20, 8, bala, 5, angulo));
+
 				Machango.balas.push(new llama(Machango.casx + 20,
 						Machango.casy + 20, fuego, 8, 256, angulo));
 			else {
 
 				Machango.balas.pop();
-				// Machango.balas.push(new Bala(Machango.casx + 20,
-				// Machango.casy + 20, 8, bala, 5, angulo));
+
 				Machango.balas.push(new llama(Machango.casx + 20,
 						Machango.casy + 20, fuego, 12, 256, angulo));
-				// x,y,sprt,avance,distanciamax,angulo
+
 			}
 
 		}
+
 	}
+	if (Machango.balas.length >= Machango.maxbalas - 1) {
+		Machango.balas.length = 0;
+		Machango.balas = [];
+		// alert("Recargando");
+	}
+	panel.update();
+
 	// salida
 	if (Dungeon.getCell(parseInt((Machango.casx + 16) / ancho),
 			parseInt((Machango.casy + 16) / ancho)) == Dungeon.tileExit) {
@@ -349,14 +359,15 @@ function reboot() {
 
 	Dungeon.borrar();
 	ctx.translate(mapx, mapy);
-	var lev = Dungeon.level + 4;
-	while (Dungeon.nh < lev && !Dungeon.puerta) { // genera el dungeon hasta
+	Dungeon.level++;
+	while (Dungeon.nh < Dungeon.level && !Dungeon.puerta) { // genera el dungeon
+															// hasta
 		// que las habitaciones sea
 		// mayor que level
-		rooms = Dungeon.createDungeon(64, 64, lev);
+		rooms = Dungeon.createDungeon(64, 64, Dungeon.level);
 	}
 	rooms = Dungeon.createDungeon(64, 64, Dungeon.level);
-	mensaje = "LEVEL " + Dungeon.level;
+	mensaje = "LEVEL: " + Dungeon.level;
 	Dungeon.iniciamapa(64, 64);
 
 	Machango.creamachango(hx, hy, marinez, 48);
@@ -456,7 +467,7 @@ function dibujasuelo() // dibuja el suelo
 				// if(n!=0) n=Dungeon.getRand(5,15);
 				// var t =tablero[x*tablerow+y][1];
 				if (n > 12 && n < 99) {
-					ctx.drawImage(piso0, x * ancho, y * ancho);
+					ctx.drawImage(suelo, x * ancho, y * ancho);
 				} else
 					switch (n) {
 					case 0: {
@@ -489,21 +500,21 @@ function dibujasuelo() // dibuja el suelo
 						break;
 					}
 					case 3: {
-						ctx.drawImage(piso11, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 						// ctx.fillStyle ="rgba(0, 0, 0,0.7)";
 						// ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
 
 						break;
 					}
 					case 4: {// pasillov
-						ctx.drawImage(pisopasillov, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 						// ctx.fillStyle ="rgba(250, 0, 250,0.2)";
 						// ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
 
 						break;
 					}
 					case 5: { // pasilloh
-						ctx.drawImage(pisopasillo, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 						// ctx.fillStyle ="rgba(0, 0, 0,0.3)";
 						// ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
 
@@ -524,51 +535,51 @@ function dibujasuelo() // dibuja el suelo
 					case 8: {
 						ctx.fillStyle = "rgba(255, 255, 0,0.7)";
 						ctx.fillRect(x * ancho, y * ancho, ancho, ancho);
-						ctx.drawImage(piso0, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 9: {
-						ctx.drawImage(piso0, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 10: {
-						ctx.drawImage(piso0, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 11: {
-						ctx.drawImage(piso0, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 12: {
-						ctx.drawImage(piso0, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 13: {
-						ctx.drawImage(piso4, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 						break;
 					}
 					case 14: {
-						ctx.drawImage(piso41, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 15: {
-						ctx.drawImage(piso42, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 16: {
-						ctx.drawImage(piso43, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 
 						break;
 					}
 					case 99: {
-						ctx.drawImage(piso13, x * ancho, y * ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
 						// ctx.fillStyle ="rgba(0, 0, 250,0.4)";
 						// ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
 						break;
@@ -668,6 +679,9 @@ function render() {
 			+ canvas.height / 2 - 230, 243, 178);
 	Dungeon.dibujamapa(10 + Machango.casx - canvas.width / 2, 10
 			+ Machango.casy - canvas.height / 2);
+
+	// dibuja el panel de vida
+	panel.render();
 
 	// dibuja al personaje
 	Machango.render();
