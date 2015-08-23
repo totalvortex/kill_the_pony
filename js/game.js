@@ -7,7 +7,7 @@ var mensaje = " ";
 var fps = 0;
 var Cujo = null;
 var gente = [];
-var maxaliens = 64;
+
 
 var click = false;
 var keysDown = {};
