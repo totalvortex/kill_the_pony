@@ -197,8 +197,13 @@ function update() // actualiza las variables antes del render
 
 	}
 	Machango.mov = (up || down || left || right);
-	Dungeon.ver(parseInt(Machango.casx / ancho), parseInt((Machango.casy)
-			/ ancho));// mensaje="("+(parseInt(Machango.casx/(ancho*2))+25)+",
+	Dungeon.ver(parseInt(Machango.casx / ancho), parseInt((Machango.casy) / ancho));
+
+  for(o=0;o<Dungeon.doors.length;o++){
+      if(Dungeon.doors[o].posx == parseInt((20 + Machango.casx) / ancho) && Dungeon.doors[o].posy == parseInt((20 + Machango.casy) / ancho))
+        Dungeon.doors[o].abre();
+  }
+  // mensaje="("+(parseInt(Machango.casx/(ancho*2))+25)+",
 	// "+(parseInt(Machango.casy/(ancho*2))+25)+"):
 	// "+Dungeon.getCell(parseInt(Machango.casx/(ancho*2))+25,
 	// parseInt(Machango.casy/(ancho*2))+25);
@@ -283,7 +288,12 @@ function update() // actualiza las variables antes del render
 		}
 
 	Machango.update();
+  if (Dungeon.doors.length > 0) {
+    for (a = 0; a < Dungeon.doors.length; a++) {
 
+      Dungeon.doors[a].update();
+    }
+  }
 	if (Dungeon.Aliens.length > 0) {
 		for (a = 0; a < Dungeon.Aliens.length; a++) {
 
@@ -345,6 +355,9 @@ function update() // actualiza las variables antes del render
 		// alert("Recargando");
 	}
 	panel.update();
+
+
+
 
 	// salida
 	if (Dungeon.getCell(parseInt((Machango.casx + 16) / ancho),
@@ -471,8 +484,8 @@ function dibujasuelo() // dibuja el suelo
 				} else
 					switch (n) {
 					case 0: {
-						ctx.fillStyle = "#090909";
-						ctx.fillRect(x * ancho, y * ancho, ancho, ancho);
+					//	ctx.fillStyle = "#090909";
+					//	ctx.fillRect(x * ancho, y * ancho, ancho, ancho);
 
 						break;
 					}
@@ -494,9 +507,9 @@ function dibujasuelo() // dibuja el suelo
 						break;
 					}
 					case 2: {
-						ctx.drawImage(piso12, x * ancho, y * ancho);
-						ctx.fillStyle = "rgba(90, 30, 0,0.4)";
-						ctx.fillRect(x * ancho, y * ancho, ancho, ancho);
+						ctx.drawImage(suelo, x * ancho, y * ancho);
+						//ctx.fillStyle = "rgba(90, 30, 0,0.2)";
+					//	ctx.fillRect(x * ancho, y * ancho, ancho, ancho);
 						break;
 					}
 					case 3: {
@@ -616,7 +629,11 @@ function dibujasuelo() // dibuja el suelo
 }
 
 function dibujaobj() {
-
+    if (Dungeon.doors.length > 0)
+    for (a = 0; a < Dungeon.doors.length; a++) {
+      if(Dungeon.isv(Dungeon.doors[a].posx, Dungeon.doors[a].posy))
+      Dungeon.doors[a].render();
+    }
 	if (Dungeon.items.length > 0) // dibuja items
 		for (a = 0; a < Dungeon.items.length; a++) {
 			Dungeon.items[a].render();
