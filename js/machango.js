@@ -40,7 +40,7 @@ var Machango = { // clase para el personaje
 		this.balas = [];
 		this.maxbalas = 128;
     this.escudo  = [];
-    this.escudo.push(new Escudo(this.casx,this.casy,wave,16));
+    this.escudo.push(new Escudo(this.casx,this.casy,wave,36));
 	},
 
 	update : function() {

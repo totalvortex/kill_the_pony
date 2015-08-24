@@ -281,7 +281,14 @@ function update() // actualiza las variables antes del render
 		this.reboot();
 
 	}
+  if (83 in keysDown) { // Player holding "s"
+    if(Machango.escudo.length>0) this.Machango.escudo[0].activar();
 
+  }
+  if (66 in keysDown) { // Player holding "b"
+    if(Machango.escudo.length>0) this.Machango.escudo[0].bomba();
+
+  }
 	if (Dungeon.spawner.length > 0)
 		for (a = 0; a < Dungeon.spawner.length; a++) {
 			Dungeon.spawner[a].update();
