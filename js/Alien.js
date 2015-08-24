@@ -10,6 +10,7 @@ function Alien(x, y, r, sp, vid, anc) {
 	this.alfa = 0;
 	this.corriendo = 0;
 	this.animm = 0;
+  this.animmax = Dungeon.getRand(0,6); //animacion de la muerte
 	this.pm = 1.5;
 	this.vida = vid;
 	this.vidamax = vid;
@@ -239,9 +240,10 @@ function Alien(x, y, r, sp, vid, anc) {
 				this.vidaant = this.vida;
 
 			} else {
-				if (this.animm < 8)
+			if(this.animm<this.animmax)
 					this.animm++;
-			}
+			
+      }
 
 		}
 	}
@@ -320,7 +322,7 @@ function Alien(x, y, r, sp, vid, anc) {
 					- this.vidamax - 20, this.casy - this.vidamax - 10,
 					this.anchospr, this.anchospr);
 
-			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (13),
+			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (17),
 					this.anchospr - 20, this.anchospr - 20, this.casx
 							- this.vidamax, this.casy - this.vidamax,
 					this.anchospr + this.vidamax * 2, this.anchospr
