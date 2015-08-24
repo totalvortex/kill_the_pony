@@ -8,7 +8,7 @@ var Dungeon = {
 	chanceRoom : 55,
 	chanceCorridor : 85,
 	dungeon_map : [],
-  doors: [],
+	doors : [],
 	visible : [],
 	Aliens : [],
 	spawner : [],
@@ -66,7 +66,7 @@ var Dungeon = {
 		this.Aliens = [];
 		this.items = [];
 		this.spawner = [];
-    this.doors = [];
+		this.doors = [];
 		// for(x=0;x<Dungeon.xsize*Dungeon.ysize;x++){
 		// Dungeon.visible.push(true);
 		// }
@@ -256,14 +256,15 @@ var Dungeon = {
 		// (repe)
 		Dungeon.dungeon_map[x + Dungeon.xsize * y] = celltype;
 
-		 if(celltype==Dungeon.tileDoorclosed){
-       if(Dungeon.dungeon_map[x + Dungeon.xsize * (y + 1) ] == Dungeon.tileDirtWall && Dungeon.dungeon_map[x + Dungeon.xsize * (y - 1) ] == Dungeon.tileDirtWall)
-        Dungeon.doors.push(new puerta(x, y, true));
-      else
-        Dungeon.doors.push(new puerta(x, y, false));
+		if (celltype == Dungeon.tileDoorclosed) {
+			if (Dungeon.dungeon_map[x + Dungeon.xsize * (y + 1)] == Dungeon.tileDirtWall
+					&& Dungeon.dungeon_map[x + Dungeon.xsize * (y - 1)] == Dungeon.tileDirtWall)
+				Dungeon.doors.push(new puerta(x, y, true));
+			else
+				Dungeon.doors.push(new puerta(x, y, false));
 
-     }
-      Dungeon.unsetv(x,y);
+		}
+
 	},
 
 	getCell : function(x, y) {// obtiene el valor de una celda del tablero
@@ -280,16 +281,15 @@ var Dungeon = {
 				&& Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)] < 16
 				&& !Dungeon.visible[(x) + Dungeon.xsize * (y)]) {
 			Dungeon.setv(x, y);
-			if (Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)] == Dungeon.tileDoorclosed){
+			if (Dungeon.dungeon_map[(x) + Dungeon.xsize * (y)] == Dungeon.tileDoorclosed) {
 				this.puerta = true;
 
-
-      }
-     /* for(a=0;a<Dungeon.doors.length;a++){
-        if(this.doors[a].casx==x*ancho && this.doors[a].casy==y*ancho){
-          this.doors[a].abrir();
-        }
-      }*/
+			}
+			/*
+			 * for(a=0;a<Dungeon.doors.length;a++){
+			 * if(this.doors[a].casx==x*ancho && this.doors[a].casy==y*ancho){
+			 * this.doors[a].abrir(); } }
+			 */
 		}
 		if ((x > 0 && x < Dungeon.xsize)
 				&& Dungeon.dungeon_map[(x + 1) + Dungeon.xsize * (y)] >= 4
@@ -367,8 +367,6 @@ var Dungeon = {
 		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileChest
 				&& !Dungeon.isv(x, y))
 			Dungeon.items.push(new item(x, y, 1, botiquin));
-   
-      
 
 		Dungeon.visible[x + Dungeon.xsize * y] = true;
 		o = (x + 64 * y);

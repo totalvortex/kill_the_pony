@@ -200,7 +200,7 @@ function Alien(x, y, r, sp, vid, anc) {
 
 			if (this.vidaant != this.vida) {
 				for (var i = 0; i < this.barravida.data.length; i += 8) // borra
-																		// la
+				// la
 				// barra de
 				// vida
 				{

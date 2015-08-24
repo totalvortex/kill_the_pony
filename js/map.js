@@ -20,17 +20,17 @@ cargando.src = "images/cargando.png";
 var doorReady = false;
 var door = new Image();
 door.onload = function() {
-  doorReady=true;
+	doorReady = true;
 };
-door.src ="images/puerta.png";
+door.src = "images/puerta.png";
 
 var doorvReady = false;
 var doorv = new Image();
 doorv.onload = function() {
-  doorvReady=true;
+	doorvReady = true;
 };
 
-doorv.src ="images/puertav.png";
+doorv.src = "images/puertav.png";
 
 var fuegoReady = false;
 var fuego = new Image();
@@ -42,7 +42,7 @@ fuego.src = "images/fire.png";
 var sueloReady = false;
 var suelo = new Image();
 suelo.onload = function() {
-  sueloReady = true;
+	sueloReady = true;
 };
 suelo.src = "images/suelo.png";
 
@@ -132,7 +132,6 @@ piso11.onload = function() {
 	piso11Ready = true;
 };
 piso11.src = "images/pisounder.png";
-
 
 var piso13Ready = false;
 var piso13 = new Image();
