@@ -24,6 +24,13 @@ door.onload = function() {
 };
 door.src = "images/puerta.png";
 
+var waveReady = false;
+var wave = new Image();
+wave.onload = function() {
+  waveReady = true;
+};
+wave.src = "images/onda.png";
+
 var doorvReady = false;
 var doorv = new Image();
 doorv.onload = function() {

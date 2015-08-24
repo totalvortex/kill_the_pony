@@ -17,6 +17,7 @@ var Machango = { // clase para el personaje
 	cosa : 0,
 	vida : 0,
 	balas : [],
+  escudo : [],
 
 	creamachango : function(inx, iny, sprite, anchos) {
 
@@ -38,6 +39,8 @@ var Machango = { // clase para el personaje
 		this.vida = 50;
 		this.balas = [];
 		this.maxbalas = 128;
+    this.escudo  = [];
+    this.escudo.push(new Escudo(this.casx,this.casy,wave,36));
 	},
 
 	update : function() {
@@ -70,6 +73,14 @@ var Machango = { // clase para el personaje
 						Machango.balas[a].update();
 				}
 			}
+
+      if(this.escudo.length>0){
+        Machango.escudo[0].update();
+       
+      }
+
+
+
 		}
 		// calculo del angulo de la torreta
 		// this.alfa=Math.atan2(Dungeon.mpos.x-canvas.height/2+10,Dungeon.mpos.y-canvas.width/2+10);
@@ -156,6 +167,13 @@ var Machango = { // clase para el personaje
 				// mensaje= "mov: " + this.giro + ", pos:"+kk;
 				this.disparando = false;
 			}
+
+      if(this.escudo.length>0){
+        Machango.escudo[0].render();
+      }
+
+
+
 		} else {
 			if (this.vida > -6) {
 				ctx.drawImage(this.machangoimg, 16 - ancho * this.vida,
