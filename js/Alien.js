@@ -155,8 +155,12 @@ function Alien(x, y, r, sp, vid, anc) {
 
 			this.alfa = Math.atan2(x - this.casx, y - this.casy);
 			this.giro = 16 - parseInt((this.alfa * Math.PI * 1.9));
+      var colescudo=false;
+      if(Machango.escudo.length>0)
+        if(this.CCcol(x-20, y-25, Machango.escudo.radio+ancho)) colescudo=true;
 
-			if (!this.CCcol(x, y, radio)) {
+
+			if (!this.CCcol(x, y, radio) && !colescudo) {
 
 				if (!this.colisonconmuro(alfa)) {
 
