@@ -17,13 +17,50 @@ cargando.onload = function() {
 
 cargando.src = "images/cargando.png";
 
+var doorReady = false;
+var door = new Image();
+door.onload = function() {
+	doorReady = true;
+};
+door.src = "images/puerta.png";
+
+var doorvReady = false;
+var doorv = new Image();
+doorv.onload = function() {
+	doorvReady = true;
+};
+
+doorv.src = "images/puertav.png";
+
 var fuegoReady = false;
 var fuego = new Image();
 fuego.onload = function() {
 	fuegoReady = true;
 };
-
 fuego.src = "images/fire.png";
+
+var sueloReady = false;
+var suelo = new Image();
+suelo.onload = function() {
+	sueloReady = true;
+};
+suelo.src = "images/suelo.png";
+
+var bloodReady = false;
+var blood = new Image();
+blood.onload = function() {
+	bloodReady = true;
+};
+
+blood.src = "images/blood.png";
+
+var chapaReady = false;
+var chapa = new Image();
+chapa.onload = function() {
+	chapaReady = true;
+};
+
+chapa.src = "images/chapa.png";
 
 var botiquinReady = false;
 var botiquin = new Image();
@@ -95,13 +132,6 @@ piso11.onload = function() {
 	piso11Ready = true;
 };
 piso11.src = "images/pisounder.png";
-
-var piso12Ready = false;
-var piso12 = new Image();
-piso12.onload = function() {
-	piso12Ready = true;
-};
-piso12.src = "images/piso00.png";
 
 var piso13Ready = false;
 var piso13 = new Image();

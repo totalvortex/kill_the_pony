@@ -17,13 +17,15 @@ function llama(x, y, sprt, avance, distanciamax, angulo) {
 	this.spy = 0; // pos y en el sprite
 
 	this.colisionconmuro = function(alfa) {// dir: 0 arriba 1 derecha, 2 abajo,
-											// 3 izquierda: /////pm puntos de
-											// movimiento (pixeles)
+		// 3 izquierda: /////pm puntos de
+		// movimiento (pixeles)
 		alfa = alfa % Math.PI;
 
-	
-		if (Dungeon.getCell(parseInt((this.casx + 16 + this.radio * Math.sin(this.alfa)) / ancho),
-				            parseInt((this.casy + 8 + this.radio	* Math.cos(this.alfa)) / ancho)) > 1) {
+		if (Dungeon.getCell(parseInt((this.casx + 16 + this.radio
+				* Math.sin(this.alfa))
+				/ ancho), parseInt((this.casy + 8 + this.radio
+				* Math.cos(this.alfa))
+				/ ancho)) > 1) {
 
 			return false;
 
@@ -65,7 +67,6 @@ function llama(x, y, sprt, avance, distanciamax, angulo) {
 
 	this.render = function() {
 		if (this.activo) {
-			
 			ctx.drawImage(this.img, this.spx * ancho, this.spy * ancho,
 					this.anchospr, this.anchospr, this.casx, this.casy, ancho,
 					ancho);
