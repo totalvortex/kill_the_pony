@@ -30,8 +30,8 @@ function Escudo(x, y, sprt, rad) {
     this.render = function() {
         //alert("render");
         if (this.activo)
-            ctx.drawImage(wave, this.casx - this.contador - this.radio + 10,
-                this.casy - this.radio + 15 - this.contador, ancho + this.radio + this.contador * 2, ancho + this.contador * 2 + this.radio);
+            ctx.drawImage(wave, this.casx - this.contador - this.radio + 5,
+                this.casy - this.radio + 10 - this.contador, ancho + this.radio + this.contador * 2, ancho + this.contador * 2 + this.radio);
     }
 
     this.activar = function() {
