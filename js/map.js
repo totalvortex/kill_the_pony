@@ -17,6 +17,13 @@ cargando.onload = function() {
 
 cargando.src = "images/cargando.png";
 
+var negroReady = false;
+var negro = new Image();
+negro.onload = function() {
+  negroReady = true;
+};
+negro.src = "images/negro.png";
+
 var doorReady = false;
 var door = new Image();
 door.onload = function() {

@@ -66,25 +66,15 @@ function Alien(x, y, r, sp, vid, anc) {
 			return (xd * xd + yd * yd <= wt * wt);
 	}
 
-	this.colisonconmuro = function(alfa) {// dir: 0 arriba 1 derecha, 2 abajo,
+	this.colisonconmuro = function(alfa) {// dir: 0 ar&& Dungeon.getCell(xc,yc) != Dungeon.tileAlienriba 1 derecha, 2 abajo,
 		// 3 izquierda: /////pm puntos de
 		// movimiento (pixeles)
 		alfa = alfa % Math.PI;
+    var xc=parseInt(this.casx + 16 + (this.radio + this.vidamax) * Math.sin(this.alfa) / ancho);
+    var yc=parseInt(this.casy + 16 + (this.radio + this.vidamax) * Math.cos(this.alfa) / ancho);
+    
 
-		if (Dungeon.getCell(
-				parseInt((this.casx + 16 + (this.radio + this.vidamax)
-						* Math.sin(this.alfa))
-						/ ancho),
-				parseInt((this.casy + 16 + (this.radio + this.vidamax)
-						* Math.cos(this.alfa))
-						/ ancho)) > 1
-				&& Dungeon.getCell(
-						parseInt((this.casx + 16 + (this.radio + this.vidamax)
-								* Math.sin(this.alfa))
-								/ ancho),
-						parseInt((this.casy + 16 + (this.radio + this.vidamax)
-								* Math.cos(this.alfa))
-								/ ancho)) != Dungeon.tileAlien) {
+		if (Dungeon.getCell(xc,yc) >= 2 && Dungeon.getCell(xc,yc) != Dungeon.tileAlien) {
 
 			return false;
 
