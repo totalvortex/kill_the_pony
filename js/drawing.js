@@ -281,7 +281,14 @@ function update() // actualiza las variables antes del render
 		this.reboot();
 
 	}
+  if (83 in keysDown) { // Player holding "s"
+    if(Machango.escudo.length>0) this.Machango.escudo[0].activar();
 
+  }
+  if (66 in keysDown) { // Player holding "b"
+    if(Machango.escudo.length>0) this.Machango.escudo[0].bomba();
+
+  }
 	if (Dungeon.spawner.length > 0)
 		for (a = 0; a < Dungeon.spawner.length; a++) {
 			Dungeon.spawner[a].update();
@@ -479,24 +486,24 @@ function dibujasuelo() // dibuja el suelo
 				var n = Dungeon.getCell(x, y);
 				// if(n!=0) n=Dungeon.getRand(5,15);
 				// var t =tablero[x*tablerow+y][1];
-				if (n > 12 && n < 99) {
+				if (n > 12 && n < 99 && n!=1) {
 					ctx.drawImage(suelo, x * ancho, y * ancho);
 				} else
 					switch (n) {
 					case 0: {
-					//	ctx.fillStyle = "#090909";
-					//	ctx.fillRect(x * ancho, y * ancho, ancho, ancho);
+				  	ctx.drawImage(negro, x * ancho, y * ancho);
+
 
 						break;
 					}
 
-					case 1: {
+				//	case 1: {
 						/*
 						 * ctx.shadowColor = "rgba( 0, 0, 0, 1.0 )";
 						 * ctx.shadowOffsetX = -2; ctx.shadowOffsetY = -2;
 						 * ctx.shadowBlur = 8;
 						 */
-						ctx.drawImage(piso1, x * ancho, y * ancho);
+				//		ctx.drawImage(piso1, x * ancho, y * ancho);
 
 						// ctx.fillStyle ="rgba(127, 250, 0,0.4)";
 						// ctx.fillRect(x*ancho,y*ancho,ancho,ancho);
@@ -504,8 +511,8 @@ function dibujasuelo() // dibuja el suelo
 						// ctx.drawImage(muros,24*ancho, ancho, ancho,ancho,
 						// x*ancho, y*ancho, ancho,ancho);
 
-						break;
-					}
+				//		break;
+				//	}
 					case 2: {
 						ctx.drawImage(suelo, x * ancho, y * ancho);
 						//ctx.fillStyle = "rgba(90, 30, 0,0.2)";
@@ -627,7 +634,15 @@ function dibujasuelo() // dibuja el suelo
 	}
 
 }
+function dibujaparedes() {
 
+for (y = ymin; y < ymax + 1; y++) 
+    for (x = xmin; x < xmax + 1; x++) 
+          if (Dungeon.isv(x, y) && Dungeon.getCell(x,y)== Dungeon.tileDirtWall) ctx.drawImage(piso1, x * ancho, y * ancho);
+
+
+
+}
 function dibujaobj() {
     if (Dungeon.doors.length > 0)
     for (a = 0; a < Dungeon.doors.length; a++) {
@@ -691,6 +706,10 @@ function render() {
 
 	// dibuja Aliens;
 	dibujaobj();
+
+  dibujaparedes();
+
+
 	// dibuja mapa
 	ctx.drawImage(map, Machango.casx + canvas.width / 2 - 208, Machango.casy
 			+ canvas.height / 2 - 230, 243, 178);

@@ -17,12 +17,26 @@ cargando.onload = function() {
 
 cargando.src = "images/cargando.png";
 
+var negroReady = false;
+var negro = new Image();
+negro.onload = function() {
+  negroReady = true;
+};
+negro.src = "images/negro.png";
+
 var doorReady = false;
 var door = new Image();
 door.onload = function() {
 	doorReady = true;
 };
 door.src = "images/puerta.png";
+
+var waveReady = false;
+var wave = new Image();
+wave.onload = function() {
+  waveReady = true;
+};
+wave.src = "images/onda.png";
 
 var doorvReady = false;
 var doorv = new Image();

@@ -83,7 +83,7 @@ var main = function() {
 	render();
 	then = now;
 	delta = now - then;
-	setTimeout(main, 1000 / 80 - delta);
+	setTimeout(main, 1000 / 90 - delta);
 
 };
 

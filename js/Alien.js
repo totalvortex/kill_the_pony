@@ -10,6 +10,7 @@ function Alien(x, y, r, sp, vid, anc) {
 	this.alfa = 0;
 	this.corriendo = 0;
 	this.animm = 0;
+  this.animmax = Dungeon.getRand(0,6); //animacion de la muerte
 	this.pm = 1.5;
 	this.vida = vid;
 	this.vidamax = vid;
@@ -65,25 +66,15 @@ function Alien(x, y, r, sp, vid, anc) {
 			return (xd * xd + yd * yd <= wt * wt);
 	}
 
-	this.colisonconmuro = function(alfa) {// dir: 0 arriba 1 derecha, 2 abajo,
+	this.colisonconmuro = function(alfa) {// dir: 0 ar&& Dungeon.getCell(xc,yc) != Dungeon.tileAlienriba 1 derecha, 2 abajo,
 		// 3 izquierda: /////pm puntos de
 		// movimiento (pixeles)
 		alfa = alfa % Math.PI;
+    var xc=parseInt(this.casx + 16 + (this.radio + this.vidamax) * Math.sin(this.alfa) / ancho);
+    var yc=parseInt(this.casy + 16 + (this.radio + this.vidamax) * Math.cos(this.alfa) / ancho);
+    
 
-		if (Dungeon.getCell(
-				parseInt((this.casx + 16 + (this.radio + this.vidamax)
-						* Math.sin(this.alfa))
-						/ ancho),
-				parseInt((this.casy + 16 + (this.radio + this.vidamax)
-						* Math.cos(this.alfa))
-						/ ancho)) > 1
-				&& Dungeon.getCell(
-						parseInt((this.casx + 16 + (this.radio + this.vidamax)
-								* Math.sin(this.alfa))
-								/ ancho),
-						parseInt((this.casy + 16 + (this.radio + this.vidamax)
-								* Math.cos(this.alfa))
-								/ ancho)) != Dungeon.tileAlien) {
+		if (Dungeon.getCell(xc,yc) >= 2 && Dungeon.getCell(xc,yc) != Dungeon.tileAlien) {
 
 			return false;
 
@@ -155,8 +146,12 @@ function Alien(x, y, r, sp, vid, anc) {
 
 			this.alfa = Math.atan2(x - this.casx, y - this.casy);
 			this.giro = 16 - parseInt((this.alfa * Math.PI * 1.9));
+      var colescudo=false;
+      if(Machango.escudo.length>0)
+        if(this.CCcol(x-20, y-25, Machango.escudo.radio+ancho)) colescudo=true;
 
-			if (!this.CCcol(x, y, radio)) {
+
+			if (!this.CCcol(x, y, radio) && !colescudo) {
 
 				if (!this.colisonconmuro(alfa)) {
 
@@ -235,9 +230,10 @@ function Alien(x, y, r, sp, vid, anc) {
 				this.vidaant = this.vida;
 
 			} else {
-				if (this.animm < 8)
+			if(this.animm<this.animmax)
 					this.animm++;
-			}
+			
+      }
 
 		}
 	}
@@ -316,7 +312,7 @@ function Alien(x, y, r, sp, vid, anc) {
 					- this.vidamax - 20, this.casy - this.vidamax - 10,
 					this.anchospr, this.anchospr);
 
-			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (13),
+			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (17),
 					this.anchospr - 20, this.anchospr - 20, this.casx
 							- this.vidamax, this.casy - this.vidamax,
 					this.anchospr + this.vidamax * 2, this.anchospr
