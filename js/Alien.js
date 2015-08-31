@@ -190,9 +190,18 @@ function Alien(x, y, r, sp, vid, anc) {
 			  if(this.camino.length>1){
 			  		this.alfa = Math.atan2(this.camino[1][0]  - this.camino[0][0], this.camino[1][1] - this.camino[0][1]);
 			  		this.giro = 16 - parseInt((this.alfa * Math.PI * 1.9));
-			  		
-			  		this.casx = this.casx + Math.sin(this.alfa) * this.pm;
+
+			  	if (!this.colisonconmuro(alfa)) {
+
+					this.casx = this.casx + Math.sin(this.alfa) * this.pm;
 					this.casy = this.casy + Math.cos(this.alfa) * this.pm;
+
+				} else {
+					if (!this.colisonconmuroy(alfa))
+						this.casx = this.casx + Math.sin(this.alfa) * this.pm;
+					if (!this.colisonconmurox(alfa))
+						this.casy = this.casy + Math.cos(this.alfa) * this.pm;
+				}
 			  		
 			  }
 			  	
@@ -352,20 +361,20 @@ this.findPath = function(pathStart, pathEnd)
   // alternate heuristics, depending on your game:
 
   // diagonals allowed but no sqeezing through cracks:
-  var distanceFunction = DiagonalDistance;
-  var findNeighbours = DiagonalNeighbours;
+  //var distanceFunction = DiagonalDistance;
+  //var findNeighbours = DiagonalNeighbours;
 
   // diagonals and squeezing through cracks allowed:
- // var distanceFunction = DiagonalDistance;
- // var findNeighbours = DiagonalNeighboursFree;
+  //var distanceFunction = DiagonalDistance;
+  //var findNeighbours = DiagonalNeighboursFree;
 
   // euclidean but no squeezing through cracks:
  // var distanceFunction = EuclideanDistance;
  // var findNeighbours = DiagonalNeighbours;
 
   // euclidean and squeezing through cracks allowed:
- // var distanceFunction = EuclideanDistance;
-  //var findNeighbours = DiagonalNeighboursFree;
+  var distanceFunction = EuclideanDistance;
+  var findNeighbours = DiagonalNeighboursFree;
 
   
 
