@@ -20,10 +20,8 @@ function Nido(x, y, sprt, freq) {
 
 	this.reproducir = function() {
 		if(!this.colisionaconaliens())
-		Dungeon.Aliens.push(new Alien(parseInt(this.casx / this.anchospr),
-				parseInt(this.casy / this.anchospr), 6, zerg, Dungeon.getRand(
-						2, 8), ancho));
-	else alert("col");
+		Dungeon.Aliens.push(new Alien(parseInt((this.casx) / this.anchospr) , parseInt((this.casy)/ this.anchospr), 6, zerg, Dungeon.getRand(2, 8), ancho));
+	
 	}
 
 this.CCcol = function(x1, y1, w1) { // colision del circulo x1,y1 con radio
