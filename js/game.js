@@ -28,8 +28,8 @@ var init = function() {
 	mapx = 0;
 	mapy = 0;
 	escala = 1.0;
-	nivelinicial = 15;
-	pm = 6; // pixels por movimiento
+	nivelinicial = 5;
+	pm = 3; // pixels por movimiento
 	mensaje = " ";
 	fps = 0;
 	gente = [];
@@ -68,7 +68,7 @@ var init = function() {
 	mapx = Machango.casx - parseInt(canvas.width / 2);// mapy+2;
 	mapy = Machango.casy - parseInt(canvas.height / 2);// mapy+2;
 	ctx.translate(-mapx, -mapy);
-	
+	this.Machango.escudo[0].activar();
 	then = now;
 	delta = now - then;
 	setTimeout(main, delta);

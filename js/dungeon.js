@@ -360,6 +360,9 @@ var Dungeon = {
 		}
 	},
 
+
+	
+
 	setv : function(x, y) { // hace una celda visible
 		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileAlien
 				&& !Dungeon.isv(x, y))
@@ -369,6 +372,23 @@ var Dungeon = {
 			Dungeon.items.push(new item(x, y, 1, botiquin));
 
 		Dungeon.visible[x + Dungeon.xsize * y] = true;
+
+		for (a = 0; a < Dungeon.Aliens.length; a++) { //muestra en el mapa los aliens
+
+			if (Dungeon.Aliens[a].vida>0){
+				var indice = parseInt(Dungeon.Aliens[a].casx/ancho) + ancho * parseInt(Dungeon.Aliens[a].casy/ancho);
+				if(Dungeon.dungeon_map[indice]>1){
+					o = (indice);
+					i = o * 4;
+					this.mapa.data[i + 0] = 0;
+					this.mapa.data[i + 1] = 200;
+					this.mapa.data[i + 2] = 0;
+					this.mapa.data[i + 3] = 250;
+				}
+			}
+			
+		}
+
 		o = (x + 64 * y);
 		i = o * 4;
 		switch (Dungeon.dungeon_map[o]) {
@@ -395,6 +415,14 @@ var Dungeon = {
 			this.mapa.data[i + 3] = 250;
 			break;
 		}
+		case Dungeon.tileAlien: {
+			this.mapa.data[i + 0] = 120;
+			this.mapa.data[i + 1] = 120;
+			this.mapa.data[i + 2] = 250;
+			this.mapa.data[i + 3] = 250;
+			// alert("exit");
+			break;
+		}
 		case Dungeon.tileExit: {
 			this.mapa.data[i + 0] = 0;
 			this.mapa.data[i + 1] = 0;
@@ -411,6 +439,7 @@ var Dungeon = {
 			break;
 		}
 		}
+		
 
 	},
 

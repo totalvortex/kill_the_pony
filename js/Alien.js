@@ -1,4 +1,4 @@
-function Alien(x, y, r, sp, vid, anc) {
+function Alien(x, y, r, sp, vid,anc) {
 	this.casx = x * ancho + 4;
 	this.casy = y * ancho + 16;
 	this.radio = r;
@@ -354,8 +354,8 @@ function Alien(x, y, r, sp, vid, anc) {
 
 				if (this.giro < 16) {
 					ctx.drawImage(this.img, 20 + ancho * this.giro, 20 + ancho
-							* (this.pos), this.anchospr - 20,
-							this.anchospr - 20, this.casx - this.vidamax,
+							* (this.pos), ancho - 20,
+							ancho - 20, this.casx - this.vidamax,
 							this.casy - this.vidamax, this.anchospr
 									+ this.vidamax * 2, this.anchospr
 									+ this.vidamax * 2);
@@ -367,8 +367,8 @@ function Alien(x, y, r, sp, vid, anc) {
 					ctx.save();
 					ctx.scale(-1.0, 1.0);
 					ctx.drawImage(this.img, 20 + ancho * (33 - this.giro), 20
-							+ ancho * (this.pos), this.anchospr - 20,
-							this.anchospr - 20, -this.casx - this.vidamax
+							+ ancho * (this.pos), ancho - 20,
+							ancho - 20, -this.casx - this.vidamax
 									- ancho / 2 - 10, this.casy - this.vidamax,
 							this.anchospr + this.vidamax * 2, this.anchospr
 									+ this.vidamax * 2);
@@ -381,8 +381,8 @@ function Alien(x, y, r, sp, vid, anc) {
 			} else {
 				if (this.giro < 16) {
 					ctx.drawImage(this.img, 20 + ancho * this.giro, 20 + ancho
-							* (this.corriendo % 8 + 4), this.anchospr - 20,
-							this.anchospr - 20, this.casx - this.vidamax,
+							* (this.corriendo % 8 + 4), ancho - 20,
+							ancho - 20, this.casx - this.vidamax,
 							this.casy - this.vidamax, this.anchospr
 									+ this.vidamax * 2, this.anchospr
 									+ this.vidamax * 2);
@@ -395,7 +395,7 @@ function Alien(x, y, r, sp, vid, anc) {
 					ctx.scale(-1.0, 1.0);
 					ctx.drawImage(this.img, 20 + ancho * (33 - this.giro), 20
 							+ ancho * (this.corriendo % 8 + 4),
-							this.anchospr - 20, this.anchospr - 20, -this.casx
+							ancho - 20, ancho - 20, -this.casx
 									- this.vidamax - ancho / 2 - 10, this.casy
 									- this.vidamax, this.anchospr
 									+ this.vidamax * 2, this.anchospr
@@ -418,10 +418,10 @@ function Alien(x, y, r, sp, vid, anc) {
 
 			ctx.drawImage(blood, ancho * i, ancho * j, ancho, ancho, this.casx
 					- this.vidamax - 20, this.casy - this.vidamax - 10,
-					this.anchospr, this.anchospr);
+					ancho, ancho);
 
 			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (17),
-					this.anchospr - 20, this.anchospr - 20, this.casx
+					ancho - 20, ancho - 20, this.casx
 							- this.vidamax, this.casy - this.vidamax,
 					this.anchospr + this.vidamax * 2, this.anchospr
 							+ this.vidamax * 2);
