@@ -14,6 +14,7 @@ function Nido(x, y, sprt, freq) {
 	}
 	this.render = function() {
 
+<<<<<<< HEAD
 		ctx.drawImage(this.img, 0, 0, ancho, ancho, this.casx,
 				this.casy, ancho, ancho);
 	}
@@ -55,4 +56,16 @@ this.colisionaconaliens = function() { // dir: 0 arriba
 
 	}
 
+=======
+		ctx.drawImage(this.img, 0, 0, this.anchospr, this.anchospr, this.casx,
+				this.casy, this.anchospr, this.anchospr);
+	}
+
+	this.reproducir = function() {
+
+		Dungeon.Aliens.push(new Alien(parseInt(this.casx / this.anchospr),
+				parseInt(this.casy / this.anchospr), 6, zerg, Dungeon.getRand(
+						2, 8), ancho));
+	}
+>>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 }

@@ -28,8 +28,13 @@ var init = function() {
 	mapx = 0;
 	mapy = 0;
 	escala = 1.0;
+<<<<<<< HEAD
 	nivelinicial = 5;
 	pm = 3; // pixels por movimiento
+=======
+	nivelinicial = 25;
+	pm = 2; // pixels por movimiento
+>>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 	mensaje = " ";
 	fps = 0;
 	gente = [];
@@ -68,7 +73,11 @@ var init = function() {
 	mapx = Machango.casx - parseInt(canvas.width / 2);// mapy+2;
 	mapy = Machango.casy - parseInt(canvas.height / 2);// mapy+2;
 	ctx.translate(-mapx, -mapy);
+<<<<<<< HEAD
 	this.Machango.escudo[0].activar();
+=======
+
+>>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 	then = now;
 	delta = now - then;
 	setTimeout(main, delta);
