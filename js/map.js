@@ -91,6 +91,16 @@ zerg.onload = function() {
 };
 zerg.src = "images/zergling.png";
 
+
+var zerg1Ready = false;
+var zerg1 = new Image();
+zerg1.onload = function() {
+	zerg1Ready = true;
+};
+zerg1.src = "images/alien.png";
+
+
+
 var zergbReady = false;
 var zergb = new Image();
 zergb.onload = function() {

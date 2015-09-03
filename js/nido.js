@@ -14,14 +14,14 @@ function Nido(x, y, sprt, freq) {
 	}
 	this.render = function() {
 
-		ctx.drawImage(this.img, 0, 0, this.anchospr, this.anchospr, this.casx,
-				this.casy, this.anchospr, this.anchospr);
+		ctx.drawImage(this.img, 0, 0, ancho, ancho, this.casx,
+				this.casy, ancho, ancho);
 	}
 
 	this.reproducir = function() {
 		if(!this.colisionaconaliens())
-		Dungeon.Aliens.push(new Alien(parseInt((this.casx) / this.anchospr) , parseInt((this.casy)/ this.anchospr), 6, zerg, Dungeon.getRand(2, 8), ancho));
-	
+			if(Dungeon.Aliens.length%2==1) Dungeon.Aliens.push(new Alien(parseInt((this.casx) / ancho) , parseInt((this.casy)/ ancho), 6, zerg, Dungeon.getRand(2, 6), ancho));
+			else Dungeon.Aliens.push(new Alien(parseInt((this.casx) / ancho) , parseInt((this.casy)/ ancho), 6, zerg1, Dungeon.getRand(2, 4), ancho/3));
 	}
 
 this.CCcol = function(x1, y1, w1) { // colision del circulo x1,y1 con radio
