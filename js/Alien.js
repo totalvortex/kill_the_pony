@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 function Alien(x, y, r, sp, vid,anc) {
 	this.casx = x * ancho + 4;
 	this.casy = y * ancho + 16;
-=======
-function Alien(x, y, r, sp, vid, anc) {
-	this.casx = x * ancho + 14;
-	this.casy = y * ancho + 24;
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 	this.radio = r;
 	this.img = sp;
 	this.anchospr = anc;
@@ -16,7 +10,6 @@ function Alien(x, y, r, sp, vid, anc) {
 	this.alfa = 0;
 	this.corriendo = 0;
 	this.animm = 0;
-<<<<<<< HEAD
  	this.animmax = Dungeon.getRand(0,6); //animacion de la muerte
 	this.pm = 1.5;
 	this.vida = vid;
@@ -27,13 +20,6 @@ function Alien(x, y, r, sp, vid, anc) {
 	this.camino=Dungeon.findPath([parseInt((this.casx)/ancho),parseInt((this.casy)/ancho)],[parseInt((Machango.casx)/ancho),parseInt((Machango.casy)/ancho)]);
 	this.conta2=0;	
 
-=======
-  this.animmax = Dungeon.getRand(0,6); //animacion de la muerte
-	this.pm = 1.5;
-	this.vida = vid;
-	this.vidamax = vid;
-	this.barravida = ctx.createImageData(2, 16);
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 	for (var i = 0; i < this.barravida.data.length; i += 8) // borra la
 	// barra de
 	// vida
@@ -126,12 +112,7 @@ function Alien(x, y, r, sp, vid, anc) {
 
 		if (Dungeon.getCell(parseInt((this.casx + 16) / ancho),
 				parseInt((this.casy + 16 + (this.radio + this.vidamax)
-<<<<<<< HEAD
 						* Math.cos(this.alfa)) / ancho)) > 1) {
-=======
-						* Math.cos(this.alfa))
-						/ ancho)) > 1) {
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 
 			return false;
 
@@ -166,7 +147,6 @@ function Alien(x, y, r, sp, vid, anc) {
 	this.update = function(x, y, radio, pm) {
 		// this.hazcamino(this.casx,this.casy,x,y);
 		if (this.vida > 0) {
-<<<<<<< HEAD
       var colescudo=false;
       var colalien=false;
 			this.alfa = Math.atan2(x - this.casx, y - this.casy);
@@ -184,24 +164,15 @@ function Alien(x, y, r, sp, vid, anc) {
 
 
       
-=======
-
-			this.alfa = Math.atan2(x - this.casx, y - this.casy);
-			this.giro = 16 - parseInt((this.alfa * Math.PI * 1.9));
-      var colescudo=false;
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
       if(Machango.escudo.length>0)
         if(this.CCcol(x-20, y-25, Machango.escudo.radio+ancho)) colescudo=true;
 
 
 			if (!this.CCcol(x, y, radio) && !colescudo) {
 
-<<<<<<< HEAD
 
 			  if(hayvista(parseInt(this.casx/ancho),parseInt(this.casy/ancho),parseInt(Machango.casx/ancho),parseInt(Machango.casy/ancho))){
 
-=======
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 				if (!this.colisonconmuro(alfa)) {
 
 					this.casx = this.casx + Math.sin(this.alfa) * this.pm;
@@ -213,7 +184,6 @@ function Alien(x, y, r, sp, vid, anc) {
 					if (!this.colisonconmurox(alfa))
 						this.casy = this.casy + Math.cos(this.alfa) * this.pm;
 				}
-<<<<<<< HEAD
 				
 			  }else{
 			 	this.conta2++;
@@ -263,15 +233,6 @@ function Alien(x, y, r, sp, vid, anc) {
 
 				}
 			
-=======
-				this.corriendo++;
-			} else {
-				corriendo = 0;
-				Machango.vida--; // resta vida al machango
-
-			}
-
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 			// mensaje="Giro:" +this.giro + " Alfa:" + this.alfa;
 			this.contador++;
 			if (this.contador > 100) {
@@ -338,7 +299,6 @@ function Alien(x, y, r, sp, vid, anc) {
 
 		}
 	}
-<<<<<<< HEAD
 
  function hayvista(x0, y0, x1, y1){ //algoritmo que te crea una linea de puntos desde x0,y0 hasta x1,y1 y las guarda en camino
  // this.camino=[];
@@ -385,8 +345,6 @@ function Alien(x, y, r, sp, vid, anc) {
 
 
 
-=======
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 	this.render = function() {
 		if (this.vida > 0) {
 
@@ -396,13 +354,8 @@ function Alien(x, y, r, sp, vid, anc) {
 
 				if (this.giro < 16) {
 					ctx.drawImage(this.img, 20 + ancho * this.giro, 20 + ancho
-<<<<<<< HEAD
 							* (this.pos), ancho - 20,
 							ancho - 20, this.casx - this.vidamax,
-=======
-							* (this.pos), this.anchospr - 20,
-							this.anchospr - 20, this.casx - this.vidamax,
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 							this.casy - this.vidamax, this.anchospr
 									+ this.vidamax * 2, this.anchospr
 									+ this.vidamax * 2);
@@ -414,13 +367,8 @@ function Alien(x, y, r, sp, vid, anc) {
 					ctx.save();
 					ctx.scale(-1.0, 1.0);
 					ctx.drawImage(this.img, 20 + ancho * (33 - this.giro), 20
-<<<<<<< HEAD
 							+ ancho * (this.pos), ancho - 20,
 							ancho - 20, -this.casx - this.vidamax
-=======
-							+ ancho * (this.pos), this.anchospr - 20,
-							this.anchospr - 20, -this.casx - this.vidamax
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 									- ancho / 2 - 10, this.casy - this.vidamax,
 							this.anchospr + this.vidamax * 2, this.anchospr
 									+ this.vidamax * 2);
@@ -433,13 +381,8 @@ function Alien(x, y, r, sp, vid, anc) {
 			} else {
 				if (this.giro < 16) {
 					ctx.drawImage(this.img, 20 + ancho * this.giro, 20 + ancho
-<<<<<<< HEAD
 							* (this.corriendo % 8 + 4), ancho - 20,
 							ancho - 20, this.casx - this.vidamax,
-=======
-							* (this.corriendo % 8 + 4), this.anchospr - 20,
-							this.anchospr - 20, this.casx - this.vidamax,
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 							this.casy - this.vidamax, this.anchospr
 									+ this.vidamax * 2, this.anchospr
 									+ this.vidamax * 2);
@@ -452,11 +395,7 @@ function Alien(x, y, r, sp, vid, anc) {
 					ctx.scale(-1.0, 1.0);
 					ctx.drawImage(this.img, 20 + ancho * (33 - this.giro), 20
 							+ ancho * (this.corriendo % 8 + 4),
-<<<<<<< HEAD
 							ancho - 20, ancho - 20, -this.casx
-=======
-							this.anchospr - 20, this.anchospr - 20, -this.casx
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 									- this.vidamax - ancho / 2 - 10, this.casy
 									- this.vidamax, this.anchospr
 									+ this.vidamax * 2, this.anchospr
@@ -479,17 +418,10 @@ function Alien(x, y, r, sp, vid, anc) {
 
 			ctx.drawImage(blood, ancho * i, ancho * j, ancho, ancho, this.casx
 					- this.vidamax - 20, this.casy - this.vidamax - 10,
-<<<<<<< HEAD
 					ancho, ancho);
 
 			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (17),
 					ancho - 20, ancho - 20, this.casx
-=======
-					this.anchospr, this.anchospr);
-
-			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (17),
-					this.anchospr - 20, this.anchospr - 20, this.casx
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 							- this.vidamax, this.casy - this.vidamax,
 					this.anchospr + this.vidamax * 2, this.anchospr
 							+ this.vidamax * 2);

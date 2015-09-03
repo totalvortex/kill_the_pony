@@ -91,7 +91,7 @@ zerg.onload = function() {
 };
 zerg.src = "images/zergling.png";
 
-<<<<<<< HEAD
+
 
 var zerg1Ready = false;
 var zerg1 = new Image();
@@ -102,8 +102,6 @@ zerg1.src = "images/alien.png";
 
 
 
-=======
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 var zergbReady = false;
 var zergb = new Image();
 zergb.onload = function() {
