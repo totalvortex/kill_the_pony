@@ -360,12 +360,7 @@ var Dungeon = {
 		}
 	},
 
-<<<<<<< HEAD
 
-	
-
-=======
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 	setv : function(x, y) { // hace una celda visible
 		if (Dungeon.dungeon_map[x + Dungeon.xsize * y] == Dungeon.tileAlien
 				&& !Dungeon.isv(x, y))
@@ -375,7 +370,7 @@ var Dungeon = {
 			Dungeon.items.push(new item(x, y, 1, botiquin));
 
 		Dungeon.visible[x + Dungeon.xsize * y] = true;
-<<<<<<< HEAD
+
 
 		for (a = 0; a < Dungeon.Aliens.length; a++) { //muestra en el mapa los aliens
 
@@ -393,8 +388,6 @@ var Dungeon = {
 			
 		}
 
-=======
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 		o = (x + 64 * y);
 		i = o * 4;
 		switch (Dungeon.dungeon_map[o]) {
@@ -421,7 +414,7 @@ var Dungeon = {
 			this.mapa.data[i + 3] = 250;
 			break;
 		}
-<<<<<<< HEAD
+
 		case Dungeon.tileAlien: {
 			this.mapa.data[i + 0] = 120;
 			this.mapa.data[i + 1] = 120;
@@ -430,8 +423,7 @@ var Dungeon = {
 			// alert("exit");
 			break;
 		}
-=======
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
+
 		case Dungeon.tileExit: {
 			this.mapa.data[i + 0] = 0;
 			this.mapa.data[i + 1] = 0;
@@ -448,10 +440,7 @@ var Dungeon = {
 			break;
 		}
 		}
-<<<<<<< HEAD
-		
-=======
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
+
 
 	},
 
@@ -869,7 +858,7 @@ var Dungeon = {
 			dungeonMap += "\n";
 		}
 		return dungeonMap;
-<<<<<<< HEAD
+
 	},
 
 	findPath : function(pathStart, pathEnd){
@@ -1131,8 +1120,6 @@ var Dungeon = {
 
 
 
-=======
-	}
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
+
 
 }

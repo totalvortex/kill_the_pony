@@ -33,11 +33,7 @@ addEventListener("keyup", function(e) {
 
 }, false);
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> a526b00e7290f8d13d445c7c2d0f546e0f927fa5
 function colmuro(f, x0, y0, rx, ry) { // colisiones de un cuadrado situado en
 	// x0,y0 de ancho f con un circulo rx,ry
 	// con radio Machango.sprite
