@@ -9,14 +9,53 @@ function getmp(canvas, evt) {
 addEventListener('mousemove', function(evt) { // funcion para los eventos de
 	// mover ratón
 	Dungeon.mpos = getmp(canvas, evt);
+	
+}, false);
+addEventListener('mouseup', function(evt) { // funcion para los eventos
+	// click
+	// del ratón
+	Machango.disparando = !Machango.disparando;
+	var p = getmp(canvas, evt);
+	// disipara una bala
+	rectangulo=false;
+   if (32 in keysDown) {
+	if (Dungeon.Aliens.length > 0) {
+		for (a = 0; a < Dungeon.Aliens.length; a++) {
+
+	if(p.x-rx>=0 && p.y-ry>=0)
+		if(Dungeon.Aliens[a].CRcolxy (Machango.casx - canvas.width / 2+rx-3, Machango.casy- canvas.height / 2+ry-3, p.x-rx,p.y-ry )) {
+			Dungeon.Aliens[a].seleccionar();
+		}
+	if(p.x-rx<0 && p.y-ry<0)
+		if(Dungeon.Aliens[a].CRcolxy (Machango.casx - canvas.width / 2+p.x+3, Machango.casy- canvas.height / 2+p.y+3, Math.abs(p.x-rx),Math.abs(p.y-ry ))) {
+			Dungeon.Aliens[a].seleccionar();
+		}
+	if(p.x-rx>0 && p.y-ry<0)
+		if(Dungeon.Aliens[a].CRcolxy (Machango.casx - canvas.width / 2+rx-3, Machango.casy- canvas.height / 2+p.y+3, Math.abs(p.x-rx),Math.abs(p.y-ry ))) {
+			Dungeon.Aliens[a].seleccionar();
+		}
+	if(p.x-rx<0 && p.y-ry>0)
+		if(Dungeon.Aliens[a].CRcolxy (Machango.casx - canvas.width / 2+p.x+3, Machango.casy- canvas.height / 2+p.y-3, Math.abs(p.x-rx),Math.abs(p.y-ry ))) {
+			Dungeon.Aliens[a].seleccionar();
+		}
+  
+	if(Dungeon.Aliens[a].CCcol(Machango.casx - canvas.width / 2+rx-3, Machango.casy- canvas.height / 2+ry-3, 20 )) {
+				Dungeon.Aliens[a].seleccionar();
+			}
+		}
+
+	}
+	}	
 
 }, false);
-
 addEventListener('mousedown', function(evt) { // funcion para los eventos
 	// click
 	// del ratón
 	Machango.disparando = !Machango.disparando;
 	var p = getmp(canvas, evt);
+	rectangulo = true;
+	rx=p.x;
+	ry=p.y;
 
 	// disipara una bala
 
@@ -319,6 +358,7 @@ function update() // actualiza las variables antes del render
 							Machango.balas[b].radio + 3)) {
 						Dungeon.Aliens[a].vida--;
 						Machango.balas[b].activo = false;
+						//Dungeon.Aliens[a].seleccionar();
 					}
 				}
 			}
@@ -644,6 +684,41 @@ for (y = ymin; y < ymax + 1; y++)
 
 
 }
+
+function dibujaseleccion() {
+	if(rectangulo &&  32 in keysDown){
+		if(Dungeon.mpos.x-rx>=0 && Dungeon.mpos.y-ry>=0){
+			ctx.drawImage(select, 0,0,256,256,
+				Machango.casx - canvas.width / 2+rx-3,
+				Machango.casy- canvas.height / 2+ry-3,
+				Dungeon.mpos.x-rx,
+				Dungeon.mpos.y-ry);
+		}
+		if(Dungeon.mpos.x-rx<0 && Dungeon.mpos.y-ry<0){
+			ctx.drawImage(select, 0,0,256,256,
+				Machango.casx - canvas.width / 2+Dungeon.mpos.x-3,
+				Machango.casy- canvas.height / 2+Dungeon.mpos.y-3,
+				Math.abs(Dungeon.mpos.x-rx),
+				Math.abs(Dungeon.mpos.y-ry));
+		}
+		if(Dungeon.mpos.x-rx>0 && Dungeon.mpos.y-ry<0){
+			ctx.drawImage(select, 0,0,256,256,
+				Machango.casx - canvas.width / 2+rx-3,
+				Machango.casy- canvas.height / 2+Dungeon.mpos.y-3,
+				Math.abs(Dungeon.mpos.x-rx),
+				Math.abs(Dungeon.mpos.y-ry));
+		}
+		if(Dungeon.mpos.x-rx<0 && Dungeon.mpos.y-ry>0){
+			ctx.drawImage(select, 0,0,256,256,
+				Machango.casx - canvas.width / 2+Dungeon.mpos.x-3,
+				Machango.casy- canvas.height / 2+ry-3,
+				Math.abs(Dungeon.mpos.x-rx),
+				Math.abs(Dungeon.mpos.y-ry));
+		}
+	}
+
+}
+
 function dibujaobj() {
     if (Dungeon.doors.length > 0)
     for (a = 0; a < Dungeon.doors.length; a++) {
@@ -709,7 +784,8 @@ function render() {
 	dibujaobj();
 
   dibujaparedes();
-
+		
+	dibujaseleccion();
 
 	// dibuja mapa
 	ctx.drawImage(map, Machango.casx + canvas.width / 2 - 208, Machango.casy
@@ -730,6 +806,12 @@ function render() {
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
 	// ctx.fillText("fps: (" + fps.getFPS() + ")",mapx+ 630,mapy+ 30);
+	//if(!rectangulo) ctx.rect(rx,ry,rx-Dungeon.mpos.x,ry-Dungeon.mpos.y));
+
+//dibuja el cuadro de seleccion
+	//ctx.drawImage(select, rx,ry, rx-Dungeon-mpos.x, ry-Dungeon-mpos.y);
+
+
 
 	// Mensaje
 	ctx.fillStyle = "rgb(250, 250, 250)";

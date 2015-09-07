@@ -1,4 +1,4 @@
-function Alien(x, y, r, sp, vid,anc) {
+function Alien(x, y, r, sp, vid,anc,pumo) {
 	this.casx = x * ancho + 4;
 	this.casy = y * ancho + 16;
 	this.radio = r;
@@ -11,14 +11,15 @@ function Alien(x, y, r, sp, vid,anc) {
 	this.corriendo = 0;
 	this.animm = 0;
  	this.animmax = Dungeon.getRand(0,6); //animacion de la muerte
-	this.pm = 1.5;
+	this.pm = pumo;
 	this.vida = vid;
 	this.vidamax = vid;
 	this.camino = [];
 	this.barravida = ctx.createImageData(2, 16);
 	this.camino=[];
 	this.camino=Dungeon.findPath([parseInt((this.casx)/ancho),parseInt((this.casy)/ancho)],[parseInt((Machango.casx)/ancho),parseInt((Machango.casy)/ancho)]);
-	this.conta2=0;	
+	this.conta2=0;
+	this.selec=false;	
 
 	for (var i = 0; i < this.barravida.data.length; i += 8) // borra la
 	// barra de
@@ -61,7 +62,37 @@ function Alien(x, y, r, sp, vid,anc) {
 
 		return (cornerDistance_sq <= (Math.pow(cr, 2)));
 	}
+	this.CRcolxy = function( rx, ry, rwx, rwy) {
+		var circleDistanceX = Math.abs(this.casx - rx - rwx / 2);
+		var circleDistanceY = Math.abs(this.casy - ry - rwy / 2);
 
+		if (circleDistanceX > (rwx / 2 + this.radio)) {
+			return false;
+		}
+		if (circleDistanceY > (rwy / 2 + this.radio)) {
+			return false;
+		}
+
+		if (circleDistanceX <= (rwx / 2)) {
+			return true;
+		}
+		if (circleDistanceY <= (rwy / 2)) {
+			return true;
+		}
+
+		var cornerDistance_sq = Math.pow(circleDistanceX - rwx / 2, 2)
+				+ Math.pow(circleDistanceY - rwy / 2, 2);
+
+		return (cornerDistance_sq <= (Math.pow(this.radio, 2)));
+	}
+	this.seleccionar = function()
+	{
+		this.selec=true;
+	}
+	this.deseleccionar = function()
+	{
+		this.selec=false;
+	}
 	this.CCcol = function(x1, y1, w1) { // colision del circulo x1,y1 con radio
 		// w1 con el x2,y2 con radio w2
 		var xd = x1 - this.casx;
@@ -146,12 +177,12 @@ function Alien(x, y, r, sp, vid,anc) {
 
 	this.update = function(x, y, radio, pm) {
 		// this.hazcamino(this.casx,this.casy,x,y);
+		var fac = 1.4;
 		if (this.vida > 0) {
       var colescudo=false;
       var colalien=false;
 			this.alfa = Math.atan2(x - this.casx, y - this.casy);
-			this.giro = 16 - parseInt((this.alfa * Math.PI * 1.9));
-
+			this.giro = 10 - parseInt((this.alfa * Math.PI * fac));
 /*
       for(z=0;z<8;z++){
         if(!this.colisionaconaliens(alfa)) break;
@@ -187,7 +218,7 @@ function Alien(x, y, r, sp, vid,anc) {
 				
 			  }else{
 			 	this.conta2++;
-			 	if(this.conta2>=ancho*0.75){
+			 	if(this.conta2>=ancho*0.35){
 			 			this.camino=[];
 			  			this.camino=Dungeon.findPath([parseInt((this.casx +16 )/ancho),parseInt((this.casy +16)/ancho)],[parseInt((Machango.casx)/ancho),parseInt((Machango.casy)/ancho)]);
 			  			this.conta2=0;
@@ -199,7 +230,9 @@ function Alien(x, y, r, sp, vid,anc) {
 
 			  if(this.camino.length>1 ){
 			  		this.alfa = Math.atan2(this.camino[1][0] - this.camino[0][0], this.camino[1][1] - this.camino[0][1]);
-			  		this.giro = 16 - parseInt((this.alfa * Math.PI * 1.9));
+			  	//	this.giro = 16 - parseInt((this.alfa * Math.PI * 1.1));
+					this.giro = 10 - parseInt((this.alfa * Math.PI *fac));
+					if(this.giro<0) this.giro=0;
 
 			  	if (!this.colisonconmuro(alfa)) {
 
@@ -352,22 +385,36 @@ function Alien(x, y, r, sp, vid,anc) {
 				this.giro = 0;
 			if (this.corriendo == 0) {
 
-				if (this.giro < 16) {
-					ctx.drawImage(this.img, 20 + ancho * this.giro, 20 + ancho
+				if (this.giro < 10) {
+					ctx.drawImage(this.img, 17 + ancho * this.giro, 15 + ancho
 							* (this.pos), ancho - 20,
 							ancho - 20, this.casx - this.vidamax,
 							this.casy - this.vidamax, this.anchospr
 									+ this.vidamax * 2, this.anchospr
 									+ this.vidamax * 2);
+					if(this.selec)
+					ctx.drawImage(this.img, 20 + ancho * 17, 20 + ancho
+							* (12), ancho - 20,
+							ancho - 20, this.casx - this.vidamax,
+							this.casy - this.vidamax, this.anchospr
+									+ this.vidamax * 2, this.anchospr
+									+ this.vidamax * 2);
 				} else {
-					if (this.giro > 30)
-						this.giro = 30;
-					this.giro++;
+					if (this.giro > 19)
+						this.giro = 19;
+					//this.giro++;
 
 					ctx.save();
 					ctx.scale(-1.0, 1.0);
-					ctx.drawImage(this.img, 20 + ancho * (33 - this.giro), 20
+					ctx.drawImage(this.img, 12 + ancho * (19 - this.giro), 15
 							+ ancho * (this.pos), ancho - 20,
+							ancho - 20, -this.casx - this.vidamax
+									- ancho / 2 - 10, this.casy - this.vidamax,
+							this.anchospr + this.vidamax * 2, this.anchospr
+									+ this.vidamax * 2);
+					if(this.selec)
+					ctx.drawImage(this.img, 15 + ancho * (17), 20
+							+ ancho * (12), ancho - 20,
 							ancho - 20, -this.casx - this.vidamax
 									- ancho / 2 - 10, this.casy - this.vidamax,
 							this.anchospr + this.vidamax * 2, this.anchospr
@@ -379,22 +426,37 @@ function Alien(x, y, r, sp, vid,anc) {
 					// "+parseInt((this.casy+25)/ancho)+")";
 				}
 			} else {
-				if (this.giro < 16) {
-					ctx.drawImage(this.img, 20 + ancho * this.giro, 20 + ancho
+				if (this.giro < 10) {
+					ctx.drawImage(this.img, 17 + ancho * this.giro, 15 + ancho
 							* (this.corriendo % 8 + 4), ancho - 20,
 							ancho - 20, this.casx - this.vidamax,
 							this.casy - this.vidamax, this.anchospr
 									+ this.vidamax * 2, this.anchospr
 									+ this.vidamax * 2);
+					if(this.selec)
+					ctx.drawImage(this.img, 20 + ancho * 17, 20 + ancho
+							* (12), ancho - 20,
+							ancho - 20, this.casx - this.vidamax,
+							this.casy - this.vidamax, this.anchospr
+									+ this.vidamax * 2, this.anchospr
+									+ this.vidamax * 2);
 				} else {
-					if (this.giro > 30)
-						this.giro = 30;
-					this.giro++;
+					if (this.giro > 19)
+						this.giro = 19;
+					//this.giro++;
 
 					ctx.save();
 					ctx.scale(-1.0, 1.0);
-					ctx.drawImage(this.img, 20 + ancho * (33 - this.giro), 20
+					ctx.drawImage(this.img, 12 + ancho * (19 - this.giro), 15
 							+ ancho * (this.corriendo % 8 + 4),
+							ancho - 20, ancho - 20, -this.casx
+									- this.vidamax - ancho / 2 - 10, this.casy
+									- this.vidamax, this.anchospr
+									+ this.vidamax * 2, this.anchospr
+									+ this.vidamax * 2);
+					if(this.selec)
+					ctx.drawImage(this.img, 15 + ancho * (17), 20
+							+ ancho * (12),
 							ancho - 20, ancho - 20, -this.casx
 									- this.vidamax - ancho / 2 - 10, this.casy
 									- this.vidamax, this.anchospr
@@ -419,8 +481,8 @@ function Alien(x, y, r, sp, vid,anc) {
 			ctx.drawImage(blood, ancho * i, ancho * j, ancho, ancho, this.casx
 					- this.vidamax - 20, this.casy - this.vidamax - 10,
 					ancho, ancho);
-
-			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (17),
+			if(this.selec)
+			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (12),
 					ancho - 20, ancho - 20, this.casx
 							- this.vidamax, this.casy - this.vidamax,
 					this.anchospr + this.vidamax * 2, this.anchospr

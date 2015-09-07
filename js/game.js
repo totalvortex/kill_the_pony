@@ -2,7 +2,7 @@ var ancho = 64;
 var mapx = 0;
 var mapy = 0;
 var escala = 1.0;
-var pm = 2; // pixels por movimiento
+var pm = 3; // pixels por movimiento
 var mensaje = " ";
 var fps = 0;
 var Cujo = null;
@@ -23,6 +23,10 @@ var hx = 0;
 var hy = 0;
 var rooms = 5;
 
+var rx = -1;
+var ry = -1;
+var rectangulo=false;
+
 var init = function() {
 	ancho = 64;
 	mapx = 0;
@@ -30,7 +34,7 @@ var init = function() {
 	escala = 1.0;
 
 	nivelinicial = 5;
-	pm = 3; // pixels por movimiento
+	pm = 8; // pixels por movimiento
 
 	mensaje = " ";
 	fps = 0;
@@ -53,13 +57,13 @@ var init = function() {
 
 	ctx.fillStyle = "#222222";
 	ctx.fillRect(1, 1, canvas.width - 1, canvas.height - 1);
-
+/*
 	while (Dungeon.nh < rooms && !Dungeon.puerta) { // genera el dungeon hasta
 		// que las habitaciones sea
 		// mayor que level
 		Dungeon.createDungeon(64, 64, nivelinicial);
-	}
-
+	}*/
+	Dungeon.creaarena(64,64);
 	mapx = parseInt((ancho * Dungeon.xsize) / 2) - parseInt(canvas.width / 2);
 	mapy = parseInt((ancho * Dungeon.ysize) / 2) - parseInt(canvas.height / 2);
 	Machango.creamachango(hx, hy, marinez, 48);

@@ -45,8 +45,8 @@ function llama(x, y, sprt, avance, distanciamax, angulo) {
 			if (this.radio > 24)
 				this.radio = 24;
 			if (!this.colisionconmuro(alfa)) {
-				this.casx = this.casx + Math.sin(this.alfa) * this.av;
-				this.casy = this.casy + Math.cos(this.alfa) * this.av;
+				this.casx = this.casx + Math.sin(this.alfa) * this.av ;
+				this.casy = this.casy + Math.cos(this.alfa) * this.av ;
 				this.spx++;
 				if (this.spx > 4) {
 					this.spx = 0;

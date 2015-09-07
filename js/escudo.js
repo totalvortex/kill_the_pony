@@ -22,6 +22,7 @@ function Escudo(x, y, sprt, rad) {
             for (a = 0; a < Dungeon.Aliens.length; a++) {
                 if (Dungeon.Aliens[a].CCcol(this.casx, this.casy, parseInt(this.contador * valor) + this.radio)) {
                     Dungeon.Aliens[a].vida--;
+                    //Dungeon.Aliens[a].seleccionar();
                 }
             }
         }
