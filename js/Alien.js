@@ -24,6 +24,7 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 	this.selec=false;	
 	this.ordenmov=false;
 	this.targetradio=6;
+	this.rabioso=true;
 	for (var i = 0; i < this.barravida.data.length; i += 8) // borra la
 	// barra de
 	// vida
@@ -190,9 +191,11 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 			this.ordenmov=false;
 		}
 		if(!this.ordenmov){
-			this.targetx=Machango.casx;
-			this.targety=Machango.casy;
-			this.targetradio=Machango.radio+3;
+			if(this.rabioso){
+				this.targetx=Machango.casx;
+				this.targety=Machango.casy;
+				this.targetradio=Machango.radio+3;
+			}
 		}
 
 		
@@ -488,8 +491,8 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 					// "+parseInt((this.casy+25)/ancho)+")";
 				}
 			}
-			ctx.putImageData(this.barravida, 32 + this.casx - this.targetx
-					+ canvas.width / 2, this.casy - this.targety
+			ctx.putImageData(this.barravida, 32 + this.casx - Machango.casx
+					+ canvas.width / 2, this.casy - Machango.casy
 					+ canvas.height / 2); // dibuja la barra de vida
 
 		} else {

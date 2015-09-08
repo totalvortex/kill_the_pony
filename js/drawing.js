@@ -302,7 +302,7 @@ function update() // actualiza las variables antes del render
 			for (a = 0; a < Dungeon.Aliens.length; a++) {
 				if(Dungeon.Aliens[a].selec){
 					Dungeon.Aliens[a].ordena(Machango.casx - canvas.width / 2+Dungeon.mpos.x,Machango.casy - canvas.height / 2+Dungeon.mpos.y);
-					
+					Dungeon.Aliens[a].rabioso=true;
 				}
 			}
 		}
@@ -312,6 +312,17 @@ function update() // actualiza las variables antes del render
 		if (Dungeon.Aliens.length > 0) {
 			for (a = 0; a < Dungeon.Aliens.length; a++) {
 				Dungeon.Aliens[a].selec=false;
+			}
+		}
+	}
+	if (51 in keysDown) { // Player holding 3
+		if (Dungeon.Aliens.length > 0) {
+			for (a = 0; a < Dungeon.Aliens.length; a++) {
+				if(Dungeon.Aliens[a].selec){
+					Dungeon.Aliens[a].ordena(Machango.casx - canvas.width / 2+Dungeon.mpos.x,Machango.casy - canvas.height / 2+Dungeon.mpos.y);
+					Dungeon.Aliens[a].rabioso=false;
+					
+				}
 			}
 		}
 	}
