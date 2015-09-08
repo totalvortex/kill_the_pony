@@ -57,13 +57,12 @@ var init = function() {
 
 	ctx.fillStyle = "#222222";
 	ctx.fillRect(1, 1, canvas.width - 1, canvas.height - 1);
-/*
 	while (Dungeon.nh < rooms && !Dungeon.puerta) { // genera el dungeon hasta
 		// que las habitaciones sea
 		// mayor que level
 		Dungeon.createDungeon(64, 64, nivelinicial);
-	}*/
-	Dungeon.creaarena(64,64);
+	}
+	//Dungeon.creaarena(64,64);
 	mapx = parseInt((ancho * Dungeon.xsize) / 2) - parseInt(canvas.width / 2);
 	mapy = parseInt((ancho * Dungeon.ysize) / 2) - parseInt(canvas.height / 2);
 	Machango.creamachango(hx, hy, marinez, 48);

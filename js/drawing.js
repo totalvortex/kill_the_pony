@@ -47,6 +47,8 @@ addEventListener('mouseup', function(evt) { // funcion para los eventos
 	}
 	}	
 
+
+
 }, false);
 addEventListener('mousedown', function(evt) { // funcion para los eventos
 	// click
@@ -102,6 +104,7 @@ function colmuro(f, x0, y0, rx, ry) { // colisiones de un cuadrado situado en
 function update() // actualiza las variables antes del render
 {
 	var up, down, left, right;
+
 	if (40 in keysDown) { // Player holding down
 		if (Machango.casy > 0
 				&& Machango.casy < Dungeon.ysize * ancho
@@ -295,19 +298,22 @@ function update() // actualiza las variables antes del render
 	}
 
 	if (49 in keysDown) { // Player holding 1
-		if (escala > 0)
-			escala = 1.0;
-		escala -= 0.1;
-		ctx.scale(escala, escala);
-		ancho -= 0.1;
+		if (Dungeon.Aliens.length > 0) {
+			for (a = 0; a < Dungeon.Aliens.length; a++) {
+				if(Dungeon.Aliens[a].selec){
+					Dungeon.Aliens[a].ordena(Machango.casx - canvas.width / 2+Dungeon.mpos.x,Machango.casy - canvas.height / 2+Dungeon.mpos.y);
+					
+				}
+			}
+		}
 
 	}
 	if (50 in keysDown) { // Player holding 2
-		if (escala < 0)
-			escala = 1.0;
-		escala += 0.1;
-		ctx.scale(escala, escala);
-		ancho += 0.1;
+		if (Dungeon.Aliens.length > 0) {
+			for (a = 0; a < Dungeon.Aliens.length; a++) {
+				Dungeon.Aliens[a].selec=false;
+			}
+		}
 	}
 	// mensaje="("+mapx+", "+mapy+")";
 
@@ -344,8 +350,7 @@ function update() // actualiza las variables antes del render
 	if (Dungeon.Aliens.length > 0) {
 		for (a = 0; a < Dungeon.Aliens.length; a++) {
 
-			Dungeon.Aliens[a].update(Machango.casx, Machango.casy,
-					Machango.radio, pm);
+			Dungeon.Aliens[a].update();
 		}
 
 		// colisiones de balas con aliens

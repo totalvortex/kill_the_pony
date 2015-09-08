@@ -16,11 +16,14 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 	this.vidamax = vid;
 	this.camino = [];
 	this.barravida = ctx.createImageData(2, 16);
+	this.targetx=Machango.casx;
+	this.targety=Machango.casy;
 	this.camino=[];
-	this.camino=Dungeon.findPath([parseInt((this.casx)/ancho),parseInt((this.casy)/ancho)],[parseInt((Machango.casx)/ancho),parseInt((Machango.casy)/ancho)]);
+	this.camino=Dungeon.findPath([parseInt((this.casx)/ancho),parseInt((this.casy)/ancho)],[parseInt((this.targetx)/ancho),parseInt((this.targety)/ancho)]);
 	this.conta2=0;
 	this.selec=false;	
-
+	this.ordenmov=false;
+	this.targetradio=6;
 	for (var i = 0; i < this.barravida.data.length; i += 8) // borra la
 	// barra de
 	// vida
@@ -92,6 +95,12 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 	this.deseleccionar = function()
 	{
 		this.selec=false;
+	}
+	this.ordena = function(tx,ty)
+	{
+		this.ordenmov=true;
+		this.targetx=tx;
+		this.targety=ty;
 	}
 	this.CCcol = function(x1, y1, w1) { // colision del circulo x1,y1 con radio
 		// w1 con el x2,y2 con radio w2
@@ -175,13 +184,23 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 
 	}
 
-	this.update = function(x, y, radio, pm) {
+	this.update = function() {
 		// this.hazcamino(this.casx,this.casy,x,y);
+		if(this.CCcol(this.targetx,this.targety,this.targetradio)){
+			this.ordenmov=false;
+		}
+		if(!this.ordenmov){
+			this.targetx=Machango.casx;
+			this.targety=Machango.casy;
+			this.targetradio=Machango.radio+3;
+		}
+
+		
 		var fac = 1.4;
 		if (this.vida > 0) {
       var colescudo=false;
       var colalien=false;
-			this.alfa = Math.atan2(x - this.casx, y - this.casy);
+			this.alfa = Math.atan2(this.targetx - this.casx, this.targety - this.casy);
 			this.giro = 10 - parseInt((this.alfa * Math.PI * fac));
 /*
       for(z=0;z<8;z++){
@@ -196,13 +215,13 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 
       
       if(Machango.escudo.length>0)
-        if(this.CCcol(x-20, y-25, Machango.escudo.radio+ancho)) colescudo=true;
+        if(this.CCcol(this.targetx-20, this.targety-25, Machango.escudo.radio+ancho)) colescudo=true;
 
 
-			if (!this.CCcol(x, y, radio) && !colescudo) {
+			if (!this.CCcol(this.targetx, this.targety, this.targetradio) && !colescudo) {
 
 
-			  if(hayvista(parseInt(this.casx/ancho),parseInt(this.casy/ancho),parseInt(Machango.casx/ancho),parseInt(Machango.casy/ancho))){
+			  if(hayvista(parseInt(this.casx/ancho),parseInt(this.casy/ancho),parseInt(this.targetx/ancho),parseInt(this.targety/ancho))){
 
 				if (!this.colisonconmuro(alfa)) {
 
@@ -220,7 +239,7 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 			 	this.conta2++;
 			 	if(this.conta2>=ancho*0.35){
 			 			this.camino=[];
-			  			this.camino=Dungeon.findPath([parseInt((this.casx +16 )/ancho),parseInt((this.casy +16)/ancho)],[parseInt((Machango.casx)/ancho),parseInt((Machango.casy)/ancho)]);
+			  			this.camino=Dungeon.findPath([parseInt((this.casx +16 )/ancho),parseInt((this.casy +16)/ancho)],[parseInt((this.targetx)/ancho),parseInt((this.targety)/ancho)]);
 			  			this.conta2=0;
 			  	}
 			 	
@@ -469,8 +488,8 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 					// "+parseInt((this.casy+25)/ancho)+")";
 				}
 			}
-			ctx.putImageData(this.barravida, 32 + this.casx - Machango.casx
-					+ canvas.width / 2, this.casy - Machango.casy
+			ctx.putImageData(this.barravida, 32 + this.casx - this.targetx
+					+ canvas.width / 2, this.casy - this.targety
 					+ canvas.height / 2); // dibuja la barra de vida
 
 		} else {
