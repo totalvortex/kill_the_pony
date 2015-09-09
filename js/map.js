@@ -1,9 +1,10 @@
 // Create the canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
-canvas.width = 768;
-canvas.height = 768;
-
+//canvas.width = screen.availWidth-200;
+//canvas.height = screen.availHeight-200;
+canvas.width = 786;
+canvas.height = 786;
 var anchocuadro = 64;
 var alfa = 0.0;
 
@@ -23,6 +24,13 @@ negro.onload = function() {
   negroReady = true;
 };
 negro.src = "images/negro.png";
+
+var selectReady = false;
+var select = new Image();
+select.onload = function() {
+  selectReady = true;
+};
+select.src = "images/select.png";
 
 var doorReady = false;
 var door = new Image();
@@ -98,7 +106,7 @@ var zerg1 = new Image();
 zerg1.onload = function() {
 	zerg1Ready = true;
 };
-zerg1.src = "images/alien.png";
+zerg1.src = "images/alien2.png";
 
 
 

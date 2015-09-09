@@ -9,14 +9,55 @@ function getmp(canvas, evt) {
 addEventListener('mousemove', function(evt) { // funcion para los eventos de
 	// mover ratón
 	Dungeon.mpos = getmp(canvas, evt);
+	
+}, false);
+addEventListener('mouseup', function(evt) { // funcion para los eventos
+	// click
+	// del ratón
+	Machango.disparando = !Machango.disparando;
+	var p = getmp(canvas, evt);
+	// disipara una bala
+	rectangulo=false;
+   if (32 in keysDown) {
+	if (Dungeon.Aliens.length > 0) {
+		for (a = 0; a < Dungeon.Aliens.length; a++) {
+
+	if(p.x-rx>=0 && p.y-ry>=0)
+		if(Dungeon.Aliens[a].CRcolxy (Machango.casx - canvas.width / 2+rx-3, Machango.casy- canvas.height / 2+ry-3, p.x-rx,p.y-ry )) {
+			Dungeon.Aliens[a].seleccionar();
+		}
+	if(p.x-rx<0 && p.y-ry<0)
+		if(Dungeon.Aliens[a].CRcolxy (Machango.casx - canvas.width / 2+p.x+3, Machango.casy- canvas.height / 2+p.y+3, Math.abs(p.x-rx),Math.abs(p.y-ry ))) {
+			Dungeon.Aliens[a].seleccionar();
+		}
+	if(p.x-rx>0 && p.y-ry<0)
+		if(Dungeon.Aliens[a].CRcolxy (Machango.casx - canvas.width / 2+rx-3, Machango.casy- canvas.height / 2+p.y+3, Math.abs(p.x-rx),Math.abs(p.y-ry ))) {
+			Dungeon.Aliens[a].seleccionar();
+		}
+	if(p.x-rx<0 && p.y-ry>0)
+		if(Dungeon.Aliens[a].CRcolxy (Machango.casx - canvas.width / 2+p.x+3, Machango.casy- canvas.height / 2+p.y-3, Math.abs(p.x-rx),Math.abs(p.y-ry ))) {
+			Dungeon.Aliens[a].seleccionar();
+		}
+  
+	if(Dungeon.Aliens[a].CCcol(Machango.casx - canvas.width / 2+rx-3, Machango.casy- canvas.height / 2+ry-3, 20 )) {
+				Dungeon.Aliens[a].seleccionar();
+			}
+		}
+
+	}
+	}	
+
+
 
 }, false);
-
 addEventListener('mousedown', function(evt) { // funcion para los eventos
 	// click
 	// del ratón
 	Machango.disparando = !Machango.disparando;
 	var p = getmp(canvas, evt);
+	rectangulo = true;
+	rx=p.x;
+	ry=p.y;
 
 	// disipara una bala
 
@@ -63,6 +104,7 @@ function colmuro(f, x0, y0, rx, ry) { // colisiones de un cuadrado situado en
 function update() // actualiza las variables antes del render
 {
 	var up, down, left, right;
+
 	if (40 in keysDown) { // Player holding down
 		if (Machango.casy > 0
 				&& Machango.casy < Dungeon.ysize * ancho
@@ -198,7 +240,7 @@ function update() // actualiza las variables antes del render
 
 	}
 	Machango.mov = (up || down || left || right);
-	Dungeon.ver(parseInt(Machango.casx / ancho), parseInt((Machango.casy) / ancho));
+	
 
   for(o=0;o<Dungeon.doors.length;o++){
       if(Dungeon.doors[o].posx == parseInt((20 + Machango.casx) / ancho) && Dungeon.doors[o].posy == parseInt((20 + Machango.casy) / ancho))
@@ -237,38 +279,58 @@ function update() // actualiza las variables antes del render
 			+ parseInt((canvas.height / 2) / ancho);
 
 	if (48 in keysDown) { // Player holding 0
-		escala = 1.0;
-		ctx.translate(-mapx, -mapy);
-		mapx = parseInt((ancho * Dungeon.xsize) / 2)
-				- parseInt(canvas.width / 2);
-		mapy = parseInt((ancho * Dungeon.ysize) / 2)
-				- parseInt(canvas.height / 2);
-		ctx.translate(mapx, mapy);
-		ctx.scale(1.0, 1.0);
-		ancho = anchocuadro;
-		// Dungeon.visible = [];
-		// for(x=0;x<Dungeon.xsize*Dungeon.ysize;x++){
-		// Dungeon.visible.push(true);
-		// }
-		// mapx=0;
-		// mapy=0;
-		// alert("borrada de 0");
+		if (Dungeon.Aliens.length > 0) {
+			for (a = 0; a < Dungeon.Aliens.length; a++) {
+				Dungeon.Aliens[a].selec=true;
+			}
+		}
 	}
 
 	if (49 in keysDown) { // Player holding 1
-		if (escala > 0)
-			escala = 1.0;
-		escala -= 0.1;
-		ctx.scale(escala, escala);
-		ancho -= 0.1;
+		if (Dungeon.Aliens.length > 0) {
+			for (a = 0; a < Dungeon.Aliens.length; a++) {
+				if(Dungeon.Aliens[a].selec){
+					Dungeon.Aliens[a].ordena(Machango.casx - canvas.width / 2+Dungeon.mpos.x,Machango.casy - canvas.height / 2+Dungeon.mpos.y,true);
+					
+				}
+			}
+		}
 
 	}
 	if (50 in keysDown) { // Player holding 2
-		if (escala < 0)
-			escala = 1.0;
-		escala += 0.1;
-		ctx.scale(escala, escala);
-		ancho += 0.1;
+		if (Dungeon.Aliens.length > 0) {
+			for (a = 0; a < Dungeon.Aliens.length; a++) {
+				Dungeon.Aliens[a].selec=false;
+			}
+		}
+	}
+	if (51 in keysDown) { // Player holding 3
+		if (Dungeon.Aliens.length > 0) {
+			for (a = 0; a < Dungeon.Aliens.length; a++) {
+				if(Dungeon.Aliens[a].selec){
+					Dungeon.Aliens[a].ordena(Machango.casx - canvas.width / 2+Dungeon.mpos.x,Machango.casy - canvas.height / 2+Dungeon.mpos.y,false);
+					Dungeon.Aliens[a].rabioso=false;
+					
+				}
+			}
+		}
+	}
+	if (52 in keysDown) { // Player holding 4
+		if (Dungeon.Aliens.length > 0) {
+			var i=0;
+			var j=0;
+			for (a = 0; a < Dungeon.Aliens.length; a++) {
+				if(Dungeon.Aliens[a].selec){
+					Dungeon.Aliens[a].ordena(ancho*4/5 * i + Machango.casx - canvas.width / 2 +  +Dungeon.mpos.x,ancho*4/5 * j + Machango.casy - canvas.height / 2+Dungeon.mpos.y,false);
+					Dungeon.Aliens[a].rabioso=false;
+					if(i<5) i++;
+					else {
+						i=0;
+						j++;
+					}
+				}
+			}
+		}
 	}
 	// mensaje="("+mapx+", "+mapy+")";
 
@@ -305,8 +367,7 @@ function update() // actualiza las variables antes del render
 	if (Dungeon.Aliens.length > 0) {
 		for (a = 0; a < Dungeon.Aliens.length; a++) {
 
-			Dungeon.Aliens[a].update(Machango.casx, Machango.casy,
-					Machango.radio, pm);
+			Dungeon.Aliens[a].update();
 		}
 
 		// colisiones de balas con aliens
@@ -319,6 +380,7 @@ function update() // actualiza las variables antes del render
 							Machango.balas[b].radio + 3)) {
 						Dungeon.Aliens[a].vida--;
 						Machango.balas[b].activo = false;
+						//Dungeon.Aliens[a].seleccionar();
 					}
 				}
 			}
@@ -362,8 +424,14 @@ function update() // actualiza las variables antes del render
 		Machango.balas = [];
 		// alert("Recargando");
 	}
+
 	panel.update();
 
+		for (x = 0; x < Dungeon.xsize; x++) {
+			for (y = 0; y < Dungeon.ysize; y++)
+				Dungeon.setv(x, y);
+		}
+	
 
 
 
@@ -644,6 +712,41 @@ for (y = ymin; y < ymax + 1; y++)
 
 
 }
+
+function dibujaseleccion() {
+	if(rectangulo &&  32 in keysDown){
+		if(Dungeon.mpos.x-rx>=0 && Dungeon.mpos.y-ry>=0){
+			ctx.drawImage(select, 0,0,256,256,
+				Machango.casx - canvas.width / 2+rx-3,
+				Machango.casy- canvas.height / 2+ry-3,
+				Dungeon.mpos.x-rx,
+				Dungeon.mpos.y-ry);
+		}
+		if(Dungeon.mpos.x-rx<0 && Dungeon.mpos.y-ry<0){
+			ctx.drawImage(select, 0,0,256,256,
+				Machango.casx - canvas.width / 2+Dungeon.mpos.x-3,
+				Machango.casy- canvas.height / 2+Dungeon.mpos.y-3,
+				Math.abs(Dungeon.mpos.x-rx),
+				Math.abs(Dungeon.mpos.y-ry));
+		}
+		if(Dungeon.mpos.x-rx>0 && Dungeon.mpos.y-ry<0){
+			ctx.drawImage(select, 0,0,256,256,
+				Machango.casx - canvas.width / 2+rx-3,
+				Machango.casy- canvas.height / 2+Dungeon.mpos.y-3,
+				Math.abs(Dungeon.mpos.x-rx),
+				Math.abs(Dungeon.mpos.y-ry));
+		}
+		if(Dungeon.mpos.x-rx<0 && Dungeon.mpos.y-ry>0){
+			ctx.drawImage(select, 0,0,256,256,
+				Machango.casx - canvas.width / 2+Dungeon.mpos.x-3,
+				Machango.casy- canvas.height / 2+ry-3,
+				Math.abs(Dungeon.mpos.x-rx),
+				Math.abs(Dungeon.mpos.y-ry));
+		}
+	}
+
+}
+
 function dibujaobj() {
     if (Dungeon.doors.length > 0)
     for (a = 0; a < Dungeon.doors.length; a++) {
@@ -709,8 +812,10 @@ function render() {
 	dibujaobj();
 
   dibujaparedes();
+		
+	dibujaseleccion();
 
-
+	Dungeon.ver(parseInt(Machango.casx/ancho),parseInt(Machango.casy/ancho));
 	// dibuja mapa
 	ctx.drawImage(map, Machango.casx + canvas.width / 2 - 208, Machango.casy
 			+ canvas.height / 2 - 230, 243, 178);
@@ -730,6 +835,12 @@ function render() {
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
 	// ctx.fillText("fps: (" + fps.getFPS() + ")",mapx+ 630,mapy+ 30);
+	//if(!rectangulo) ctx.rect(rx,ry,rx-Dungeon.mpos.x,ry-Dungeon.mpos.y));
+
+//dibuja el cuadro de seleccion
+	//ctx.drawImage(select, rx,ry, rx-Dungeon-mpos.x, ry-Dungeon-mpos.y);
+
+
 
 	// Mensaje
 	ctx.fillStyle = "rgb(250, 250, 250)";
