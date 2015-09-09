@@ -57,17 +57,53 @@ var init = function() {
 
 	ctx.fillStyle = "#222222";
 	ctx.fillRect(1, 1, canvas.width - 1, canvas.height - 1);
-	while (Dungeon.nh < rooms && !Dungeon.puerta) { // genera el dungeon hasta
+	/*while (Dungeon.nh < rooms && !Dungeon.puerta) { // genera el dungeon hasta
 		// que las habitaciones sea
 		// mayor que level
 		Dungeon.createDungeon(64, 64, nivelinicial);
+	}*/
+
+
+
+
+
+
+	Dungeon.creaarena(65,65, 15, true);
+
+
+	for(x=hy-7;x<hy-3;x++){
+		Dungeon.setCell(hx-5,x,1);
+		Dungeon.setCell(hx+5,x,1);
+
 	}
-	//Dungeon.creaarena(64,64);
+
+	for(x=hx-5;x<hx+3;x++){
+		Dungeon.setCell(x,hy-3,1);
+	}
+
+	for(x=hx-4;x<hx+5;x++){
+		for(y=hy-7;y<hy-3;y++){
+			Dungeon.Aliens.push(new Alien(x ,y , 6, zerg1, Dungeon.getRand(2, 4), ancho,2.8));
+		}	
+	}
+	if (Dungeon.Aliens.length > 0) {
+			for (a = 0; a < Dungeon.Aliens.length; a++) {
+				Dungeon.Aliens[a].rabioso=false;
+			}
+	}
+			
+
+
+
+
+
+
 	mapx = parseInt((ancho * Dungeon.xsize) / 2) - parseInt(canvas.width / 2);
 	mapy = parseInt((ancho * Dungeon.ysize) / 2) - parseInt(canvas.height / 2);
+	Dungeon.iniciamapa(65, 65);
 	Machango.creamachango(hx, hy, marinez, 48);
 	panel.creapanel(map, true);
-	Dungeon.iniciamapa(64, 64);
+	
 	Dungeon.setCell(Dungeon.exitx, Dungeon.exity, Dungeon.tileExit);
 	ctx.translate(0, 0);
 	mapx = Machango.casx - parseInt(canvas.width / 2);// mapy+2;

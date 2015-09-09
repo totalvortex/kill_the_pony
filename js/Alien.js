@@ -15,6 +15,7 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 	this.vida = vid;
 	this.vidamax = vid;
 	this.camino = [];
+	this.orders = [];
 	this.barravida = ctx.createImageData(2, 16);
 	this.targetx=Machango.casx;
 	this.targety=Machango.casy;
@@ -97,11 +98,15 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 	{
 		this.selec=false;
 	}
-	this.ordena = function(tx,ty)
+	this.ordena = function(tx,ty,rabios)
 	{
 		this.ordenmov=true;
-		this.targetx=tx;
-		this.targety=ty;
+		this.orders.push({x: tx, y:ty, rab: rabios});
+		if(this.orders.length<2){
+			this.targetx=tx;
+			this.targety=ty;
+			this.rabioso=rabios;
+		}
 	}
 	this.CCcol = function(x1, y1, w1) { // colision del circulo x1,y1 con radio
 		// w1 con el x2,y2 con radio w2
@@ -188,7 +193,16 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 	this.update = function() {
 		// this.hazcamino(this.casx,this.casy,x,y);
 		if(this.CCcol(this.targetx,this.targety,this.targetradio)){
-			this.ordenmov=false;
+			this.orders.shift();
+			if(this.orders.length>0){
+					this.targetx=this.orders[0].x;
+					this.targety=this.orders[0].y;
+					this.rabioso=this.orders[0].rab;
+				}else{
+					this.ordenmov=false;
+				}
+							
+
 		}
 		if(!this.ordenmov){
 			if(this.rabioso){
@@ -218,7 +232,7 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 
       
       if(Machango.escudo.length>0)
-        if(this.CCcol(this.targetx-20, this.targety-25, Machango.escudo.radio+ancho)) colescudo=true;
+        if(this.CCcol(Machango.casx-20, Machango.casy-25, Machango.escudo.radio+ancho)) colescudo=true;
 
 
 			if (!this.CCcol(this.targetx, this.targety, this.targetradio) && !colescudo) {
@@ -284,7 +298,7 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 				this.corriendo++;
 				} else {
 					corriendo = 0;
-					Machango.vida--; // resta vida al machango
+					if(this.CCcol(Machango.casx, Machango.casy, Machango.radio) )Machango.vida--; // resta vida al machango
 
 				}
 			

@@ -224,7 +224,7 @@ var Dungeon = {
 	},
 
 
-	creaarena : function(ix,iy){
+	creaarena : function(ix,iy,espac,vacia){
 		if (ix < 3)
 			Dungeon.xsize = 3;
 		else
@@ -249,23 +249,46 @@ var Dungeon = {
 		exitx=3;
 		exity=3;
 
-		espacio=parseInt(0);
-
-
-		// start with making the "standard stuff" on the map
-		for (y = espacio; y <= Dungeon.ysize-espacio; y++) {
-			for (x = espacio; x <= Dungeon.xsize-espacio; x++) {
+		espacio=parseInt(espac);
+	
+			for (y =  0 ; y < Dungeon.ysize ; y++) {
+			for (x =  0 ; x < Dungeon.xsize ; x++) {
 				// ie, making the borders of unwalkable walls
-				if ((y == espacio || y==Dungeon.xsize - espacio) ||
-					(x == espacio || x==Dungeon.ysize - espacio))
-					Dungeon.setCell(x, y, 1);
+				if(y== 0 ) Dungeon.setCell(x, y, 1);
+				else if(x== 0 ) Dungeon.setCell(x, y, 1);
+				else if(y==Dungeon.ysize -1) Dungeon.setCell(x, y, 1);
+				else if(x==Dungeon.xsize -1) Dungeon.setCell(x, y, 1);
 				else
-					Dungeon.setCell(x, y, Dungeon.getRand(5,15));
+					Dungeon.setCell(x, y, 0);
 			}
 		}
 		
-		hx=parseInt(Dungeon.xsize - espacio - 2);
-		hy=parseInt(Dungeon.ysize - espacio - 2);
+		hx=parseInt(Dungeon.xsize - espacio - 12);
+		hy=parseInt(Dungeon.ysize - espacio - 12);
+
+		// start with making the "standard stuff" on the map
+		for (y = espacio; y < Dungeon.ysize-espacio; y++) {
+			for (x = espacio; x < Dungeon.xsize-espacio; x++) {
+				// ie, making the borders of unwalkable walls
+				if(y==espacio) Dungeon.setCell(x, y, 1);
+				else if(x==espacio) Dungeon.setCell(x, y, 1);
+				else if(y==Dungeon.ysize-espacio-1) Dungeon.setCell(x, y, 1);
+				else if(x==Dungeon.xsize-espacio-1) Dungeon.setCell(x, y, 1);
+				else
+					Dungeon.setCell(x, y, (vacia) ? 5 : Dungeon.getRand(5,15));
+
+				
+			}
+			if(y%5==0 && y>espacio+3 && y<Dungeon.ysize-espacio-8){
+				Dungeon.setCell(espacio+4, y, 1);
+				Dungeon.setCell(espacio+6, y-2, 1);
+				Dungeon.setCell(espacio+8, y, 1);
+			}
+		}
+
+		
+		
+		
 		xexit=ix/3;
 		yexit=iy/3;
 		Dungeon.setCell(parseInt(ix/3), parseInt(iy/3), 99);

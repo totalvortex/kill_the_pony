@@ -35,8 +35,8 @@ var panel = { // clase para el personaje
 		ctx.save();
 		ctx.scale(-1.0, 1.0);
 
-		ctx.putImageData(this.vida, this.casx + 19, this.casy + canvas.height
-				- chapa.height - 100);
+	//	ctx.putImageData(this.vida, this.casx + 19, this.casy + canvas.height
+	//			- chapa.height - 100);
 
 		ctx.drawImage(this.img, 0, 0, this.img.width, this.img.height,
 				-this.casx - this.img.width, this.casy + canvas.height
