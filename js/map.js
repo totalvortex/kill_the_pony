@@ -25,6 +25,14 @@ negro.onload = function() {
 };
 negro.src = "images/negro.png";
 
+
+var orkReady = false;
+var ork = new Image();
+ork.onload = function() {
+  orkReady = true;
+};
+ork.src = "images/orknoob.png";
+
 var selectReady = false;
 var select = new Image();
 select.onload = function() {

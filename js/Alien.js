@@ -26,6 +26,7 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 	this.ordenmov=false;
 	this.targetradio=6;
 	this.rabioso=true;
+	this.variasordenes=false;
 	for (var i = 0; i < this.barravida.data.length; i += 8) // borra la
 	// barra de
 	// vida
@@ -97,6 +98,11 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 	this.deseleccionar = function()
 	{
 		this.selec=false;
+	}
+	this.cancela = function(){
+		this.ordenmov=false;
+		this.orders= [];
+		
 	}
 	this.ordena = function(tx,ty,rabios)
 	{
@@ -212,14 +218,15 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 			}
 		}
 
-		
-		var fac = 1.4;
+		if (this.orders.length>0) this.variasordenes=true;
+		else this.variasordenes=false;
+		var fac = 1.9;
 		if (this.vida > 0) {
       var colescudo=false;
       var colalien=false;
 			this.alfa = Math.atan2(this.targetx - this.casx, this.targety - this.casy);
-			this.giro = 10 - parseInt((this.alfa * Math.PI * fac));
-/*
+			this.giro = 16 - parseInt((this.alfa * Math.PI * fac));
+			/*
       for(z=0;z<8;z++){
         if(!this.colisionaconaliens(alfa)) break;
         else this.alfa+=Math.PI/4;
@@ -267,7 +274,7 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 			  if(this.camino.length>1 ){
 			  		this.alfa = Math.atan2(this.camino[1][0] - this.camino[0][0], this.camino[1][1] - this.camino[0][1]);
 			  	//	this.giro = 16 - parseInt((this.alfa * Math.PI * 1.1));
-					this.giro = 10 - parseInt((this.alfa * Math.PI *fac));
+					this.giro = 16 - parseInt((this.alfa * Math.PI * fac));
 					if(this.giro<0) this.giro=0;
 
 			  	if (!this.colisonconmuro(alfa)) {
@@ -415,13 +422,14 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 
 
 	this.render = function() {
+		var max=29;
 		if (this.vida > 0) {
 
 			if (this.giro < 0)
 				this.giro = 0;
 			if (this.corriendo == 0) {
-
-				if (this.giro < 10) {
+					
+				if (this.giro < 16) {
 					ctx.drawImage(this.img, 17 + ancho * this.giro, 15 + ancho
 							* (this.pos), ancho - 20,
 							ancho - 20, this.casx - this.vidamax,
@@ -435,14 +443,15 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 							this.casy - this.vidamax, this.anchospr
 									+ this.vidamax * 2, this.anchospr
 									+ this.vidamax * 2);
+					
 				} else {
-					if (this.giro > 19)
-						this.giro = 19;
-					//this.giro++;
+					if (this.giro > max)
+						this.giro = max;
+					this.giro++;
 
 					ctx.save();
 					ctx.scale(-1.0, 1.0);
-					ctx.drawImage(this.img, 12 + ancho * (19 - this.giro), 15
+					ctx.drawImage(this.img, 12 + ancho * (33 - this.giro), 15
 							+ ancho * (this.pos), ancho - 20,
 							ancho - 20, -this.casx - this.vidamax
 									- ancho / 2 - 10, this.casy - this.vidamax,
@@ -457,47 +466,52 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 									+ this.vidamax * 2);
 
 					ctx.restore();
+
 					kk = 33 - this.giro;
 					// mensaje="("+parseInt((this.casx+25)/ancho)+",
 					// "+parseInt((this.casy+25)/ancho)+")";
 				}
 			} else {
-				if (this.giro < 10) {
+				if (this.giro < 16) {
+						if(this.selec)
+						ctx.drawImage(this.img, 20 + ancho * 17, 20 + ancho
+							* (13), ancho - 20,
+							ancho - 20, this.casx - this.vidamax+5,
+							this.casy - this.vidamax+5, this.anchospr
+									+ this.vidamax * 2-5, this.anchospr
+									+ this.vidamax * 2-5);
+
 					ctx.drawImage(this.img, 17 + ancho * this.giro, 15 + ancho
 							* (this.corriendo % 8 + 4), ancho - 20,
 							ancho - 20, this.casx - this.vidamax,
 							this.casy - this.vidamax, this.anchospr
 									+ this.vidamax * 2, this.anchospr
 									+ this.vidamax * 2);
-					if(this.selec)
-					ctx.drawImage(this.img, 20 + ancho * 17, 20 + ancho
-							* (12), ancho - 20,
-							ancho - 20, this.casx - this.vidamax,
-							this.casy - this.vidamax, this.anchospr
-									+ this.vidamax * 2, this.anchospr
-									+ this.vidamax * 2);
+				
 				} else {
-					if (this.giro > 19)
-						this.giro = 19;
-					//this.giro++;
+					if (this.giro > max)
+						this.giro = max;
+					this.giro++;
 
 					ctx.save();
 					ctx.scale(-1.0, 1.0);
-					ctx.drawImage(this.img, 12 + ancho * (19 - this.giro), 15
+					if(this.selec)
+					ctx.drawImage(this.img, 15 + ancho * (17), 20
+							+ ancho * (13),
+							ancho - 20, ancho - 20,5+ -this.casx
+									- this.vidamax - ancho / 2 - 10,5+ this.casy
+									- this.vidamax, this.anchospr
+									+ this.vidamax * 2-5, this.anchospr
+									+ this.vidamax * 2-5);
+
+					ctx.drawImage(this.img, 12 + ancho * (33 - this.giro), 15
 							+ ancho * (this.corriendo % 8 + 4),
 							ancho - 20, ancho - 20, -this.casx
 									- this.vidamax - ancho / 2 - 10, this.casy
 									- this.vidamax, this.anchospr
 									+ this.vidamax * 2, this.anchospr
 									+ this.vidamax * 2);
-					if(this.selec)
-					ctx.drawImage(this.img, 15 + ancho * (17), 20
-							+ ancho * (12),
-							ancho - 20, ancho - 20, -this.casx
-									- this.vidamax - ancho / 2 - 10, this.casy
-									- this.vidamax, this.anchospr
-									+ this.vidamax * 2, this.anchospr
-									+ this.vidamax * 2);
+					
 
 					ctx.restore();
 					kk = 33 - this.giro;
@@ -505,6 +519,16 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 					// "+parseInt((this.casy+25)/ancho)+")";
 				}
 			}
+			if(this.variasordenes) {
+						if(this.orders[this.orders.length-1].rab)ctx.fillStyle = "rgb(250, 0, 0)";
+						else ctx.fillStyle = "rgb(250, 250, 200)";
+						ctx.font = "10px Helvetica";
+						ctx.textAlign = "left";
+						ctx.fillText(this.orders.length,
+							this.casx - this.vidamax,
+							this.casy - this.vidamax);
+
+					}
 			ctx.putImageData(this.barravida, 32 + this.casx - Machango.casx
 					+ canvas.width / 2, this.casy - Machango.casy
 					+ canvas.height / 2); // dibuja la barra de vida
@@ -517,12 +541,12 @@ function Alien(x, y, r, sp, vid,anc,pumo) {
 			ctx.drawImage(blood, ancho * i, ancho * j, ancho, ancho, this.casx
 					- this.vidamax - 20, this.casy - this.vidamax - 10,
 					ancho, ancho);
-			if(this.selec)
+			/*if(this.selec)
 			ctx.drawImage(this.img, 20 + ancho * this.animm, 20 + ancho * (12),
 					ancho - 20, ancho - 20, this.casx
 							- this.vidamax, this.casy - this.vidamax,
 					this.anchospr + this.vidamax * 2, this.anchospr
-							+ this.vidamax * 2);
+							+ this.vidamax * 2);*/
 		}
 	}
 }

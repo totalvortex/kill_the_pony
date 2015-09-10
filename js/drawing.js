@@ -281,7 +281,7 @@ function update() // actualiza las variables antes del render
 	if (48 in keysDown) { // Player holding 0
 		if (Dungeon.Aliens.length > 0) {
 			for (a = 0; a < Dungeon.Aliens.length; a++) {
-				Dungeon.Aliens[a].selec=true;
+				Dungeon.Aliens[a].selec=false;
 			}
 		}
 	}
@@ -289,18 +289,19 @@ function update() // actualiza las variables antes del render
 	if (49 in keysDown) { // Player holding 1
 		if (Dungeon.Aliens.length > 0) {
 			for (a = 0; a < Dungeon.Aliens.length; a++) {
-				if(Dungeon.Aliens[a].selec){
-					Dungeon.Aliens[a].ordena(Machango.casx - canvas.width / 2+Dungeon.mpos.x,Machango.casy - canvas.height / 2+Dungeon.mpos.y,true);
-					
-				}
+				Dungeon.Aliens[a].selec=true;
 			}
 		}
+		
 
 	}
 	if (50 in keysDown) { // Player holding 2
 		if (Dungeon.Aliens.length > 0) {
 			for (a = 0; a < Dungeon.Aliens.length; a++) {
-				Dungeon.Aliens[a].selec=false;
+				if(Dungeon.Aliens[a].selec){
+					Dungeon.Aliens[a].ordena(Machango.casx - canvas.width / 2+Dungeon.mpos.x,Machango.casy - canvas.height / 2+Dungeon.mpos.y,true);
+					
+				}
 			}
 		}
 	}
@@ -332,7 +333,17 @@ function update() // actualiza las variables antes del render
 			}
 		}
 	}
-	// mensaje="("+mapx+", "+mapy+")";
+	if (81 in keysDown) { // Player holding "q"
+		if (Dungeon.Aliens.length > 0) {
+			for (a = 0; a < Dungeon.Aliens.length; a++) {
+				if(Dungeon.Aliens[a].selec){
+					
+					Dungeon.Aliens[a].cancela();
+					
+				}
+			}
+		}
+	}
 
 	if (86 in keysDown) { // Player holding "v"
 		for (x = 0; x < Dungeon.xsize; x++) {
@@ -459,7 +470,7 @@ function reboot() {
 	mensaje = "LEVEL: " + Dungeon.level;
 	Dungeon.iniciamapa(64, 64);
 
-	Machango.creamachango(hx, hy, marinez, 48);
+	Machango.creamachango(hx, hy, ork, ancho);
 
 	Dungeon.setCell(Dungeon.exitx, Dungeon.exity, Dungeon.tileExit);
 

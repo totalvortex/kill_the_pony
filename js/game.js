@@ -2,7 +2,7 @@ var ancho = 64;
 var mapx = 0;
 var mapy = 0;
 var escala = 1.0;
-var pm = 3; // pixels por movimiento
+
 var mensaje = " ";
 var fps = 0;
 var Cujo = null;
@@ -34,7 +34,7 @@ var init = function() {
 	escala = 1.0;
 
 	nivelinicial = 5;
-	pm = 8; // pixels por movimiento
+	pm = 5; // pixels por movimiento
 
 	mensaje = " ";
 	fps = 0;
@@ -83,7 +83,7 @@ var init = function() {
 
 	for(x=hx-4;x<hx+5;x++){
 		for(y=hy-7;y<hy-3;y++){
-			Dungeon.Aliens.push(new Alien(x ,y , 6, zerg1, Dungeon.getRand(2, 4), ancho,2.8));
+			Dungeon.Aliens.push(new Alien(x ,y , 6, ork, Dungeon.getRand(2, 4), ancho/1.3 ,2.8));
 		}	
 	}
 	if (Dungeon.Aliens.length > 0) {
@@ -101,7 +101,7 @@ var init = function() {
 	mapx = parseInt((ancho * Dungeon.xsize) / 2) - parseInt(canvas.width / 2);
 	mapy = parseInt((ancho * Dungeon.ysize) / 2) - parseInt(canvas.height / 2);
 	Dungeon.iniciamapa(65, 65);
-	Machango.creamachango(hx, hy, marinez, 48);
+	Machango.creamachango(hx, hy, ork, ancho/0.9);
 	panel.creapanel(map, true);
 	
 	Dungeon.setCell(Dungeon.exitx, Dungeon.exity, Dungeon.tileExit);
